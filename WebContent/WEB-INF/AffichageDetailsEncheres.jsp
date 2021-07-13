@@ -32,7 +32,7 @@
 <br>
 <br>
 
-<section class="container-fluid offset-sm-1 col-sm-11 col-lg-11 ">
+<section class="container-fluid col-sm-11 col-lg-11 ">
 
     <div class="row">
         <div class="col-sm-12 col-lg-4">
