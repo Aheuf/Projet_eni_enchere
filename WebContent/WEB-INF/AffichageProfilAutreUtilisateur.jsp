@@ -16,17 +16,19 @@
 <body>
 <!--HEADER-->
 <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-dark container-fluid">
-        <a class="navbar-brand text-light" href="#">Eni-Encheres</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="row collapse navbar-collapse justify-content-end" id="navbarNav">
-            <a class="nav-link text-light text-end" href="#"><i class="bi bi-person"> S'inscrire - Se connecter</i></a>
-        </div>
-    </nav>
-</header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-dark container-fluid">
+            <a class="navbar-brand text-light" href="#">Eni-Encheres</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <a class="nav-link text-light text-end" href="#">Enchères</a>
+                <a class="nav-link text-light text-end" href="#">Vendre un article</a>
+                <a class="nav-link text-light text-end" href="#"><i class="bi bi-person text-primary">Mon profil</i></a>
+                <a class="nav-link text-light text-end" href="#"><i class="bi bi-box-arrow-left text-danger"> Déconnexion</i></a>
+            </div>
+        </nav>
+    </header>
 <br>
 <br>
 <section class="container-fluid offset-sm-1 col-sm-11 col-lg-11 ">
