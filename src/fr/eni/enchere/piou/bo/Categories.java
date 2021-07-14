@@ -4,6 +4,20 @@ public class Categories {
 	private int noCategorie;  
 	private String libelle;
 	
+	//constructeurs
+	public Categories() {
+	}
+	
+	public Categories(String libelle) {
+		this.libelle = libelle;
+	}
+	
+	public Categories(int noCategorie, String libelle) {
+		this.noCategorie = noCategorie;
+		this.libelle = libelle;
+	}
+
+	//Getters and Setters
 	public int getNoCategorie() {
 		return noCategorie;
 	}
