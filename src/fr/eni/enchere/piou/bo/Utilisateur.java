@@ -10,12 +10,12 @@ public class Utilisateur {
     private String rue;              
     private String code_postal;      
     private String ville;            
-    private String mot_de_passe;    
+    private String motDePasse;    
     private int credit;           
     private boolean administrateur;
     
     
-    
+  //Getter and Setter
 	public int getNoUtilisateur() {
 		return noUtilisateur;
 	}
@@ -70,11 +70,11 @@ public class Utilisateur {
 	public void setVille(String ville) {
 		this.ville = ville;
 	}
-	public String getMot_de_passe() {
-		return mot_de_passe;
+	public String getMotDePasse() {
+		return motDePasse;
 	}
-	public void setMot_de_passe(String mot_de_passe) {
-		this.mot_de_passe = mot_de_passe;
+	public void setMotDePasse(String mot_de_passe) {
+		this.motDePasse = mot_de_passe;
 	}
 	public int getCredit() {
 		return credit;
@@ -88,6 +88,44 @@ public class Utilisateur {
 	public void setAdministrateur(boolean administrateur) {
 		this.administrateur = administrateur;
 	}
+	
+	//Constructor
+	public Utilisateur() {}
+	
+	public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
+			String rue, String code_postal, String ville, String motDePasse, int credit, boolean administrateur) {
+		super();
+		this.noUtilisateur = noUtilisateur;
+		this.pseudo = pseudo;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.telephone = telephone;
+		this.rue = rue;
+		this.code_postal = code_postal;
+		this.ville = ville;
+		this.motDePasse = motDePasse;
+		this.credit = credit;
+		this.administrateur = administrateur;
+	}
+	
+	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone,
+			String rue, String code_postal, String ville, String motDePasse, int credit, boolean administrateur) {
+		super();
+		
+		this.pseudo = pseudo;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.telephone = telephone;
+		this.rue = rue;
+		this.code_postal = code_postal;
+		this.ville = ville;
+		this.motDePasse = motDePasse;
+		this.credit = credit;
+		this.administrateur = administrateur;
+	}
     
     
 }
+
