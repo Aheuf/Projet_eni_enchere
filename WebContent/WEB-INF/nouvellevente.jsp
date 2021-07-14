@@ -101,6 +101,7 @@
                         <input type="submit" class="btn btn-dark col-5 col-sm-3 col-md-3" id="enregistrer" name="enregistrer"
                             value="Enregistrer">
                         <a href="" class="btn btn-outline-dark col-sm-3 col-md-3 col-5">Annuler</a>
+                        <input type="button" class="btn btn-outline-dark col-sm-3 col-md-3 col-5" value="Annuler Vente"/>
                     </div>
                 </form>
             </div>
