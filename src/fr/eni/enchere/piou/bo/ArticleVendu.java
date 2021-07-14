@@ -3,68 +3,127 @@ package fr.eni.enchere.piou.bo;
 import java.sql.Date;
 
 public class ArticleVendu {
-	private int no_article; 
-	private String nom_article;
+
+	// Attributs
+	private int noArticle;
+	private String nomArticle;
 	private String description;
-	private Date date_debut_encheres;
-	private Date date_fin_encheres;
-	private int prix_initial;
-	private int prix_vente;
-	private int noUtilisateur;    
+	private Date dateDebutEncheres;
+	private Date dateFinEncheres;
+	private int prixInitial;
+	private int prixVente;
+	private int noUtilisateur;
 	private int noCategorie;
-	
-	public int getNo_article() {
-		return no_article;
+	private String etatVente;
+
+	// Constructor
+	public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres,
+			Date dateFinEncheres, int prixInitial, int prixVente, int noUtilisateur, int noCategorie) {
+		this.noArticle = noArticle;
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.prixInitial = prixInitial;
+		this.prixVente = prixVente;
+		this.noUtilisateur = noUtilisateur;
+		this.noCategorie = noCategorie;
 	}
-	public void setNo_article(int no_article) {
-		this.no_article = no_article;
+
+	public ArticleVendu(String nomArticle, String description, Date dateDebutEncheres, Date dateFinEncheres,
+			int prixInitial, int prixVente, int noUtilisateur, int noCategorie) {
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.prixInitial = prixInitial;
+		this.prixVente = prixVente;
+		this.noUtilisateur = noUtilisateur;
+		this.noCategorie = noCategorie;
 	}
-	public String getNom_article() {
-		return nom_article;
+
+	public ArticleVendu() {
 	}
-	public void setNom_article(String nom_article) {
-		this.nom_article = nom_article;
+
+	// Getter Setter
+	public int getNoArticle() {
+		return noArticle;
 	}
+
+	public void setNoArticle(int noArticle) {
+		this.noArticle = noArticle;
+	}
+
+	public String getNomArticle() {
+		return nomArticle;
+	}
+
+	public void setNomArticle(String nomArticle) {
+		this.nomArticle = nomArticle;
+	}
+
 	public String getDescription() {
 		return description;
 	}
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Date getDate_debut_encheres() {
-		return date_debut_encheres;
+
+	public Date getDateDebutEncheres() {
+		return dateDebutEncheres;
 	}
-	public void setDate_debut_encheres(Date date_debut_encheres) {
-		this.date_debut_encheres = date_debut_encheres;
+
+	public void setDateDebutEncheres(Date dateDebutEncheres) {
+		this.dateDebutEncheres = dateDebutEncheres;
 	}
-	public Date getDate_fin_encheres() {
-		return date_fin_encheres;
+
+	public Date getDateFinEncheres() {
+		return dateFinEncheres;
 	}
-	public void setDate_fin_encheres(Date date_fin_encheres) {
-		this.date_fin_encheres = date_fin_encheres;
+
+	public void setDateFinEncheres(Date dateFinEncheres) {
+		this.dateFinEncheres = dateFinEncheres;
 	}
-	public int getPrix_initial() {
-		return prix_initial;
+
+	public int getPrixInitial() {
+		return prixInitial;
 	}
-	public void setPrix_initial(int prix_initial) {
-		this.prix_initial = prix_initial;
+
+	public void setPrixInitial(int prixInitial) {
+		this.prixInitial = prixInitial;
 	}
-	public int getPrix_vente() {
-		return prix_vente;
+
+	public int getPrixVente() {
+		return prixVente;
 	}
-	public void setPrix_vente(int prix_vente) {
-		this.prix_vente = prix_vente;
+
+	public void setPrixVente(int prixVente) {
+		this.prixVente = prixVente;
 	}
+
 	public int getNoUtilisateur() {
 		return noUtilisateur;
 	}
+
 	public void setNoUtilisateur(int noUtilisateur) {
 		this.noUtilisateur = noUtilisateur;
 	}
+
 	public int getNoCategorie() {
 		return noCategorie;
 	}
+
 	public void setNoCategorie(int noCategorie) {
 		this.noCategorie = noCategorie;
-	} 
+	}
+
+	public String getEtatVente() {
+		return etatVente;
+	}
+
+	public void setEtatVente(String etatVente) {
+		this.etatVente = etatVente;
+	}
+
 }
