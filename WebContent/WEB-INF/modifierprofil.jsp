@@ -108,6 +108,12 @@
               <input type="password" class="form-control" id="inputConfirmation" aria-describedby="confirmationHelp">
             </div>
           </div>
+          
+          <div class="row col-sm-12 col-lg-12">
+            <div class="d-flex mb-3 col-lg-5 col-sm-12">
+            	<p>Credit : xxx</p>
+            </div>
+           </div>
 
           <!-- bouton "Enregistrer / Supprimer mon compte" -->
           <div class="d-flex justify-content-around mb-5">
