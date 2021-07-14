@@ -1,16 +1,37 @@
 package fr.eni.enchere.piou.bo;
 
 public class Retrait {
-	private int no_article; 
+	
+	//VARIABLES
+	private int noArticle; 
 	private String rue;              
-	private String code_postal;     
+	private String codePostal;     
 	private String ville;
 	
-	public int getNo_article() {
-		return no_article;
+	//CONSTRUCTEURS
+		//Permet d'appeler les GETTERS & SETTERS dans les servlets (à éviter!)
+	public Retrait() {
 	}
-	public void setNo_article(int no_article) {
-		this.no_article = no_article;
+		//Permet la création d'un nouveau retrait(CREATE)
+	public Retrait(String rue, String codePostal, String ville) {
+		this.rue = rue;
+		this.codePostal = codePostal;
+		this.ville = ville;
+	}
+		//Permet la recherche d'un retrait précis dans la BDD (SELECT/DELETE/UPDATE)
+	public Retrait(int noArticle, String rue, String codePostal, String ville) {
+		this.noArticle = noArticle;
+		this.rue = rue;
+		this.codePostal = codePostal;
+		this.ville = ville;
+	}
+	
+	//GETTER & SETTER
+	public int getNoArticle() {
+		return noArticle;
+	}
+	public void setNoArticle(int noArticle) {
+		this.noArticle = noArticle;
 	}
 	public String getRue() {
 		return rue;
@@ -18,18 +39,17 @@ public class Retrait {
 	public void setRue(String rue) {
 		this.rue = rue;
 	}
-	public String getCode_postal() {
-		return code_postal;
+	public String getCodePostal() {
+		return codePostal;
 	}
-	public void setCode_postal(String code_postal) {
-		this.code_postal = code_postal;
+	public void setCodePostal(String codePostal) {
+		this.codePostal = codePostal;
 	}
 	public String getVille() {
 		return ville;
 	}
 	public void setVille(String ville) {
 		this.ville = ville;
-	}            
-	
+	}
 	
 }
