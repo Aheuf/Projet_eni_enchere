@@ -1,18 +1,18 @@
 package fr.eni.enchere.piou.bo;
 
-public class Categories {
+public class Categorie {
 	private int noCategorie;  
 	private String libelle;
 	
 	//constructeurs
-	public Categories() {
+	public Categorie() {
 	}
 	
-	public Categories(String libelle) {
+	public Categorie(String libelle) {
 		this.libelle = libelle;
 	}
 	
-	public Categories(int noCategorie, String libelle) {
+	public Categorie(int noCategorie, String libelle) {
 		this.noCategorie = noCategorie;
 		this.libelle = libelle;
 	}
