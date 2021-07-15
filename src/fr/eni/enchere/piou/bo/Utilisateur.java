@@ -1,18 +1,18 @@
 package fr.eni.enchere.piou.bo;
 
 public class Utilisateur {
-	private int noUtilisateur;  
-    private String pseudo;           
-    private String nom;              
-    private String prenom;          
-    private String email;           
-    private String telephone;        
-    private String rue;              
-    private String code_postal;      
-    private String ville;            
-    private String motDePasse;    
-    private int credit;           
-    private boolean administrateur;
+	private int noUtilisateur;
+	private String pseudo;
+	private String nom;
+	private String prenom;
+	private String email;
+	private String telephone;
+	private String rue;
+	private String codePostal;
+	private String ville;
+	private String motDePasse;
+	private int credit;
+	private boolean administrateur;
     
     
   //Getter and Setter
@@ -58,11 +58,11 @@ public class Utilisateur {
 	public void setRue(String rue) {
 		this.rue = rue;
 	}
-	public String getCode_postal() {
-		return code_postal;
+	public String getCodePostal() {
+		return codePostal;
 	}
-	public void setCode_postal(String code_postal) {
-		this.code_postal = code_postal;
+	public void setCodePostal(String code_postal) {
+		this.codePostal = code_postal;
 	}
 	public String getVille() {
 		return ville;
@@ -93,7 +93,7 @@ public class Utilisateur {
 	public Utilisateur() {}
 	
 	public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
-			String rue, String code_postal, String ville, String motDePasse, int credit, boolean administrateur) {
+			String rue, String codePostal, String ville, String motDePasse, int credit, boolean administrateur) {
 		super();
 		this.noUtilisateur = noUtilisateur;
 		this.pseudo = pseudo;
@@ -102,7 +102,7 @@ public class Utilisateur {
 		this.email = email;
 		this.telephone = telephone;
 		this.rue = rue;
-		this.code_postal = code_postal;
+		this.codePostal = codePostal;
 		this.ville = ville;
 		this.motDePasse = motDePasse;
 		this.credit = credit;
@@ -110,7 +110,7 @@ public class Utilisateur {
 	}
 	
 	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone,
-			String rue, String code_postal, String ville, String motDePasse, int credit, boolean administrateur) {
+			String rue, String codePostal, String ville, String motDePasse, int credit, boolean administrateur) {
 		super();
 		
 		this.pseudo = pseudo;
@@ -119,7 +119,7 @@ public class Utilisateur {
 		this.email = email;
 		this.telephone = telephone;
 		this.rue = rue;
-		this.code_postal = code_postal;
+		this.codePostal = codePostal;
 		this.ville = ville;
 		this.motDePasse = motDePasse;
 		this.credit = credit;
