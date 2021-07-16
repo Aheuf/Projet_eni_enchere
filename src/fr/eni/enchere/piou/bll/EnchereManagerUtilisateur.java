@@ -2,6 +2,7 @@ package fr.eni.enchere.piou.bll;
 
 import java.util.List;
 
+import fr.eni.enchere.piou.BusinessException;
 import fr.eni.enchere.piou.bo.Utilisateur;
 import fr.eni.enchere.piou.dal.DAO;
 import fr.eni.enchere.piou.dal.DAOFactory;
@@ -45,9 +46,9 @@ public class EnchereManagerUtilisateur {
 	}
 
 	public List<Utilisateur> getUtilisateur(int id) throws BusinessException {
-		List<Utilisateur> listeUtilisateur;
+		List<Utilisateur> listeUtilisateur = null;
 		try {
-			listeUtilisateur = null;
+			
 			listeUtilisateur = utilisateurDAO.selectById(id);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

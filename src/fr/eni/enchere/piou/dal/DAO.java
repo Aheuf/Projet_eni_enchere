@@ -2,17 +2,19 @@ package fr.eni.enchere.piou.dal;
 
 import java.util.List;
 
+import fr.eni.enchere.piou.BusinessException;
+
 public interface DAO<T> {
 
-	void insert(T object);
+	void insert(T object) throws BusinessException;
 	
-	void delete(int id);
+	void delete(int id) throws BusinessException;
 	
-	List<T> selectAll();
+	List<T> selectAll() throws BusinessException;
+	 
+	List<T> selectByMotCle(String montCle) throws BusinessException;
 	
-	List<T> selectByMotCle(String montCle);
+	List<T> selectById(int id) throws BusinessException;
 	
-	List<T> selectById(int id);
-	
-	void update(T object);
+	void update(T object) throws BusinessException;
 }

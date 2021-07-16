@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.eni.enchere.piou.BusinessException;
 import fr.eni.enchere.piou.bo.Utilisateur;
 
 public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
@@ -16,14 +17,14 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 	private static final String DELETEUTILISATEUR = "DELETE FROM UTILISATEURS WHERE no_utilisateur=";
 
 	@Override
-	public void insert(Utilisateur utilisateur) {
+	public void insert(Utilisateur utilisateur) throws BusinessException {
 
 		if (utilisateur == null) {
-			/*
+			
 			BusinessException businessException = new BusinessException();
 			businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_NULL);
 			throw businessException;
-			*/
+			
 		}
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 
@@ -45,7 +46,7 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 				utilisateur.setNoUtilisateur(rs.getInt(1));
 			}
 		} catch (Exception e) {
-			/*
+			
 			e.printStackTrace();
 			BusinessException businessException = new BusinessException();
 			if (e.getMessage().contains("CK_AVIS_note")) {
@@ -54,13 +55,13 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 				businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_ECHEC);
 			}
 			throw businessException;
-			*/
+		
 		}
 
 	}
 
 	@Override
-	public void delete(int id) {
+	public void delete(int id) throws BusinessException {
 
 		PreparedStatement prep = null;
 
@@ -70,14 +71,14 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 			pstmt.executeUpdate();
 
 		} catch (Exception e) {
-			/*
+			
 			e.printStackTrace();
 			BusinessException businessException = new BusinessException();
 			if (e.getMessage().contains("CK_AVIS_note")) {
 				businessException.ajouterErreur(CodesResultatDAL.DELETE_OBJET_NULL);
 			} 
 			throw businessException;
-			*/
+			
 		}
 
 	}
@@ -95,7 +96,7 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 	}
 
 	@Override
-	public List<Utilisateur> selectById(int id) {
+	public List<Utilisateur> selectById(int id) throws BusinessException {
 		Statement stmt = null;
 		List<Utilisateur> utilisateur = new ArrayList<Utilisateur>();
 		Utilisateur u = null;
@@ -124,30 +125,30 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 				utilisateur.add(u);
 			}
 		} catch (Exception e) {
-			/*
+			
 			e.printStackTrace();
 			BusinessException businessException = new BusinessException();
 			if (e.getMessage().contains("CK_AVIS_note")) {
-				businessException.ajouterErreur(CodesResultatDAL.INSERT_NOTE_ECHEC);
+				businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_NULL);
 			} else {
 				businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_ECHEC);
 			}
 			throw businessException;
-			*/
+			
 		}
 		return utilisateur;
 	}
 
 	@Override
-	public void update(Utilisateur utilisateur) {
+	public void update(Utilisateur utilisateur) throws BusinessException{
 		int id = utilisateur.getNoUtilisateur();
 
 		if (utilisateur == null) {
-			/*
+			
 			BusinessException businessException = new BusinessException();
 			businessException.ajouterErreur(CodesResultatDAL.UPDATE_OBJET_NULL);
 			throw businessException;
-			*/
+			
 		}
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(UPDATEUTILISATEUR + id);
@@ -165,7 +166,7 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 			pstmt.executeUpdate();
 
 		} catch (Exception e) {
-			/*
+			
 			e.printStackTrace();
 			BusinessException businessException = new BusinessException();
 			if (e.getMessage().contains("CK_AVIS_note")) {
@@ -174,7 +175,7 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 				businessException.ajouterErreur(CodesResultatDAL.UPDATE_OBJET_ECHEC);
 			}
 			throw businessException;
-			*/
+			
 		}
 
 	}
