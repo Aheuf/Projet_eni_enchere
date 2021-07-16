@@ -1,4 +1,4 @@
-package fr.eni.piou.messages;
+package fr.eni.enchere.piou.messages;
 
 import java.util.ResourceBundle;
 /**
