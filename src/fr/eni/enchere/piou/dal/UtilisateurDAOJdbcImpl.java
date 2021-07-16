@@ -131,7 +131,7 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 			e.printStackTrace();
 			BusinessException businessException = new BusinessException();
 
-			businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_ECHEC);
+            businessException.ajouterErreur(CodesResultatDAL.READ_OBJECT_ECHEC);
 
 			throw businessException;
 
