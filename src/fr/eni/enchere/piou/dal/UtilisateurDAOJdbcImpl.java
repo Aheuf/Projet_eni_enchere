@@ -140,7 +140,7 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 	}
 
 	@Override
-	public void updae(Utilisateur utilisateur) throws BusinessException {
+	public void update(Utilisateur utilisateur) throws BusinessException {
 		int id = utilisateur.getNoUtilisateur();
 
 		try (Connection cnx = ConnectionProvider.getConnection()) {
