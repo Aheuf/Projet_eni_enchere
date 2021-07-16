@@ -23,7 +23,7 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 		if (utilisateur == null) {
 
 			BusinessException businessException = new BusinessException();
-			businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_NULL);
+			businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_ECHEC);
 			throw businessException;
 
 		}
