@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.eni.enchere.piou.BusinessException;
 import fr.eni.enchere.piou.bo.ArticleVendu;
 
 public class ArticleVenduDAOJdbcImpl implements DAO<ArticleVendu> {
@@ -19,7 +20,7 @@ public class ArticleVenduDAOJdbcImpl implements DAO<ArticleVendu> {
 	private static String SELECT_BY_MC = "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, no_utilisateur, no_categorie, etat_vente FROM ARTICLES_VENDUS WHERE nom_article LIKE '%?%' OR description LIKE '%?%'";
 
 	@Override
-	public void insert(ArticleVendu article) {
+	public void insert(ArticleVendu article) throws BusinessException  {
 
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement rqt = null;
@@ -45,11 +46,13 @@ public class ArticleVenduDAOJdbcImpl implements DAO<ArticleVendu> {
 		} catch (SQLException e) {
 			System.out.println("L'insert de l'article n'a pas marché :(");
 			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_ECHEC);
 		}
 	}
 
 	@Override
-	public void delete(int id) {
+	public void delete(int id) throws BusinessException  {
 		PreparedStatement rqt = null;
 
 		try (Connection cnx = ConnectionProvider.getConnection()) {
@@ -59,11 +62,13 @@ public class ArticleVenduDAOJdbcImpl implements DAO<ArticleVendu> {
 		} catch (Exception e) {
 			System.out.println("La supression de l'article n'a pas marché :(");
 			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.DELETE_OBJET_NULL);
 		}
 	}
 
 	@Override
-	public List<ArticleVendu> selectAll() {
+	public List<ArticleVendu> selectAll() throws BusinessException  {
 		List<ArticleVendu> articlesVendus = new ArrayList<>();
 		PreparedStatement rqt = null;
 		ResultSet rs = null;
@@ -84,12 +89,14 @@ public class ArticleVenduDAOJdbcImpl implements DAO<ArticleVendu> {
 		} catch (SQLException e) {
 			System.out.println("La selection de tous les articles n'a pas marché :(");
 			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.READ_OBJECT_ECHEC);
 		}
 		return articlesVendus;
 	}
 
 	@Override
-	public List<ArticleVendu> selectByMotCle(String motCle) {
+	public List<ArticleVendu> selectByMotCle(String motCle) throws BusinessException  {
 		List<ArticleVendu> articlesVendus = new ArrayList<>();
 		PreparedStatement rqt = null;
 		ResultSet rs = null;
@@ -111,13 +118,15 @@ public class ArticleVenduDAOJdbcImpl implements DAO<ArticleVendu> {
 		} catch (SQLException e) {
 			System.out.println("La selection de tous les articles n'a pas marché :(");
 			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.READ_OBJECT_ECHEC);
 		}
 
 		return articlesVendus;
 	}
 
 	@Override
-	public List<ArticleVendu> selectById(int id) {
+	public List<ArticleVendu> selectById(int id) throws BusinessException  {
 		List<ArticleVendu> articlesVendus = new ArrayList<>();
 		PreparedStatement rqt = null;
 		ResultSet rs = null;
@@ -138,12 +147,14 @@ public class ArticleVenduDAOJdbcImpl implements DAO<ArticleVendu> {
 		} catch (SQLException e) {
 			System.out.println("La selection des articles via no_article n'a pas marché :(");
 			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.READ_OBJECT_ECHEC);
 		}
 		return articlesVendus;
 	}
 
 	@Override
-	public void update(ArticleVendu article) {
+	public void update(ArticleVendu article) throws BusinessException {
 		PreparedStatement rqt = null;
 
 		try (Connection cnx = ConnectionProvider.getConnection()) {
@@ -162,6 +173,9 @@ public class ArticleVenduDAOJdbcImpl implements DAO<ArticleVendu> {
 		} catch (SQLException e) {
 			System.out.println("L'update de l'article n'a pas marché :(");
 			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.UPDATE_OBJET_ECHEC);
+			
 		}
 	}
 
