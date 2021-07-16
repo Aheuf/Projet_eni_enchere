@@ -27,6 +27,13 @@ public abstract class CodesResultatDAL {
 	 */
 	public static final int DELETE_OBJET_NULL=10004;
 	
+	/**
+	 * Echec général quand tentative de lire un objet n'existe pas
+	 * (Seb)
+	 */
+	public static final int READ_OBJECT_ECHEC=10005;
+	
+	
 	
 	
 	
