@@ -9,12 +9,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.eni.enchere.piou.BusinessException;
 import fr.eni.enchere.piou.bo.Enchere;
 
 public class EnchereDAOJdbcImpl implements DAO<Enchere>{
 
 	@Override
-	public void insert(Enchere enchere) {
+	public void insert(Enchere enchere) throws BusinessException {
 		PreparedStatement stmt = null;
 
 		try (Connection con = ConnectionProvider.getConnection()) {
@@ -32,7 +33,7 @@ public class EnchereDAOJdbcImpl implements DAO<Enchere>{
 	}
 
 	@Override
-	public void delete(int id) {
+	public void delete(int id) throws BusinessException {
 		PreparedStatement stmt = null;
 		try (Connection con = ConnectionProvider.getConnection()) {
 			stmt = con.prepareStatement("DELETE FROM ENCHERES WHERE no_article =" + id);
@@ -45,17 +46,17 @@ public class EnchereDAOJdbcImpl implements DAO<Enchere>{
 	}
 
 	@Override
-	public List<Enchere> selectAll() {
+	public List<Enchere> selectAll() throws BusinessException {
 		return null;
 	}
 
 	@Override
-	public List<Enchere> selectByMotCle(String montCle) {
+	public List<Enchere> selectByMotCle(String montCle) throws BusinessException {
 		return null;
 	}
 
 	@Override
-	public List<Enchere> selectById(int id) {
+	public List<Enchere> selectById(int id) throws BusinessException {
 		Statement stmt;
 		List<Enchere> encheres = new ArrayList<Enchere>();
 
@@ -81,7 +82,7 @@ public class EnchereDAOJdbcImpl implements DAO<Enchere>{
 	}
 
 	@Override
-	public void update(Enchere enchere) {
+	public void update(Enchere enchere) throws BusinessException {
 		PreparedStatement stmt = null;
 		int id = enchere.getNoArticle();
 		

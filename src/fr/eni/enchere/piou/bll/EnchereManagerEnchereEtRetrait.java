@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.eni.enchere.piou.BusinessException;
 import fr.eni.enchere.piou.bo.Enchere;
 import fr.eni.enchere.piou.bo.Retrait;
 import fr.eni.enchere.piou.dal.DAO;
@@ -19,28 +20,44 @@ public class EnchereManagerEnchereEtRetrait {
 	}
 
 	// insert
-	public void insertEnchere(int noUtilisateur, int noArticle, Date dateEnchere, int montantEnchere) {
+	public Enchere insertEnchere(int noUtilisateur, int noArticle, Date dateEnchere, int montantEnchere) throws BusinessException {
 		Enchere enchere = new Enchere(noUtilisateur, noArticle, dateEnchere, montantEnchere);
 		
-		if (validerInsertEnchere(enchere)) {
-			this.DAOEnchere.insert(enchere);			
-		} else {
-			System.out.println("l'enchere à inserer à été stoppé dans la BLL");
+		BusinessException businessException = new BusinessException();
+		
+		validerInsertEnchere(enchere, businessException);
+		
+		if (!businessException.hasErreurs()) {
+			this.DAOEnchere.insert(enchere);
 		}
+
+		if (businessException.hasErreurs()) {
+			System.out.println("l'enchere à inserer à été stoppé dans la BLL");
+			throw businessException;
+		}
+		return enchere;
 	}
 
-	public void insertRetrait(int noArticle, String rue, String codePostal, String ville) {
+	public Retrait insertRetrait(int noArticle, String rue, String codePostal, String ville) throws BusinessException{
 		Retrait retrait = new Retrait(noArticle, rue, codePostal, ville);
 		
-		if (validerInsertRetrait(retrait)) {
-			this.DAORetrait.insert(retrait);			
-		} else {
-			System.out.println("le retrait à inserer à été stoppé dans la BLL");			
+		BusinessException businessException = new BusinessException();
+		
+		validerInsertRetrait(retrait, businessException);
+		
+		if (!businessException.hasErreurs()) {
+			this.DAORetrait.insert(retrait);
 		}
+
+		if (businessException.hasErreurs()) {
+			System.out.println("l'enchere à inserer à été stoppé dans la BLL");
+			throw businessException;
+		}
+		return retrait;
 	}
 
 	// delete
-	public void deleteEnchere(int id) {
+	public void deleteEnchere(int id) throws BusinessException{
 		
 		try {
 			this.DAOEnchere.delete(id);
@@ -50,7 +67,7 @@ public class EnchereManagerEnchereEtRetrait {
 		}
 	}
 
-	public void deleteRetrait(int id) {
+	public void deleteRetrait(int id) throws BusinessException{
 		
 		try {
 			this.DAORetrait.delete(id);
@@ -61,7 +78,7 @@ public class EnchereManagerEnchereEtRetrait {
 	}
 
 	// selectById
-	public List<Enchere> selectEnchereById(int id) {
+	public List<Enchere> selectEnchereById(int id) throws BusinessException{
 		List<Enchere> encheres = new ArrayList<Enchere>();
 		
 		try {
@@ -73,7 +90,7 @@ public class EnchereManagerEnchereEtRetrait {
 		return encheres;
 	}
 
-	public List<Retrait> selectRetraitById(int id) {
+	public List<Retrait> selectRetraitById(int id) throws BusinessException{
 		List<Retrait> retraits = new ArrayList<Retrait>();
 		
 		try {
@@ -86,7 +103,7 @@ public class EnchereManagerEnchereEtRetrait {
 	}
 
 	// update
-	public void updateEnchere(Enchere enchere) {
+	public void updateEnchere(Enchere enchere) throws BusinessException{
 		
 		try {
 			this.DAOEnchere.update(enchere);
@@ -96,7 +113,7 @@ public class EnchereManagerEnchereEtRetrait {
 		}
 	}
 
-	public void updateRetrait(Retrait retrait) {
+	public void updateRetrait(Retrait retrait) throws BusinessException{
 		
 		try {
 			this.DAORetrait.update(retrait);
@@ -108,21 +125,33 @@ public class EnchereManagerEnchereEtRetrait {
 
 	// validation
 	// Vinsert
-	private boolean validerInsertEnchere(Enchere enchere) {
+	private void validerInsertEnchere(Enchere enchere, BusinessException businessException) throws BusinessException{
 		
-		if (enchere.getDateEnchere() != null || enchere.getNoArticle() > 0 || enchere.getNoUtilisateur() > 0) {
-			return true;
+		if (enchere.getDateEnchere() == null) {
+			businessException.ajouterErreur(CodesResultatBLL.REGLE_CREATION_ENCHERE_DATE_ERREUR);			
 		}
-		return false;
+		if (enchere.getNoArticle() < 0) {
+			businessException.ajouterErreur(CodesResultatBLL.REGLE_CREATION_ENCHERE_NO_ARTICLE_ERREUR);			
+		}
+		if (enchere.getNoUtilisateur() < 0) {
+			businessException.ajouterErreur(CodesResultatBLL.REGLE_CREATION_ENCHERE_NO_UTILISATEUR_ERREUR);			
+		}
 	}
 
-	private boolean validerInsertRetrait(Retrait retrait) {
+	private void validerInsertRetrait(Retrait retrait, BusinessException businessException) {
 		
-		if (retrait.getNoArticle() > 0 || retrait.getCodePostal() != null || retrait.getCodePostal() != ""
-				|| retrait.getRue() != null || retrait.getRue() != "" || retrait.getVille() != null
-				|| retrait.getVille() != "") {
-			return true;
+		if (retrait.getNoArticle() < 0) {
+			businessException.ajouterErreur(CodesResultatBLL.REGLE_CREATION_RETRAIT_DATE_ERREUR);			
 		}
-		return false;
+		if (retrait.getCodePostal() == null || retrait.getCodePostal() == "") {
+			businessException.ajouterErreur(CodesResultatBLL.REGLE_CREATION_RETRAIT_CODE_POSTAL_ERREUR);			
+		}
+		if (retrait.getRue() == null || retrait.getRue() == "") {
+			businessException.ajouterErreur(CodesResultatBLL.REGLE_CREATION_RETRAIT_RUE_ERREUR);
+		}
+		if (retrait.getVille() == null || retrait.getVille() == "") {
+			businessException.ajouterErreur(CodesResultatBLL.REGLE_CREATION_RETRAIT_VILLE_ERREUR);
+		}
+
 	}
 }

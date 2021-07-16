@@ -8,12 +8,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.eni.enchere.piou.BusinessException;
 import fr.eni.enchere.piou.bo.Retrait;
 
 public class RetraitDAOJdbcImpl implements DAO<Retrait>{
 
 	@Override
-	public void insert(Retrait retrait) {
+	public void insert(Retrait retrait) throws BusinessException {
 		PreparedStatement stmt = null;
 
 		try (Connection con = ConnectionProvider.getConnection()) {
@@ -31,7 +32,7 @@ public class RetraitDAOJdbcImpl implements DAO<Retrait>{
 	}
 
 	@Override
-	public void delete(int id) {
+	public void delete(int id) throws BusinessException {
 		PreparedStatement stmt = null;
 		try (Connection con = ConnectionProvider.getConnection()) {
 			stmt = con.prepareStatement("DELETE FROM RETRAITS WHERE no_article =" + id);
@@ -44,17 +45,17 @@ public class RetraitDAOJdbcImpl implements DAO<Retrait>{
 	}
 
 	@Override
-	public List<Retrait> selectAll() {
+	public List<Retrait> selectAll() throws BusinessException {
 		return null;
 	}
 
 	@Override
-	public List<Retrait> selectByMotCle(String montCle) {
+	public List<Retrait> selectByMotCle(String montCle) throws BusinessException {
 		return null;
 	}
 
 	@Override
-	public List<Retrait> selectById(int id) {
+	public List<Retrait> selectById(int id) throws BusinessException {
 		Statement stmt;
 		List<Retrait> retraits = new ArrayList<Retrait>();
 
@@ -80,7 +81,7 @@ public class RetraitDAOJdbcImpl implements DAO<Retrait>{
 	}
 
 	@Override
-	public void update(Retrait retrait) {
+	public void update(Retrait retrait) throws BusinessException {
 		PreparedStatement stmt = null;
 		int id = retrait.getNoArticle();
 		
