@@ -8,10 +8,10 @@ import fr.eni.enchere.piou.dal.DAO;
 import fr.eni.enchere.piou.dal.DAOFactory;
 
 public class EnchereManagerUtilisateur {
-	private DAO<Utilisateur> utilisateurDAO;
+	private DAO<Utilisateur> DAOUtilisateur;
 
 	public EnchereManagerUtilisateur() {
-		this.utilisateurDAO = DAOFactory.getUtilisateurDAO();
+		this.DAOUtilisateur = DAOFactory.getUtilisateurDAO();
 	}
 
 	public Utilisateur insert(String pseudo, String nom, String prenom, String email, String telephone, String rue,
@@ -26,7 +26,7 @@ public class EnchereManagerUtilisateur {
 		this.validerInfoUtilisateur(utilisateur, exception);
 
 		if (!exception.hasErreurs()) {
-			this.utilisateurDAO.insert(utilisateur);
+			this.DAOUtilisateur.insert(utilisateur);
 		}
 
 		if (exception.hasErreurs()) {
@@ -38,7 +38,7 @@ public class EnchereManagerUtilisateur {
 	public void deleteUtilisateur(int index) throws BusinessException {
 
 		try {
-			utilisateurDAO.delete(index);
+			DAOUtilisateur.delete(index);
 		} catch (BusinessException e) {
 			System.out.println("erreur bll utilisateur delete");
 
@@ -51,7 +51,7 @@ public class EnchereManagerUtilisateur {
 		List<Utilisateur> listeUtilisateur = null;
 		try {
 			
-			listeUtilisateur = utilisateurDAO.selectById(id);
+			listeUtilisateur = DAOUtilisateur.selectById(id);
 		} catch (BusinessException e) {
 			System.out.println("erreur bll utilisateur selectbyid");
 			// TODO Auto-generated catch block
@@ -63,7 +63,7 @@ public class EnchereManagerUtilisateur {
 	public void updateUtilisateur(Utilisateur utilisateur) throws BusinessException {
 
 		try {
-			utilisateurDAO.update(utilisateur);
+			DAOUtilisateur.update(utilisateur);
 		} catch (BusinessException e) {
 			System.out.println("erreur bll utilisateur update");
 
