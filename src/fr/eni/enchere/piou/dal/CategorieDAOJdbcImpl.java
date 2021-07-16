@@ -70,16 +70,20 @@ public class CategorieDAOJdbcImpl implements DAO<Categorie> {
             
             while (rs.next()) {
             	Categorie categorie = null;
-                int noCategorie = rs.getInt(1);	//
-                String libelle = rs.getString(2);		//
+                int noCategorie = rs.getInt(1);						
+                String libelle = rs.getString(2);					
 
-                categorie = new Categorie(noCategorie, libelle);	//
+                categorie = new Categorie(noCategorie, libelle);	
                 categories.add(categorie);
             }
             
-        } catch (SQLException e) {
+        } catch (SQLException e) {  	
             System.out.println("SELECT BY ID Categories pas content");
             e.printStackTrace();
+            
+            BusinessException businessException = new BusinessException();
+            businessException.ajouterErreur(CodesResultatDAL.READ_OBJECT_ECHEC);
+			throw businessException;
         }
         return categories;
 	}
