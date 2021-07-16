@@ -17,6 +17,14 @@ public class EnchereDAOJdbcImpl implements DAO<Enchere>{
 	@Override
 	public void insert(Enchere enchere) throws BusinessException {
 		PreparedStatement stmt = null;
+		
+		if (enchere == null) {
+
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_NULL);
+			throw businessException;
+
+		}
 
 		try (Connection con = ConnectionProvider.getConnection()) {
 			stmt = con.prepareStatement("INSERT INTO ENCHERES(no_utilisateur,no_article,date_enchere,montant_enchere) VALUES (?,?,?,?)");
@@ -29,6 +37,9 @@ public class EnchereDAOJdbcImpl implements DAO<Enchere>{
 		} catch (SQLException e) {
 			System.out.println("INSERT ENCHERE pas content");
 			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_ECHEC);
+			throw businessException;
 		}	
 	}
 
@@ -42,6 +53,9 @@ public class EnchereDAOJdbcImpl implements DAO<Enchere>{
 		} catch (SQLException e) {
 			System.out.println("DELETE ENCHERE pas content");
 			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.DELETE_OBJET_NULL);
+			throw businessException;
 		}	
 	}
 
@@ -77,6 +91,9 @@ public class EnchereDAOJdbcImpl implements DAO<Enchere>{
 		} catch (SQLException e) {
 			System.out.println("SELECT by id ENCHERE pas content");
 			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.READ_OBJECT_ECHEC);
+			throw businessException;
 		}
 		return encheres;
 	}
@@ -96,6 +113,9 @@ public class EnchereDAOJdbcImpl implements DAO<Enchere>{
 		} catch (SQLException e) {
 			System.out.println("UPDATE ENCHERE pas content");
 			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.UPDATE_OBJET_ECHEC);
+			throw businessException;
 		}	
 	}
 	

@@ -16,6 +16,14 @@ public class RetraitDAOJdbcImpl implements DAO<Retrait>{
 	@Override
 	public void insert(Retrait retrait) throws BusinessException {
 		PreparedStatement stmt = null;
+		
+		if (retrait == null) {
+
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_NULL);
+			throw businessException;
+
+		}
 
 		try (Connection con = ConnectionProvider.getConnection()) {
 			stmt = con.prepareStatement("INSERT INTO RETRAITS(no_article,rue,code_postal,ville) VALUES (?,?,?,?)");
@@ -28,6 +36,9 @@ public class RetraitDAOJdbcImpl implements DAO<Retrait>{
 		} catch (SQLException e) {
 			System.out.println("INSERT RETRAITS pas content");
 			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_ECHEC);
+			throw businessException;
 		}
 	}
 
@@ -41,6 +52,9 @@ public class RetraitDAOJdbcImpl implements DAO<Retrait>{
 		} catch (SQLException e) {
 			System.out.println("DELETE RETRAITS pas content");
 			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.DELETE_OBJET_NULL);
+			throw businessException;
 		}	
 	}
 
@@ -76,6 +90,9 @@ public class RetraitDAOJdbcImpl implements DAO<Retrait>{
 		} catch (SQLException e) {
 			System.out.println("SELECT by id ENCHERE pas content");
 			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.READ_OBJECT_ECHEC);
+			throw businessException;
 		}
 		return retraits;
 	}
@@ -95,6 +112,9 @@ public class RetraitDAOJdbcImpl implements DAO<Retrait>{
 		} catch (SQLException e) {
 			System.out.println("UPDATE RETRAITS pas content");
 			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.UPDATE_OBJET_ECHEC);
+			throw businessException;
 		}	
 	}
 }
