@@ -46,7 +46,8 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 				utilisateur.setNoUtilisateur(rs.getInt(1));
 			}
 		} catch (Exception e) {
-			
+			System.out.println("erreur dall utilisateur insert");
+
 			e.printStackTrace();
 			BusinessException businessException = new BusinessException();
 			if (e.getMessage().contains("CK_AVIS_note")) {
@@ -71,7 +72,8 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 			pstmt.executeUpdate();
 
 		} catch (Exception e) {
-			
+			System.out.println("erreur dall utilisateur delete");
+
 			e.printStackTrace();
 			BusinessException businessException = new BusinessException();
 			if (e.getMessage().contains("CK_AVIS_note")) {
@@ -125,7 +127,8 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 				utilisateur.add(u);
 			}
 		} catch (Exception e) {
-			
+			System.out.println("erreur dall utilisateur selectbyid");
+
 			e.printStackTrace();
 			BusinessException businessException = new BusinessException();
 			if (e.getMessage().contains("CK_AVIS_note")) {
@@ -166,7 +169,8 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 			pstmt.executeUpdate();
 
 		} catch (Exception e) {
-			
+			System.out.println("erreur dall utilisateur update");
+
 			e.printStackTrace();
 			BusinessException businessException = new BusinessException();
 			if (e.getMessage().contains("CK_AVIS_note")) {

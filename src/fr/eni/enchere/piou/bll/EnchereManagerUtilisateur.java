@@ -39,7 +39,9 @@ public class EnchereManagerUtilisateur {
 
 		try {
 			utilisateurDAO.delete(index);
-		} catch (Exception e) {
+		} catch (BusinessException e) {
+			System.out.println("erreur bll utilisateur delete");
+
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -50,7 +52,8 @@ public class EnchereManagerUtilisateur {
 		try {
 			
 			listeUtilisateur = utilisateurDAO.selectById(id);
-		} catch (Exception e) {
+		} catch (BusinessException e) {
+			System.out.println("erreur bll utilisateur selectbyid");
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -61,7 +64,9 @@ public class EnchereManagerUtilisateur {
 
 		try {
 			utilisateurDAO.update(utilisateur);
-		} catch (Exception e) {
+		} catch (BusinessException e) {
+			System.out.println("erreur bll utilisateur update");
+
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
