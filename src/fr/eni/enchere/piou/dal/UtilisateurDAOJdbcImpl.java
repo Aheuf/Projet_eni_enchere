@@ -3,6 +3,7 @@ package fr.eni.enchere.piou.dal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,11 +21,11 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 	public void insert(Utilisateur utilisateur) throws BusinessException {
 
 		if (utilisateur == null) {
-			
+
 			BusinessException businessException = new BusinessException();
 			businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_NULL);
 			throw businessException;
-			
+
 		}
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 
@@ -45,18 +46,16 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 			if (rs.next()) {
 				utilisateur.setNoUtilisateur(rs.getInt(1));
 			}
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			System.out.println("erreur dall utilisateur insert");
 
 			e.printStackTrace();
 			BusinessException businessException = new BusinessException();
-			if (e.getMessage().contains("CK_AVIS_note")) {
-				businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_NULL);
-			} else {
-				businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_ECHEC);
-			}
+
+			businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_ECHEC);
+
 			throw businessException;
-		
+
 		}
 
 	}
@@ -71,16 +70,16 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 			PreparedStatement pstmt = cnx.prepareStatement(DELETEUTILISATEUR + id);
 			pstmt.executeUpdate();
 
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			System.out.println("erreur dall utilisateur delete");
 
 			e.printStackTrace();
 			BusinessException businessException = new BusinessException();
-			if (e.getMessage().contains("CK_AVIS_note")) {
-				businessException.ajouterErreur(CodesResultatDAL.DELETE_OBJET_NULL);
-			} 
+
+			businessException.ajouterErreur(CodesResultatDAL.DELETE_OBJET_NULL);
+
 			throw businessException;
-			
+
 		}
 
 	}
@@ -126,33 +125,24 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 						motDePasse, credit, administrateur);
 				utilisateur.add(u);
 			}
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			System.out.println("erreur dall utilisateur selectbyid");
 
 			e.printStackTrace();
 			BusinessException businessException = new BusinessException();
-			if (e.getMessage().contains("CK_AVIS_note")) {
-				businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_NULL);
-			} else {
-				businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_ECHEC);
-			}
+
+			businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_ECHEC);
+
 			throw businessException;
-			
+
 		}
 		return utilisateur;
 	}
 
 	@Override
-	public void update(Utilisateur utilisateur) throws BusinessException{
+	public void update(Utilisateur utilisateur) throws BusinessException {
 		int id = utilisateur.getNoUtilisateur();
 
-		if (utilisateur == null) {
-			
-			BusinessException businessException = new BusinessException();
-			businessException.ajouterErreur(CodesResultatDAL.UPDATE_OBJET_NULL);
-			throw businessException;
-			
-		}
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(UPDATEUTILISATEUR + id);
 			pstmt.setString(1, utilisateur.getPseudo());
@@ -168,18 +158,16 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 			pstmt.setBoolean(11, utilisateur.isAdministrateur());
 			pstmt.executeUpdate();
 
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			System.out.println("erreur dall utilisateur update");
 
 			e.printStackTrace();
 			BusinessException businessException = new BusinessException();
-			if (e.getMessage().contains("CK_AVIS_note")) {
-				businessException.ajouterErreur(CodesResultatDAL.UPDATE_OBJET_NULL);
-			} else {
-				businessException.ajouterErreur(CodesResultatDAL.UPDATE_OBJET_ECHEC);
-			}
+
+			businessException.ajouterErreur(CodesResultatDAL.UPDATE_OBJET_ECHEC);
+
 			throw businessException;
-			
+
 		}
 
 	}
