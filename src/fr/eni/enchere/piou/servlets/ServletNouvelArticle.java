@@ -7,6 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.eni.enchere.piou.bll.EnchereManager;
+import fr.eni.enchere.piou.bo.ArticleVendu;
+import fr.eni.enchere.piou.bo.Retrait;
+
 /**
  * Servlet implementation class ServletNouvelArticle
  */
@@ -26,8 +30,26 @@ public class ServletNouvelArticle extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+
+		//j'ajoute l'article
+		
+		//request.setAttribute("Articles", articles);
+		
+		ArticleVendu article = null; //////////
+		Retrait retrait = null;
+		
+		request.setAttribute("Nom", article.getNomArticle());
+		request.setAttribute("Description", article.getDescription());
+		request.setAttribute("Categorie", article.getNoCategorie());
+		
+		request.setAttribute("MiseAPrix", article.getPrixInitial());
+		request.setAttribute("DateDebutEncheres", article.getDateDebutEncheres());
+		request.setAttribute("DateFinEnchere", article.getDateFinEncheres());
+		
+		request.setAttribute("Rue", retrait.getRue());
+		request.setAttribute("CodePostal", retrait.getCodePostal());
+		request.setAttribute("Ville", retrait.getVille());
+		
 	}
 
 	/**
