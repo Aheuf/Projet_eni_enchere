@@ -27,7 +27,7 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <a class="nav-link text-light text-end" href="#">Enchères</a>
                 <a class="nav-link text-light text-end" href="#">Vendre un article</a>
-                <a class="nav-link text-light text-end" href="#"><i class="bi bi-person text-primary">Mon profil</i></a>
+                <a class="nav-link text-light text-end" href="<%= request.getContextPath()%>/encheres/profil"><i class="bi bi-person text-primary">Mon profil</i></a>
                 <a class="nav-link text-light text-end" href="#"><i class="bi bi-box-arrow-left text-danger">Déconnexion</i></a>
 
                 <a class="nav-link text-light text-end" href="#"><i class="bi bi-person"> S'inscrire - Se connecter</i></a>
