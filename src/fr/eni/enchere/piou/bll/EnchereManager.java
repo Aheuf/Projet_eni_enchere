@@ -221,6 +221,19 @@ public class EnchereManager {
 
 	// ---------------------------------------------------------
 	// Select All
+	// Select All Utilisateur
+		public List<Utilisateur> selectAllUtilisateur() throws BusinessException {
+			List<Utilisateur> utilisateur = null;
+
+			try {
+				utilisateur = DAOUtilisateur.selectAll();
+			} catch (BusinessException e) {
+				System.out.println("Erreur getUtilisateur");
+				e.printStackTrace();
+			}
+			return utilisateur;
+		}
+		
 	// Select All Categorie
 	public List<Categorie> selectAllCategorie() throws BusinessException {
 		List<Categorie> categories = null;

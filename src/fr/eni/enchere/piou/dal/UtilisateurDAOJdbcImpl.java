@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.enchere.piou.BusinessException;
+import fr.eni.enchere.piou.bo.Categorie;
 import fr.eni.enchere.piou.bo.Utilisateur;
 
 public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
@@ -85,9 +86,45 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 	}
 
 	@Override
-	public List<Utilisateur> selectAll() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Utilisateur> selectAll() throws BusinessException {
+		Statement stmt = null;
+		List<Utilisateur> listeUtilisateur = new ArrayList<Utilisateur>();
+		Utilisateur u = null;
+
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			stmt = cnx.createStatement();
+
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Listes");
+
+			while (rs.next()) {
+				int noUtilisateur = rs.getInt("no_utilisateur");
+				String pseudo = rs.getString("pseudo");
+				String nom = rs.getString("nom");
+				String prenom = rs.getString("prenom");
+				String email = rs.getString("email");
+				String telephone = rs.getString("telephone");
+				String rue = rs.getString("rue");
+				String codePostal = rs.getString("code_postal");
+				String ville = rs.getString("pseudo");
+				String motDePasse = rs.getString("pseudo");
+				int credit = rs.getInt("no_utilisateur");
+				boolean administrateur = rs.getBoolean("administrateur");
+
+				u = new Utilisateur(noUtilisateur, pseudo, nom, prenom, email, telephone, rue, codePostal, ville,
+						motDePasse, credit, administrateur);
+
+				listeUtilisateur.add(u);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+
+			businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_ECHEC);
+
+			throw businessException;
+		}
+		return listeUtilisateur;
 	}
 
 	@Override
@@ -131,7 +168,7 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 			e.printStackTrace();
 			BusinessException businessException = new BusinessException();
 
-            businessException.ajouterErreur(CodesResultatDAL.READ_OBJECT_ECHEC);
+			businessException.ajouterErreur(CodesResultatDAL.READ_OBJECT_ECHEC);
 
 			throw businessException;
 

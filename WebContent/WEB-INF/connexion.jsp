@@ -36,7 +36,7 @@
         <h1 class="text-center mt-5 mb-5">Connexion</h1>
         <div class="container">
             <div class="d-flex justify-content-around">
-                <form class="row col-md-4 col-sm-6 col-7 g-3">
+                <form method="post" action="../encheres/connexion" class="row col-md-4 col-sm-6 col-7 g-3">
                     <div class="col-md-6 col-sm-12">
                         <label for="identifiant">Identifiant :</label>
                     </div>
@@ -63,7 +63,7 @@
                         </label>
                     </div>
                     <div class="col-md-12 col-sm-12 mt-5">
-                        <a href="" class="btn btn-dark col-12">Inscrivez-vous</a>
+                        <a href="${pageContext.request.contextPath}/WEB-INF/inscription.jsp" class="btn btn-dark col-12">Inscrivez-vous</a>
                     </div>
                 </form>
             </div>

@@ -4,45 +4,45 @@ import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Servlet Filter implementation class FilterConnexion
  */
-@WebFilter("/FilterConnexion")
+@WebFilter("encheres/filterConnexion")
 public class FilterConnexion implements Filter {
 
-    /**
-     * Default constructor. 
-     */
-    public FilterConnexion() {
-        // TODO Auto-generated constructor stub
-    }
+	public FilterConnexion() {}
 
-	/**
-	 * @see Filter#destroy()
-	 */
-	public void destroy() {
-		// TODO Auto-generated method stub
+	public void destroy() {}
+
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
+
+		HttpServletRequest httpRequest = (HttpServletRequest) request;
+		HttpServletResponse httpResponse = (HttpServletResponse) response;
+		if (httpRequest.getParameter("accepte") != null || httpRequest.getServletPath().startsWith("/css")
+				|| httpRequest.getServletPath().startsWith("/vendor")
+				|| httpRequest.getSession().getAttribute("ok") != null) {
+			httpRequest.getSession().setAttribute("ok", true);
+			chain.doFilter(request, response);
+
+		} else {
+			httpRequest.setAttribute("urlCible", httpRequest.getContextPath() + httpRequest.getServletPath());
+			RequestDispatcher rd = httpRequest
+					.getRequestDispatcher("encheres/connexion");
+			rd.forward(httpRequest, httpResponse);
+		}
 	}
 
-	/**
-	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
-	 */
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		// TODO Auto-generated method stub
-		// place your code here
+	
 
-		// pass the request along the filter chain
-		chain.doFilter(request, response);
-	}
-
-	/**
-	 * @see Filter#init(FilterConfig)
-	 */
 	public void init(FilterConfig fConfig) throws ServletException {
 		// TODO Auto-generated method stub
 	}
