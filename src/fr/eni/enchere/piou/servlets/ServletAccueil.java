@@ -31,8 +31,9 @@ public class ServletAccueil extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		EnchereManager manager = new EnchereManager();
+
 		CreationListArticle(request, response);
-		
+
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/Accueil.jsp");
 		requestDispatcher.forward(request, response);
 	}
@@ -47,17 +48,17 @@ public class ServletAccueil extends HttpServlet {
 		EnchereManager manager = new EnchereManager();
 		List<ArticleVendu> listeArticleBrut = null;
 		List<ArticleVendu> listeArticleActuelle = new ArrayList<ArticleVendu>();
-		List<Utilisateur>listeVendeurArticleActuelle=new ArrayList<Utilisateur>();
-		
+		List<Utilisateur> listeVendeurArticleActuelle = new ArrayList<Utilisateur>();
+
 		try {
 			listeArticleBrut = manager.selectAllArticleVendu();
-			listeVendeurArticleActuelle=manager.selectAllUtilisateur();
+			listeVendeurArticleActuelle = manager.selectAllUtilisateur();
 			for (ArticleVendu av : listeArticleBrut) {
 				LocalDate dateFinVente = Instant.ofEpochMilli(av.getDateFinEncheres().getTime())
 						.atZone(ZoneId.systemDefault()).toLocalDate();
 				if (LocalDate.now().isBefore(dateFinVente)) {
 					listeArticleActuelle.add(av);
-					
+
 				}
 			}
 			request.setAttribute("listeArticleActuelle", listeArticleActuelle);

@@ -263,6 +263,20 @@ public class EnchereManager {
 
 	// ---------------------------------------------------------
 	// Select By Mot Clef
+	
+	// Update Utilisateur
+		public List<Utilisateur> selectUtilisateurByMotCle(String motCle) throws BusinessException {
+			List<Utilisateur> utilisateurs = null;
+
+			try {
+				utilisateurs = DAOUtilisateur.selectByMotCle(motCle);
+			} catch (BusinessException e) {
+				System.out.println("Erreur selectUtilisateurByMotCle :(");
+				e.printStackTrace();
+			}
+
+			return utilisateurs;
+		}
 	// Update Article
 	public List<ArticleVendu> selectArticleVenduByMotCle(String motCle) throws BusinessException {
 		List<ArticleVendu> articlesVendus = null;

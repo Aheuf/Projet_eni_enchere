@@ -128,9 +128,46 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 	}
 
 	@Override
-	public List<Utilisateur> selectByMotCle(String montCle) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Utilisateur> selectByMotCle(String montCle)throws BusinessException {
+		Statement stmt = null;
+		List<Utilisateur> utilisateur = new ArrayList<Utilisateur>();
+		Utilisateur u = null;
+
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			stmt = cnx.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM UTILISATEURS WHERE pseudo= " + montCle);
+
+			while (rs.next()) {
+
+				int noUtilisateur = rs.getInt("no_utilisateur");
+				String pseudo = rs.getString("pseudo");
+				String nom = rs.getString("nom");
+				String prenom = rs.getString("prenom");
+				String email = rs.getString("email");
+				String telephone = rs.getString("telephone");
+				String rue = rs.getString("rue");
+				String codePostal = rs.getString("code_postal");
+				String ville = rs.getString("pseudo");
+				String motDePasse = rs.getString("pseudo");
+				int credit = rs.getInt("no_utilisateur");
+				boolean administrateur = rs.getBoolean("administrateur");
+
+				u = new Utilisateur(noUtilisateur, pseudo, nom, prenom, email, telephone, rue, codePostal, ville,
+						motDePasse, credit, administrateur);
+				utilisateur.add(u);
+			}
+		} catch (SQLException e) {
+			System.out.println("erreur dall utilisateur selectbyid");
+
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+
+			businessException.ajouterErreur(CodesResultatDAL.READ_OBJECT_ECHEC);
+
+			throw businessException;
+
+		}
+		return utilisateur;
 	}
 
 	@Override

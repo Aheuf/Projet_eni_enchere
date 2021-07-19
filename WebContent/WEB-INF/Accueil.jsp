@@ -24,26 +24,34 @@
 	<header>
 		<nav
 			class="navbar navbar-expand-lg navbar-light bg-dark container-fluid">
-			<a class="navbar-brand text-light" href="#">Eni-Encheres</a>
-			<button class="navbar-toggler" type="button"
-				data-bs-toggle="collapse" data-bs-target="#navbarNav"
-				aria-controls="navbarNav" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse justify-content-end"
-				id="navbarNav">
-				<a class="nav-link text-light text-end" href="#">Enchères</a> <a
-					class="nav-link text-light text-end" href="#">Vendre un article</a>
-				<a class="nav-link text-light text-end" href="#"><i
-					class="bi bi-person text-primary">Mon profil</i></a> <a
-					class="nav-link text-light text-end" href="#"><i
-					class="bi bi-box-arrow-left text-danger">Déconnexion</i></a> 
-					<c:if test="${b.noUtilisateur==a.noUtilisateur}">
-					<a	class="nav-link text-light text-end" href="<%= request.getContextPath()%>/encheres/profil">
-					<i class="bi bi-person"> S'inscrire - Se connecter</i></a>
-					</c:if>
-			</div>
+
+			<c:if test="${empty ok}">
+
+				<a class="navbar-brand text-light" href="#">Eni-Encheres</a>
+				<button class="navbar-toggler" type="button"
+					data-bs-toggle="collapse" data-bs-target="#navbarNav"
+					aria-controls="navbarNav" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+			</c:if>
+			<c:if test="${!empty ok}">
+				<div class="collapse navbar-collapse justify-content-end"
+					id="navbarNav">
+					<a class="nav-link text-light text-end" href="#">Enchères</a> <a
+						class="nav-link text-light text-end" href="#">Vendre un
+						article</a> <a class="nav-link text-light text-end" href="#"><i
+						class="bi bi-person text-primary">Mon profil</i></a> <a
+						class="nav-link text-light text-end" href="#"><i
+						class="bi bi-box-arrow-left text-danger">Déconnexion</i></a>
+					
+						<a class="nav-link text-light text-end"
+							href="<%=request.getContextPath()%>/encheres/profil"> <i
+							class="bi bi-person"> S'inscrire - Se connecter</i></a>
+					
+				</div>
+			</c:if>
 		</nav>
 	</header>
 
@@ -151,19 +159,20 @@
 					<p class="card-text">Prix : ${a.prixVente} points</p>
 					<p class="card-text">Fin de l'enchère : ${a.dateFinEncheres}</p>
 					<br>
-				
-						<c:forEach var="b" items="${listeVendeurArticleActuelle}">
-							<c:if test="${b.noUtilisateur==a.noUtilisateur}">
-								<p class="card-text">
-									Vendeur : <a href="${pageContext.request.contextPath}/encheres/profil">${b.pseudo}</a>
-								</p>
-							</c:if>
-						</c:forEach>
+
+					<c:forEach var="b" items="${listeVendeurArticleActuelle}">
+						<c:if test="${b.noUtilisateur==a.noUtilisateur}">
+							<p class="card-text">
+								Vendeur : <a
+									href="${pageContext.request.contextPath}/encheres/profil">${b.pseudo}</a>
+							</p>
+						</c:if>
+					</c:forEach>
 				</div>
 			</div>
 		</c:forEach>
 
-	
+
 	</article>
 
 	<!--FOOTER-->
