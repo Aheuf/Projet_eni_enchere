@@ -52,4 +52,9 @@ public class Retrait {
 		this.ville = ville;
 	}
 	
+	public String toString() {
+		return rue + " " + codePostal + " " + ville;
+		
+	}
+	
 }

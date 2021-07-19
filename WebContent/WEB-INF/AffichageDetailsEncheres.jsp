@@ -56,49 +56,49 @@
             </div>
             <div class="row">
                 <p class="col-sm-3 col-lg-3 fw-bold">Nom :</p>
-                <p class="col-sm-9 col-lg-9">*********************</p>
+                <p class="col-sm-9 col-lg-9"><%=request.getAttribute("Nom") %></p>
             </div>
             <div class="row">
                 <p class="col-sm-3 col-lg-3 fw-bold">Description :</p>
-                <p class="col-sm-9 col-lg-9">*********************</p>
+                <p class="col-sm-9 col-lg-9"><%=request.getAttribute("Description") %></p>
             </div>
             <div class="row">
                 <p class="col-sm-3 col-lg-3 fw-bold">Catégorie :</p>
-                <p class="col-sm-9 col-lg-9">*********************</p>
+                <p class="col-sm-9 col-lg-9"><%=request.getAttribute("Categorie") %></p>
             </div>
             <div class="row">
                 <p class="col-sm-3 col-lg-3 fw-bold">Meilleure offre :</p>
-                <p class="col-sm-9 col-lg-9">*********************</p>
+                <p class="col-sm-9 col-lg-9"><%=request.getAttribute("MeilleureOffre") %></p>
             </div>
             <div class="row">
                 <p class="col-sm-3 col-lg-3 fw-bold">Mise a prix :</p>
-                <p class="col-sm-9 col-lg-9">*********************</p>
+                <p class="col-sm-9 col-lg-9"><%=request.getAttribute("MiseAPrix") %></p>
             </div>
             <div class="row">
                 <p class="col-sm-3 col-lg-3 fw-bold">Retrait:</p>
-                <p class="col-sm-9 col-lg-9">*********************</p>
+                <p class="col-sm-9 col-lg-9"><%=request.getAttribute("Retrait") %></p>
             </div>
             <div class="row">
                 <p class="col-sm-3 col-lg-3 fw-bold">Vendeur:</p>
-                <p class="col-sm-9 col-lg-9">*********************</p>
+                <p class="col-sm-9 col-lg-9"><%=request.getAttribute("Vendeur") %></p>
             </div>
 
 
             <div class=" text-center fw-bold">
                 <!--varie en fonction du resultat de la vente-->
                 <!--Cas 1 : vente en cours-->
-                <form method="post" action="../.............">
+                <form method="post" action="<%=request.getContextPath()%>/encheres/encheres">
                     <label for="input_saisie">Ma proposition : </label>
                     <input id="input_saisie" type="number" name="proposition"/>
                     <button type="submit" class="btn btn-success " name="validation">Encherir</button>
                 </form>
                 <!--Cas 2 : utilisateur gagne la vente-->
-                <a href="#">
+                <a href="<%=request.getContextPath()%>/FilterConnexion">
                     <button class="btn btn-secondary btn-lg btn-block">Retour</button>
                 </a>
                 <br>
                 <!--Cas 3: vente gagnée par un autre utilisateur vous etes le vendeur-->
-                <a href="${pageContext.request.contextPath}/../...?retrait" class="badge text-danger" title="Retrait"><i
+                <a href="<%=request.getContextPath() %>/encheres/retraits" class="badge text-danger" title="Retrait"><i
                         class="btn btn-secondary btn-lg btn-block">Retrait effectué</i></a>
 
             </div>
