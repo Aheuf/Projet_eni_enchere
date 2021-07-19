@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class ServletDeconnexion
  */
-@WebServlet("/ServletDeconnexion")
+@WebServlet("/encheres/ServletDeconnexion")
 public class ServletDeconnexion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
