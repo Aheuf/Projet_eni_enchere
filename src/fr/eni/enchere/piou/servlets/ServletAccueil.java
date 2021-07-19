@@ -19,7 +19,7 @@ import fr.eni.enchere.piou.bll.EnchereManager;
 import fr.eni.enchere.piou.bo.ArticleVendu;
 import fr.eni.enchere.piou.bo.Utilisateur;
 
-@WebServlet("encheres/accueil")
+@WebServlet("/encheres/accueil")
 public class ServletAccueil extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
