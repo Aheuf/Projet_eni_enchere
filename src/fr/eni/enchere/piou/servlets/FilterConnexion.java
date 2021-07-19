@@ -15,10 +15,14 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet Filter implementation class FilterConnexion
- */
-@WebFilter(urlPatterns = "/encheres/*", dispatcherTypes = { DispatcherType.REQUEST })
+
+@WebFilter(    urlPatterns="/Projet_eni_enchere/*",
+dispatcherTypes= {
+                    DispatcherType.REQUEST,
+                    DispatcherType.INCLUDE,
+                    DispatcherType.FORWARD,
+                    DispatcherType.ERROR
+})
 public class FilterConnexion implements Filter {
 
 	public FilterConnexion() {
@@ -42,11 +46,11 @@ public class FilterConnexion implements Filter {
 
 		} else {
 			httpRequest.setAttribute("urlCible", httpRequest.getContextPath() + httpRequest.getServletPath());
-			RequestDispatcher rd = httpRequest.getRequestDispatcher("encheres/connexion");
+			RequestDispatcher rd = httpRequest.getRequestDispatcher("/WEB-INF/Accueil.jsp");
 			rd.forward(httpRequest, httpResponse);
 		}
 	}
-
+	
 	public void init(FilterConfig fConfig) throws ServletException {
 		// TODO Auto-generated method stub
 	}
