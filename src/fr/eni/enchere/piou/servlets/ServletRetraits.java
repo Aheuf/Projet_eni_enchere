@@ -1,7 +1,6 @@
 package fr.eni.enchere.piou.servlets;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,8 +24,7 @@ public class ServletRetraits extends HttpServlet {
 		ArticleVendu article = null;
 		
 		try {
-			List<ArticleVendu> articles =em.selectArticleVenduById(idArticle);
-			article = articles.get(0);
+			article =em.selectArticleVenduById(idArticle).get(0);
 		} catch (BusinessException e) {
 			System.out.println("GET servlet retrait qui déconne lors de la récupèration de l'article");
 			e.printStackTrace();
@@ -44,6 +42,6 @@ public class ServletRetraits extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 	}
-
 }

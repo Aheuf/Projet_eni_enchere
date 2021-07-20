@@ -1,7 +1,6 @@
 package fr.eni.enchere.piou.servlets;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -29,17 +28,24 @@ public class ServletEncheres extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/AffichageDetailsEncheres.jsp");
 		Cookie[] cookies = request.getCookies();
 		int idArticle = 0;
+		int idUtilisateur = 0;
 // recupération de l'id de l'article concerné
 		for (Cookie c : cookies) {
 			if (c.getName().equals("idArticle")) {
 				idArticle = Integer.parseInt(c.getValue());
 			}
 		}
+// recupération de l'id utilisateur
+		for (Cookie c : cookies) {
+			if (c.getName().equals("CookieIDUtilisateur")) {
+			idUtilisateur = Integer.parseInt(c.getValue());	
+			}
+		}
 // récupération de l'article
 		ArticleVendu article = null;
+
 		try {
-			List<ArticleVendu> articles = em.selectArticleVenduById(idArticle);
-			article = articles.get(0);
+			article = em.selectArticleVenduById(idArticle).get(0);
 		} catch (BusinessException e) {
 			System.out.println("POST servletEnchere déconne à la récupération de l'article");
 			e.printStackTrace();
@@ -47,6 +53,7 @@ public class ServletEncheres extends HttpServlet {
 // test de validité de l'enchère
 		if (article.getPrixVente() < proposition) {
 			article.setPrixVente(proposition);
+			article.setNoUtilisateur(idUtilisateur);
 			try {
 				em.updateArticle(article);
 			} catch (BusinessException e) {

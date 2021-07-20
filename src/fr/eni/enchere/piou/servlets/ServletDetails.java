@@ -1,7 +1,6 @@
 package fr.eni.enchere.piou.servlets;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -32,14 +31,10 @@ public class ServletDetails extends HttpServlet {
 		Retrait retrait = null;
 // gestion de l'affichage de l'article		
 		try {
-			List<ArticleVendu> articles = em.selectArticleVenduById(idArticle);
-			article = articles.get(0);
-			List <Categorie> categories = em.selectCategorieById(article.getNoCategorie());
-			categorie = categories.get(0);
-			List<Utilisateur> utilisateurs = em.selectUtilisateurById(article.getNoUtilisateur());
-			vendeur = utilisateurs.get(0);
-			List<Retrait> retraits = em.selectRetraitById(idArticle);
-			retrait = retraits.get(0);
+			article = em.selectArticleVenduById(idArticle).get(0);
+			categorie = em.selectCategorieById(article.getNoCategorie()).get(0);
+			vendeur = em.selectUtilisateurById(article.getNoUtilisateur()).get(0);
+			retrait = em.selectRetraitById(idArticle).get(0);
 			
 		} catch (BusinessException e) {
 			System.out.println("GET ServletDetails déconne sur l'article");
@@ -60,7 +55,7 @@ public class ServletDetails extends HttpServlet {
 		int idUtilisateur = 0;
 		
 		for (Cookie c : cookies) {
-			if(c.getName().equals("idUtilisateur")) {
+			if(c.getName().equals("CookieIDUtilisateur")) {
 				idUtilisateur = Integer.parseInt(c.getValue());
 				break;
 			}
@@ -70,8 +65,7 @@ public class ServletDetails extends HttpServlet {
 		
 		String vainqueur = null;
 		try {
-			List<Utilisateur> vainqueurs = em.selectUtilisateurById(article.getNoUtilisateur());
-			vainqueur = vainqueurs.get(0).getPseudo();
+			vainqueur = em.selectUtilisateurById(article.getNoUtilisateur()).get(0).getPseudo();
 		} catch (BusinessException e) {
 			System.out.println("GET ServletDetails déconne sur l'user");
 			e.printStackTrace();
@@ -101,29 +95,41 @@ public class ServletDetails extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int idVendeur = Integer.parseInt(request.getParameter("idVendeur"));
-		RequestDispatcher rd = null;
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/AffichageProfilAutreUtilisateur.jsp");
 		EnchereManager em = new EnchereManager();	
 		Cookie[] cookies = request.getCookies();
+
+// recupération de l'id utilisateur
 		int idUtilisateur = 0;
 		
 		for (Cookie c : cookies) {
-			if(c.getName().equals("idUtilisateur")) {
+			if(c.getName().equals("CookieIDUtilisateur")) {
 				idUtilisateur = Integer.parseInt(c.getValue());
 				break;
 			}
 		}
 		
+// recupération du vendeur
+		Utilisateur vendeur = null;
+		try {
+			vendeur = em.selectUtilisateurById(idVendeur).get(0);
+		} catch (BusinessException e) {
+			System.out.println("POST ServletDetails déconne sur la récupération du vendeur");
+			e.printStackTrace();
+		}
+		
+//redirection en fonction de l'user
 		if (idVendeur == idUtilisateur) {
-			try {
-				List<Utilisateur> vendeurs = em.selectUtilisateurById(idVendeur);
-				request.setAttribute("utilisateurs", vendeurs);
-			} catch (BusinessException e) {
-				e.printStackTrace();
-				System.out.println("POST ServletDetails déconne");
-			}
-			rd = request.getRequestDispatcher("/WEB-INF/AffichageProfilAutreUtilisateur.jsp");
+			rd = request.getRequestDispatcher("/encheres/modifierprofil");
 		} else {
-			rd = request.getRequestDispatcher("/encheres/ModifierProfil");
+			request.setAttribute("pseudo", vendeur.getPseudo());
+			request.setAttribute("nom", vendeur.getNom());
+			request.setAttribute("prenom", vendeur.getPrenom());
+			request.setAttribute("email", vendeur.getEmail());
+			request.setAttribute("telephone", vendeur.getTelephone());
+			request.setAttribute("rue", vendeur.getRue());
+			request.setAttribute("codePostal", vendeur.getCodePostal());
+			request.setAttribute("ville", vendeur.getVille());
 		}
 		rd.forward(request, response);
 	}

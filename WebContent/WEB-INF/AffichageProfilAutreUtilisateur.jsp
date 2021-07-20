@@ -41,35 +41,35 @@
         <br>
         <div class="col-sm-12 col-lg-7 shadow">
             <div class="text-center">
-            <h1 >Pseudo </h1>
+            <h1 ><%= request.getAttribute("pseudo") %></h1>
             </div>
             <div class="row">
                 <p class="col-sm-3 col-lg-3 fw-bold ">Nom :</p>
-                <p class="col-sm-9 col-lg-9">*********************</p>
+                <p class="col-sm-9 col-lg-9"><%= request.getAttribute("nom") %></p>
             </div>
             <div class="row">
                 <p class="col-sm-3 col-lg-3 fw-bold">Prénom :</p>
-                <p class="col-sm-9 col-lg-9">*********************</p>
+                <p class="col-sm-9 col-lg-9"><%= request.getAttribute("prenom") %></p>
             </div>
             <div class="row">
                 <p class="col-sm-3 col-lg-3 fw-bold">Email :</p>
-                <p class="col-sm-9 col-lg-9">*********************</p>
+                <p class="col-sm-9 col-lg-9"><%= request.getAttribute("email") %></p>
             </div>
             <div class="row">
                 <p class="col-sm-3 col-lg-3 fw-bold">Telephone :</p>
-                <p class="col-sm-9 col-lg-9">*********************</p>
+                <p class="col-sm-9 col-lg-9"><%= request.getAttribute("telephone") %></p>
             </div>
             <div class="row">
                 <p class="col-sm-3 col-lg-3 fw-bold">Rue :</p>
-                <p class="col-sm-9 col-lg-9 ">*********************</p>
+                <p class="col-sm-9 col-lg-9 "><%= request.getAttribute("rue") %></p>
             </div>
             <div class="row">
                 <p class="col-sm-3 col-lg-3 fw-bold">Code postal :</p>
-                <p class="col-sm-9 col-lg-9">*********************</p>
+                <p class="col-sm-9 col-lg-9"><%= request.getAttribute("codePostal") %></p>
             </div>
             <div class="row">
                 <p class="col-sm-3 col-lg-3 fw-bold">ville:</p>
-                <p class="col-sm-9 col-lg-9">*********************</p>
+                <p class="col-sm-9 col-lg-9"><%= request.getAttribute("ville") %></p>
             </div>
         </div>
     </div>
