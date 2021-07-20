@@ -16,15 +16,6 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/encheres/ServletDeconnexion")
 public class ServletDeconnexion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     
-    public ServletDeconnexion() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-	*/
 	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -37,11 +28,13 @@ public class ServletDeconnexion extends HttpServlet {
 		// Si pas de session existante, n'en créé pas une nouvelle
 		// (juste un test pour voir si après l'invalidation la session devient null)
 		if (session != null) {
-		
+			
+		//	request.getSession() = null;			////////////
+			
 			session = request.getSession(false);
 			//ne doit pas arriver
 			response.getWriter().println("Session : " + session);
-			break;
+			
 			
 		} else {
 			
