@@ -11,6 +11,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.enchere.piou.BusinessException;
 import fr.eni.enchere.piou.bll.EnchereManager;
@@ -61,7 +62,9 @@ public class ServletInscription extends HttpServlet {
 				request.setAttribute("newUtilisateur", newUtilisateur);
 				verification = manager.selectUtilisateurByMotCle(pseudo);
 				
-				request.setAttribute( "session", verification);
+			HttpSession session = request.getSession();
+			session.setAttribute("session", verification);
+			
 
 				/*for (Utilisateur u : verification) {
 					String id = String.valueOf(u.getNoUtilisateur());

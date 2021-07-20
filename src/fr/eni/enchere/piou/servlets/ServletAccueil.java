@@ -10,10 +10,10 @@ import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.enchere.piou.BusinessException;
 import fr.eni.enchere.piou.bll.EnchereManager;
@@ -27,20 +27,20 @@ public class ServletAccueil extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		/*Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("CookieIDUtilisateur")) {
-                    request.setAttribute("CookieIDUtilisateur", cookie.getValue());
-                }
-            }
-        }*/
-        
+
+		/*
+		 * Cookie[] cookies = request.getCookies(); if (cookies != null) { for (Cookie
+		 * cookie : cookies) { if (cookie.getName().equals("CookieIDUtilisateur")) {
+		 * request.setAttribute("CookieIDUtilisateur", cookie.getValue()); } } }
+		 */
+
+		if (request.getParameter("deconnexion") != null) {
+			HttpSession session = request.getSession();
+			session.setAttribute("session", null);
+		}
 		CreationListArticle(request, response);
 
-        
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/Accueil.jsp");
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/Accueil.jsp");
 		requestDispatcher.forward(request, response);
 	}
 
