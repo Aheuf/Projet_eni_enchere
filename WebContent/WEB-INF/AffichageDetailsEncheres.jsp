@@ -93,7 +93,6 @@
                 <p class="col-sm-9 col-lg-9"><%=request.getAttribute("Vendeur") %></p>
             </div>
 
-
             <div class=" text-center fw-bold">
                 <!--varie en fonction du resultat de la vente-->
                 <% if (date != article.getDateFinEncheres()){ %>

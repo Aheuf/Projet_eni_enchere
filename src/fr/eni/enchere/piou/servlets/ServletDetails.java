@@ -80,6 +80,21 @@ public class ServletDetails extends HttpServlet {
 		request.setAttribute("vainqueur", vainqueur);
 //fin de gestion de l'affichage suivant l'utilisateur
 		
+// création d'un cookie IdArticle
+		Cookie cookieIdArticle = null;
+		int i = 0;
+		for (Cookie c : cookies) {
+			i++;
+			if(c.getName().equals("IdArticle")) {
+				c.setValue(String.valueOf(idArticle));
+				break;
+			} else if (i == cookies.length-1) {
+				cookieIdArticle = new Cookie("IdArticle", String.valueOf(idArticle));
+				response.addCookie(cookieIdArticle);
+			}
+		}
+// fin de la gestion du cookie IdArticle
+		
 		rd = request.getRequestDispatcher("/WEB-INF/AffichageDetailsEncheres.jsp");
 		rd.forward(request, response);
 	}
