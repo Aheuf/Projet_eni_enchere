@@ -48,7 +48,9 @@
 	<section>
 		<!-- Ajout Titres "mon profil"-->
 		<h1 class="text-center mt-5 mb-5">Mon Profil</h1>
-
+		<%
+		Utilisateur user = (Utilisateur) request.getAttribute("user");
+		%>
 		<!-- formulaire "mon profil" -->
 		<div class="container">
 			<div class="d-flex justify-content-around">
@@ -99,7 +101,7 @@
 							<label for="inputCodePostal" class="col-3 form-label mt-1 ">Code
 								Postal :</label> <input type="text" class="form-control"
 								id="inputCodePostal" aria-describedby="codePostalHelp"
-								value="<%= .getCodePostal()%>">
+								value="<%= user.getCodePostal()%>">
 						</div>
 						<div class="d-flex mb-3 offset-lg-2 col-lg-5 col-sm-12">
 							<label for="inputVille" class="col-3 form-label mt-1 ">Ville
@@ -115,9 +117,7 @@
 								de passe actuel :</label> <input type="password" class="form-control"
 								id="inputMotDePasse" aria-describedby="motDePasseHelp">
 						</div>
-						<% if (inputMotDePasse != user.getMotDePasse) {%>
 							<p style="color: red;">Le mot de passe est erroné !</p>
-						<%}%>
 					</div>
 
 
@@ -134,9 +134,7 @@
 								:</label> <input type="password" class="form-control"
 								id="inputConfirmation" aria-describedby="confirmationHelp">	
 						</div>
-						<% if (inputNouveauMotDePasse != inputConfirmation) {%>
-							<p style="color: red;">Le mot de passe doit être indentique !</p>
-						<%}%>						
+							<p style="color: red;">Le mot de passe doit être indentique !</p>					
 					</div>
 
 					<div class="row col-sm-12 col-lg-12 mt-3 mb-3">

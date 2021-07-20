@@ -46,6 +46,7 @@ public class ServletModifProfil extends HttpServlet {
 			e.printStackTrace();
 		}
 		
+		this.getServletContext().setAttribute("user", user);
 		RequestDispatcher rd = request.getRequestDispatcher("/FilterConnexion");
 		rd.forward(request, response);
 		
