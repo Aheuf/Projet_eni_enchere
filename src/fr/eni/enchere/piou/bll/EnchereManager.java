@@ -348,30 +348,47 @@ public class EnchereManager {
 
 		if (utilisateur.getPseudo().equals("") || utilisateur.getPseudo() == null) {
 			businessException.ajouterErreur(CodesResultatBLL.REGLE_CREATION_UTILISATEUR_PSEUDO_ERREUR);
+			System.out.println("pseudo");
 		}
 		if (utilisateur.getPrenom().equals("") || utilisateur.getPrenom() == null) {
 			businessException.ajouterErreur(CodesResultatBLL.REGLE_CREATION_UTILISATEUR_PRENOM_ERREUR);
+			System.out.println("prenom");
+
 		}
 		if (utilisateur.getNom().equals("") || utilisateur.getNom() == null) {
 			businessException.ajouterErreur(CodesResultatBLL.REGLE_CREATION_UTILISATEUR_NOM_ERREUR);
+			System.out.println("nom");
+
 		}
 		if (utilisateur.getEmail().equals("") || utilisateur.getEmail() == null) {
 			businessException.ajouterErreur(CodesResultatBLL.REGLE_CREATION_UTILISATEUR_EMAIL_ERREUR);
+			System.out.println("email");
+
 		}
 		if (utilisateur.getRue().equals("") || utilisateur.getRue() == null) {
 			businessException.ajouterErreur(CodesResultatBLL.REGLE_CREATION_UTILISATEUR_RUE_ERREUR);
+			System.out.println("rue");
+
 		}
 		if (utilisateur.getCodePostal().equals("") || utilisateur.getCodePostal() == null) {
 			businessException.ajouterErreur(CodesResultatBLL.REGLE_CREATION_UTILISATEUR_CDP_ERREUR);
+			System.out.println("cdp");
+
 		}
 		if (utilisateur.getVille().equals("") || utilisateur.getVille() == null) {
 			businessException.ajouterErreur(CodesResultatBLL.REGLE_CREATION_UTILISATEUR_VILLE_ERREUR);
+			System.out.println("ville");
+
 		}
 		if (utilisateur.getMotDePasse().equals("") || utilisateur.getMotDePasse() == null) {
 			businessException.ajouterErreur(CodesResultatBLL.REGLE_CREATION_UTILISATEUR_MDP_ERREUR);
+			System.out.println("mdp");
+
 		}
 		if (utilisateur.getCredit() < 0) {
 			businessException.ajouterErreur(CodesResultatBLL.REGLE_CREATION_UTILISATEUR_CREDIT_ERREUR);
+			System.out.println("Credi");
+
 		}
 
 	}

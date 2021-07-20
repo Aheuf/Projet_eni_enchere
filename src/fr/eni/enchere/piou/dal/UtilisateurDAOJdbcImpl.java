@@ -14,7 +14,7 @@ import fr.eni.enchere.piou.bo.Utilisateur;
 
 public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 
-	private static final String INSERTUTILISATEUR = "INSERT INTO UTILISATEURS(pseudo,nom,prenome,mail,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur) VALUES(?,?,?,?,?,?,?,?,?,?,?);";
+	private static final String INSERTUTILISATEUR = "INSERT INTO UTILISATEURS(pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur) VALUES(?,?,?,?,?,?,?,?,?,?,?);";
 	private static final String UPDATEUTILISATEUR = "UPDATE UTILISATEURS SET pseudo=?,nom,prenome=?,mail=?,telephone=?,rue=?,code_postal=?,ville=?,mot_de_passe=?,credit=?,administrateur=? WHERE no_utilisateur +";
 	private static final String DELETEUTILISATEUR = "DELETE FROM UTILISATEURS WHERE no_utilisateur=";
 
@@ -94,7 +94,7 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			stmt = cnx.createStatement();
 
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Listes");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM UTILISATEURS");
 
 			while (rs.next()) {
 				int noUtilisateur = rs.getInt("no_utilisateur");
@@ -128,14 +128,14 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 	}
 
 	@Override
-	public List<Utilisateur> selectByMotCle(String montCle)throws BusinessException {
+	public List<Utilisateur> selectByMotCle(String motCle)throws BusinessException {
 		Statement stmt = null;
 		List<Utilisateur> utilisateur = new ArrayList<Utilisateur>();
 		Utilisateur u = null;
 
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			stmt = cnx.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM UTILISATEURS WHERE pseudo= " + montCle);
+			ResultSet rs = stmt.executeQuery("SELECT * FROM UTILISATEURS WHERE pseudo LIKE '"+ motCle+"'");
 
 			while (rs.next()) {
 
@@ -178,7 +178,7 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			stmt = cnx.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM UTILISATEURS WHERE no_utilisateur= " + id);
+			ResultSet rs = stmt.executeQuery("SELECT * FROM UTILISATEURS WHERE no_utilisateur LIKE " + id);
 
 			while (rs.next()) {
 

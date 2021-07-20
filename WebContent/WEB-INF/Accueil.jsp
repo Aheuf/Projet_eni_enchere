@@ -36,19 +36,21 @@
 			</button>
 
 
-
 			<div class="collapse navbar-collapse justify-content-end"
 				id="navbarNav">
+				
+				<c:out value="${ CookieIDUtilisateur }" />
+				<c:if test="${!empty CookieIDUtilisateur}">
 				<a class="nav-link text-light text-end" href="#">Enchères</a> <a
 					class="nav-link text-light text-end" href="#">Vendre un article</a>
-				<c:if test="${!empty ok}">
+				
 					<a class="nav-link text-light text-end"
 						href="<%=request.getContextPath()%>/encheres/profil"><i
 						class="bi bi-person text-primary">Mon profil</i></a>
 					<a class="nav-link text-light text-end" href="#"><i
 						class="bi bi-box-arrow-left text-danger">Déconnexion</i></a>
 				</c:if>
-				<c:if test="${empty ok}">
+				<c:if test="${empty CookieIDUtilisateur}">
 					<a class="nav-link text-light text-end"
 						href="<%=request.getContextPath()%>/encheres/connexionPage"> <i
 						class="bi bi-person"> S'inscrire - Se connecter</i>

@@ -12,7 +12,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 @WebFilter(urlPatterns = "/Projet_eni_enchere/*", dispatcherTypes = { DispatcherType.REQUEST, DispatcherType.INCLUDE,
 		DispatcherType.FORWARD, DispatcherType.ERROR })
@@ -28,17 +27,19 @@ public class FilterConnexion implements Filter {
 			throws IOException, ServletException {
 
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
-		HttpServletResponse httpResponse = (HttpServletResponse) response;
 
 		Cookie[] cookies = httpRequest.getCookies();
+		
 
-		if (cookies != null || httpRequest.getSession().getAttribute("ok") != null) {
+		if (cookies!= null || httpRequest.getSession().getAttribute("ok") != null) {
 
-			httpRequest.getSession().setAttribute("ok", true);
+			httpRequest.getSession().setAttribute("okSession", true);
 			chain.doFilter(request, response);
-
+			System.out.println("ok");
+			
+		} else {
+			chain.doFilter(request, response);
 		}
-		chain.doFilter(request, response);
 
 	}
 

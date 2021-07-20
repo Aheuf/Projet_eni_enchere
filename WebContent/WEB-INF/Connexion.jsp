@@ -16,7 +16,7 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-<title>Eni-Encheres</title>
+<title>Eni-Encheres-Connexion</title>
 </head>
 
 <body>
@@ -39,9 +39,11 @@
 
 			<div class="collapse navbar-collapse justify-content-end"
 				id="navbarNav">
-				<a class="nav-link text-light text-end" href="#">Enchères</a> <a
-					class="nav-link text-light text-end" href="#">Vendre un article</a>
 				<c:if test="${!empty ok}">
+					<a class="nav-link text-light text-end" href="#">Enchères</a>
+					<a class="nav-link text-light text-end" href="#">Vendre un
+						article</a>
+
 					<a class="nav-link text-light text-end"
 						href="<%=request.getContextPath()%>/encheres/profil"><i
 						class="bi bi-person text-primary">Mon profil</i></a>
@@ -50,8 +52,9 @@
 				</c:if>
 				<c:if test="${empty ok}">
 					<a class="nav-link text-light text-end"
-						href="<%=request.getContextPath()%>/encheres/pageConnexion"> <i
-						class="bi bi-person"> S'inscrire - Se connecter</i></a>
+						href="<%=request.getContextPath()%>/encheres/connexionPage"> <i
+						class="bi bi-person"> S'inscrire - Se connecter</i>
+					</a>
 				</c:if>
 			</div>
 
@@ -90,9 +93,10 @@
 						<label class="form-check-label" for="souvenir"> Se
 							souvenir de moi </label>
 					</div>
+
 					<div class="col-md-12 col-sm-12 mt-5">
 						<a
-							href="${pageContext.request.contextPath}/WEB-INF/inscription.jsp"
+							href="${pageContext.request.contextPath}/encheres/VerificationConnexion?inscription"
 							class="btn btn-dark col-12">Inscrivez-vous</a>
 					</div>
 				</form>
