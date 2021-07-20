@@ -27,7 +27,7 @@
 
 
 
-			<a class="navbar-brand text-light" href="#">Eni-Encheres</a>
+			<a class="navbar-brand text-light" href="http://localhost:8080/Projet_eni_enchere/encheres/accueil">Eni-Encheres</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarNav"
 				aria-controls="navbarNav" aria-expanded="false"
@@ -187,7 +187,7 @@
 	</article>
 
 	<!--FOOTER-->
-	<footer class="bg-dark">
+	<footer class="bg-dark fixed-bottom">
 		<p class="text-light text-center">Copyright - ENI ecole</p>
 	</footer>
 
