@@ -23,57 +23,71 @@ public class ServletModifProfil extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		int idUtilisateur = 0;
 		EnchereManager en = new EnchereManager();
 		Cookie[] cookies = request.getCookies();
 		Utilisateur user = null;
-		
+
 		for (Cookie c : cookies) {
-			if (c.getName().equals("idUtilisateur")) {
+			if (c.getName().equals("CookieIDUtilisateur")) {
 				idUtilisateur = Integer.parseInt(c.getValue());
+				break;
 			}
 		}
-		
+
 		try {
 			List<Utilisateur> users = en.selectUtilisateurById(idUtilisateur);
 			user = users.get(0);
 			en.deleteUtilisateur(user.getNoUtilisateur());
-			//session.invalidate();
+			// session.invalidate();
+			for (Cookie c : cookies) {
+				if (c.getName().equals("CookieIDUtilisateur")) {
+					c.setMaxAge(0);
+					c.setValue("");
+					c.setPath("/");
+					response.addCookie(c);
+				}
+			}
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}
-		
+
 		this.getServletContext().setAttribute("user", user);
 		RequestDispatcher rd = request.getRequestDispatcher("/FilterConnexion");
 		rd.forward(request, response);
-		
+
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		int idUtilisateur = 0;
 		EnchereManager en = new EnchereManager();
 		Cookie[] cookies = request.getCookies();
 		Utilisateur user = null;
-		
+
 		for (Cookie c : cookies) {
-			if (c.getName().equals("idUtilisateur")) {
+			if (c.getName().equals("CookieIDUtilisateur")) {
 				idUtilisateur = Integer.parseInt(c.getValue());
+				break;
 			}
 		}
-		
+
 		try {
 			List<Utilisateur> users = en.selectUtilisateurById(idUtilisateur);
 			user = users.get(0);
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}
-		
+
 		String pseudo;
 		String nom;
 		String prenom;
@@ -87,7 +101,7 @@ public class ServletModifProfil extends HttpServlet {
 		String confirmationMDP;
 		int credit;
 		boolean administrateur;
-		
+
 		pseudo = request.getParameter("inputPseudo");
 		nom = request.getParameter("inputNom");
 		prenom = request.getParameter("inputPrenom");
@@ -101,15 +115,18 @@ public class ServletModifProfil extends HttpServlet {
 		confirmationMDP = request.getParameter("inputConfirmation");
 		credit = user.getCredit();
 		administrateur = false;
-		
-		if (pseudo == null || nom == null || prenom == null || email == null || telephone == null || rue == null || codePostal == null || ville == null || motDePasse == null || nouveauMDP == null || confirmationMDP == null ) {
+
+		if (pseudo == null || nom == null || prenom == null || email == null || telephone == null || rue == null
+				|| codePostal == null || ville == null || motDePasse == null || nouveauMDP == null
+				|| confirmationMDP == null) {
 			this.getServletContext().setAttribute("ErreurSaisi", "Tous les champs doivent être remplis !");
 			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/modifierprofil.jsp");
 			rd.forward(request, response);
-		} 
-		
+		}
+
 		if (motDePasse.equals(user.getMotDePasse()) && nouveauMDP == confirmationMDP) {
-			Utilisateur userUpdate = new Utilisateur(pseudo, nom, prenom, email, telephone,rue, codePostal, ville, nouveauMDP, credit, administrateur);
+			Utilisateur userUpdate = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville,
+					nouveauMDP, credit, administrateur);
 			try {
 				en.updateUtilisateur(userUpdate);
 			} catch (BusinessException e) {
@@ -124,7 +141,6 @@ public class ServletModifProfil extends HttpServlet {
 			this.getServletContext().setAttribute("ErreurConfirmMDP", "Les mots de passe doivent être identiques !");
 			rd.forward(request, response);
 		}
-		
 
 	}
 
