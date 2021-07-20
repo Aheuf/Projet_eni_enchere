@@ -18,7 +18,7 @@ import fr.eni.enchere.piou.bll.EnchereManager;
 /**
  * Servlet implementation class ServletModifProfil
  */
-@WebServlet("/encheres/modifierprofil")
+@WebServlet("/encheres/modifierprofil"
 public class ServletModifProfil extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
