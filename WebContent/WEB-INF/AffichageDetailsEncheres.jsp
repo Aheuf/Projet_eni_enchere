@@ -16,21 +16,48 @@
 </head>
 
 <body>
-<!--HEADER-->
-<header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-dark container-fluid">
-            <a class="navbar-brand text-light" href="#">Eni-Encheres</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <a class="nav-link text-light text-end" href="#">Enchères</a>
-                <a class="nav-link text-light text-end" href="#">Vendre un article</a>
-                <a class="nav-link text-light text-end" href="#"><i class="bi bi-person text-primary">Mon profil</i></a>
-                <a class="nav-link text-light text-end" href="#"><i class="bi bi-box-arrow-left text-danger"> Déconnexion</i></a>
-            </div>
-        </nav>
-    </header>
+	<!--HEADER-->
+	<header>
+		<nav
+			class="navbar navbar-expand-lg navbar-light bg-dark container-fluid">
+
+
+
+			<a class="navbar-brand text-light" href="http://localhost:8080/Projet_eni_enchere/encheres/accueil">Eni-Encheres</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarNav"
+				aria-controls="navbarNav" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+
+			<div class="collapse navbar-collapse justify-content-end"
+				id="navbarNav">
+
+				<!--<c:out value="${ CookieIDUtilisateur }" />-->
+				<c:if test="${!empty session}">
+					<a class="nav-link text-light text-end" href="#">Enchères</a>
+					<a class="nav-link text-light text-end" href="#">Vendre un
+						article</a>
+
+					<a class="nav-link text-light text-end"
+						href="<%=request.getContextPath()%>/encheres/profil"><i
+						class="bi bi-person text-primary">Mon profil</i></a>
+					<a class="nav-link text-light text-end"
+						href="${pageContext.request.contextPath}/encheres/accueil?deconnexion"><i
+						class="bi bi-box-arrow-left text-danger">Déconnexion</i></a>
+				</c:if>
+				<c:if test="${empty session}">
+					<a class="nav-link text-light text-end"
+						href="<%=request.getContextPath()%>/encheres/connexionPage"> <i
+						class="bi bi-person"> S'inscrire - Se connecter</i>
+					</a>
+				</c:if>
+			</div>
+
+		</nav>
+	</header>
 <br>
 <br>
 
