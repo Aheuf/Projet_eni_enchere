@@ -65,19 +65,19 @@
 		<h1 class="text-center mt-5 mb-5">Connexion</h1>
 		<div class="container">
 			<div class="d-flex justify-content-around">
-				<form method="post" action="../encheres/connexion"
+				<form method="post" action="../encheres/VerificationConnexion"
 					class="row col-md-4 col-sm-6 col-7 g-3">
 					<div class="col-md-6 col-sm-12">
 						<label for="identifiant">Identifiant(pseudo) :</label>
 					</div>
 					<div class="col-md-6 col-sm-12">
-						<input type="text" id="identifiant" name="identifiant">
+						<input type="text" id="identifiant" name="Identifiant">
 					</div>
 					<div class="col-md-6 col-sm-12">
 						<label for="mdp">Mot de passe :</label>
 					</div>
 					<div class="col-md-6 col-sm-12">
-						<input type="password" id="mdp" name="mdp">
+						<input type="password" id="mdp" name="MdP">
 					</div>
 					<div
 						class="mt-2 row justify-content-md-end justify-content-sm-center">

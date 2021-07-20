@@ -147,8 +147,8 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 				String telephone = rs.getString("telephone");
 				String rue = rs.getString("rue");
 				String codePostal = rs.getString("code_postal");
-				String ville = rs.getString("pseudo");
-				String motDePasse = rs.getString("pseudo");
+				String ville = rs.getString("ville");
+				String motDePasse = rs.getString("mot_de_passe");
 				int credit = rs.getInt("no_utilisateur");
 				boolean administrateur = rs.getBoolean("administrateur");
 
