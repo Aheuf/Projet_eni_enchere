@@ -20,6 +20,7 @@
 
 <title>Modifier un profil</title>
 </head>
+
 <body>
 	<!--HEADER-->
 	<header>
