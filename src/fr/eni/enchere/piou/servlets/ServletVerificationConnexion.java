@@ -49,6 +49,7 @@ public class ServletVerificationConnexion extends HttpServlet {
 			verification = manager.selectUtilisateurByMotCle(pseudo);
 
 			if (verification.isEmpty()) {
+				doGet(request, response);
 				System.out.println("rien dedans");
 			} else {
 				for (Utilisateur u : verification) {
@@ -56,13 +57,9 @@ public class ServletVerificationConnexion extends HttpServlet {
 				}
 				if (mdp.equals(testmdp)) {
 
-					for (Utilisateur u : verification) {
-						String id = String.valueOf(u.getNoUtilisateur());
-						Cookie unCookie = new Cookie("CookieIDUtilisateur", id);
-						unCookie.setMaxAge(300);
-						response.addCookie(unCookie);
-					}
+					
 				} else {
+					doGet(request, response);
 					System.out.println("probleme de mdp");
 				}
 			}
@@ -71,7 +68,7 @@ public class ServletVerificationConnexion extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		doGet(request, response);
+		;
 	}
 
 }

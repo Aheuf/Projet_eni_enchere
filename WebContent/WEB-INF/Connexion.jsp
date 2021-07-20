@@ -68,7 +68,7 @@
 				<form method="post" action="../encheres/connexion"
 					class="row col-md-4 col-sm-6 col-7 g-3">
 					<div class="col-md-6 col-sm-12">
-						<label for="identifiant">Identifiant :</label>
+						<label for="identifiant">Identifiant(pseudo) :</label>
 					</div>
 					<div class="col-md-6 col-sm-12">
 						<input type="text" id="identifiant" name="identifiant">

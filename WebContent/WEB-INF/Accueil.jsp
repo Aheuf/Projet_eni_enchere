@@ -84,67 +84,70 @@
 					<option value="3">Three</option>
 				</select>
 			</div>
-
-			<!--RADIO DE SELECTION-->
-			<div class="d-flex justify-content-evenly mt-3">
-				<div class="form-check-toggle">
-					<input class="form-check-input" type="radio"
-						name="flexRadioDefault" id="flexRadioDefault1"> <label
-						class="form-check-label" for="flexRadioDefault1"> Achats </label>
-				</div>
-
-				<div class="form-check-toggle">
-					<input class="form-check-input" type="radio"
-						name="flexRadioDefault" id="flexRadioDefault2"> <label
-						class="form-check-label" for="flexRadioDefault2"> Mes
-						ventes </label>
-				</div>
-			</div>
-
-			<div class="d-flex justify-content-evenly">
-				<!--CHECKBOX ACHAT-->
-				<div>
-					<div class="form-check">
-						<input class="form-check-input" id="achat" type="checkbox"
-							value="Encheres_ouverte"> <label class="form-check-label"
-							for="flexCheckDefault"> Enchères ouverte</label>
+			<c:if test="${!empty session}">
+				<!--RADIO DE SELECTION-->
+				<div class="d-flex justify-content-evenly mt-3">
+					<div class="form-check-toggle">
+						<input class="form-check-input" type="radio"
+							name="flexRadioDefault" id="flexRadioDefault1"> <label
+							class="form-check-label" for="flexRadioDefault1"> Achats
+						</label>
 					</div>
-					<div class="form-check">
-						<input class="form-check-input" type="checkbox"
-							value="encheres_en_cours"> <label
-							class="form-check-label" for="flexCheckDefault"> Mes
-							enchères en cours</label>
-					</div>
-					<div class="form-check">
-						<input class="form-check-input" type="checkbox"
-							value="encheres_remportees"> <label
-							class="form-check-label" for="flexCheckDefault"> Mes
-							enchères remportées</label>
+
+					<div class="form-check-toggle">
+						<input class="form-check-input" type="radio"
+							name="flexRadioDefault" id="flexRadioDefault2"> <label
+							class="form-check-label" for="flexRadioDefault2"> Mes
+							ventes </label>
 					</div>
 				</div>
 
-				<!--CHECKBOX VENTE-->
-				<div>
-					<div class="form-check">
-						<input class="form-check-input" type="checkbox"
-							value="ventes_en_cours"> <label class="form-check-label"
-							for="flexCheckDefault"> Mes ventes en cours</label>
+				<div class="d-flex justify-content-evenly">
+					<!--CHECKBOX ACHAT-->
+					<div>
+						<div class="form-check">
+							<input class="form-check-input" id="achat" type="checkbox"
+								value="Encheres_ouverte"> <label
+								class="form-check-label" for="flexCheckDefault">
+								Enchères ouverte</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox"
+								value="encheres_en_cours"> <label
+								class="form-check-label" for="flexCheckDefault"> Mes
+								enchères en cours</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox"
+								value="encheres_remportees"> <label
+								class="form-check-label" for="flexCheckDefault"> Mes
+								enchères remportées</label>
+						</div>
 					</div>
-					<div class="form-check">
-						<input class="form-check-input" type="checkbox"
-							value="ventes_non_debutees"> <label
-							class="form-check-label" for="flexCheckDefault"> Mes
-							ventes non débutées</label>
-					</div>
-					<div class="form-check">
-						<input class="form-check-input" type="checkbox"
-							value="Ventes_terminees"> <label class="form-check-label"
-							for="flexCheckDefault"> Ventes terminées</label>
+
+					<!--CHECKBOX VENTE-->
+					<div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox"
+								value="ventes_en_cours"> <label class="form-check-label"
+								for="flexCheckDefault"> Mes ventes en cours</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox"
+								value="ventes_non_debutees"> <label
+								class="form-check-label" for="flexCheckDefault"> Mes
+								ventes non débutées</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox"
+								value="Ventes_terminees"> <label
+								class="form-check-label" for="flexCheckDefault"> Ventes
+								terminées</label>
+						</div>
 					</div>
 				</div>
-			</div>
 
-
+			</c:if>
 			<!--SUBMIT-->
 			<div class="d-flex justify-content-center mt-2">
 				<button type="submit" class="btn btn-secondary">Rechercher</button>
