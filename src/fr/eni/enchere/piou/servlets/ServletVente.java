@@ -18,7 +18,7 @@ import fr.eni.enchere.piou.bll.EnchereManager;
 import fr.eni.enchere.piou.bo.ArticleVendu;
 import fr.eni.enchere.piou.bo.Utilisateur;
 
-/**
+/** 
  * Servlet implementation class ServletVente
  */
 @WebServlet("/encheres/ServletVente")
