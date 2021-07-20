@@ -111,14 +111,13 @@
                 <br>
                 <!--Cas 3: vente gagnée par un autre utilisateur vous etes le vendeur-->
                 <% } else {%>
-                <a href="<%=request.getContextPath() %>/encheres/retraits" class="badge text-danger" title="Retrait"><i
-                        class="btn btn-secondary btn-lg btn-block">Retrait effectué</i></a>
+                <form action="<%=request.getContextPath() %>/encheres/retraits" method="get">
+                	<input type="submit" class="badge text-danger" name="retrait" value="<%=article.getNoArticle()%>">
+                </form>
                 <% } %>
             </div>
         </div>
     </div>
-
-
     <br>
 
 </section>
