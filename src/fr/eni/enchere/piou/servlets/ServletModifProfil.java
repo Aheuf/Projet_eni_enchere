@@ -119,9 +119,9 @@ public class ServletModifProfil extends HttpServlet {
 			rd.forward(request, response);
 		} else {
 			this.getServletContext().setAttribute("ErreurMDP", "Erreur mot de passe !");
-			this.getServletContext().setAttribute("ErreurConfirmMDP", "Les mots de passe doivent être identiques !");
 			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/modifierprofil.jsp");
 			rd.include(request, response);
+			this.getServletContext().setAttribute("ErreurConfirmMDP", "Les mots de passe doivent être identiques !");
 			rd.forward(request, response);
 		}
 		
