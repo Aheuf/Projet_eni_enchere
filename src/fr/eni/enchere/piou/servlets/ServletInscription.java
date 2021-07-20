@@ -7,7 +7,6 @@ import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -40,7 +39,7 @@ public class ServletInscription extends HttpServlet {
 
 		List<Utilisateur> verification = new ArrayList<>();
 
-		Cookie[] cookies = request.getCookies();
+		//Cookie[] cookies = request.getCookies();
 		
 		String pseudo = request.getParameter("Pseudo");
 		String nom = request.getParameter("Nom");
