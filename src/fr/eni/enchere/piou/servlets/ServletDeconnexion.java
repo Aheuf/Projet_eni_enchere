@@ -34,7 +34,7 @@ public class ServletDeconnexion extends HttpServlet {
 			session = request.getSession(false);
 			//ne doit pas arriver
 			response.getWriter().println("Session : " + session);
-			
+			break;
 			
 		} else {
 			
