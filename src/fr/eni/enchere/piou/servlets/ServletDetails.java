@@ -9,6 +9,9 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.catalina.Session;
 
 import fr.eni.enchere.piou.BusinessException;
 import fr.eni.enchere.piou.bll.EnchereManager;
@@ -29,6 +32,7 @@ public class ServletDetails extends HttpServlet {
 		Categorie categorie = null;
 		Utilisateur vendeur = null;
 		Retrait retrait = null;
+		
 // gestion de l'affichage de l'article		
 		try {
 			article = em.selectArticleVenduById(idArticle).get(0);
@@ -50,16 +54,11 @@ public class ServletDetails extends HttpServlet {
 		request.setAttribute("Vendeur", vendeur.getNom());
 // fin de gestion de l'affichage de l'article
 
-// gestion de l'affichage suivant l'utilisateur (vendeur ou non)
-		Cookie[] cookies = request.getCookies();
-		int idUtilisateur = 0;
-		
-		for (Cookie c : cookies) {
-			if(c.getName().equals("CookieIDUtilisateur")) {
-				idUtilisateur = Integer.parseInt(c.getValue());
-				break;
-			}
-		}
+// gestion de l'affichage suivant l'utilisateur (vendeur ou non)	
+		HttpSession session = request.getSession();
+		Utilisateur utilisateur = (Utilisateur) session.getAttribute("session");
+		int idUtilisateur = utilisateur.getNoUtilisateur();
+
 		request.setAttribute("idUtilisateur", idUtilisateur);
 		request.setAttribute("idVendeur", vendeur.getNoUtilisateur());
 		
@@ -75,6 +74,7 @@ public class ServletDetails extends HttpServlet {
 //fin de gestion de l'affichage suivant l'utilisateur
 		
 // création d'un cookie IdArticle
+		Cookie[] cookies = request.getCookies();
 		Cookie cookieIdArticle = null;
 		int i = 0;
 		for (Cookie c : cookies) {
@@ -99,15 +99,10 @@ public class ServletDetails extends HttpServlet {
 		EnchereManager em = new EnchereManager();	
 		Cookie[] cookies = request.getCookies();
 
-// recupération de l'id utilisateur
-		int idUtilisateur = 0;
-		
-		for (Cookie c : cookies) {
-			if(c.getName().equals("CookieIDUtilisateur")) {
-				idUtilisateur = Integer.parseInt(c.getValue());
-				break;
-			}
-		}
+// recupération de l'id utilisateur		
+		HttpSession session = request.getSession();
+		Utilisateur utilisateur = (Utilisateur) session.getAttribute("session");
+		int idUtilisateur = utilisateur.getNoUtilisateur();
 		
 // recupération du vendeur
 		Utilisateur vendeur = null;

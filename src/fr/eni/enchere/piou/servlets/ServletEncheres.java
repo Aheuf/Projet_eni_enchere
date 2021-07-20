@@ -9,10 +9,12 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.enchere.piou.BusinessException;
 import fr.eni.enchere.piou.bll.EnchereManager;
 import fr.eni.enchere.piou.bo.ArticleVendu;
+import fr.eni.enchere.piou.bo.Utilisateur;
 
 @WebServlet("/encheres/encheres")
 public class ServletEncheres extends HttpServlet {
@@ -28,19 +30,19 @@ public class ServletEncheres extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/AffichageDetailsEncheres.jsp");
 		Cookie[] cookies = request.getCookies();
 		int idArticle = 0;
-		int idUtilisateur = 0;
+
 // recupération de l'id de l'article concerné
 		for (Cookie c : cookies) {
 			if (c.getName().equals("idArticle")) {
 				idArticle = Integer.parseInt(c.getValue());
 			}
 		}
+		
 // recupération de l'id utilisateur
-		for (Cookie c : cookies) {
-			if (c.getName().equals("CookieIDUtilisateur")) {
-			idUtilisateur = Integer.parseInt(c.getValue());	
-			}
-		}
+		HttpSession session = request.getSession();
+		Utilisateur utilisateur = (Utilisateur) session.getAttribute("session");
+		int idUtilisateur = utilisateur.getNoUtilisateur();
+		
 // récupération de l'article
 		ArticleVendu article = null;
 
@@ -50,6 +52,7 @@ public class ServletEncheres extends HttpServlet {
 			System.out.println("POST servletEnchere déconne à la récupération de l'article");
 			e.printStackTrace();
 		}
+		
 // test de validité de l'enchère
 		if (article.getPrixVente() < proposition) {
 			article.setPrixVente(proposition);
