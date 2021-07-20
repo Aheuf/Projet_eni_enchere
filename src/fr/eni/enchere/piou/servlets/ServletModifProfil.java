@@ -102,6 +102,12 @@ public class ServletModifProfil extends HttpServlet {
 		credit = user.getCredit();
 		administrateur = false;
 		
+		if (pseudo == null || nom == null || prenom == null || email == null || telephone == null || rue == null || codePostal == null || ville == null || motDePasse == null || nouveauMDP == null || confirmationMDP == null ) {
+			this.getServletContext().setAttribute("ErreurSaisi", "Tous les champs doivent être remplis !");
+			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/modifierprofil.jsp");
+			rd.forward(request, response);
+		} 
+		
 		if (motDePasse.equals(user.getMotDePasse()) && nouveauMDP == confirmationMDP) {
 			Utilisateur userUpdate = new Utilisateur(pseudo, nom, prenom, email, telephone,rue, codePostal, ville, nouveauMDP, credit, administrateur);
 			try {
@@ -112,7 +118,10 @@ public class ServletModifProfil extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/modifierprofil.jsp");
 			rd.forward(request, response);
 		} else {
+			this.getServletContext().setAttribute("ErreurMDP", "Erreur mot de passe !");
+			this.getServletContext().setAttribute("ErreurConfirmMDP", "Les mots de passe doivent être identiques !");
 			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/modifierprofil.jsp");
+			rd.include(request, response);
 			rd.forward(request, response);
 		}
 		

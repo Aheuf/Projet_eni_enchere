@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="fr.eni.enchere.piou.bo.Utilisateur" %>
+<%@ page import="fr.eni.enchere.piou.bo.Utilisateur"%>
 <!DOCTYPE html>
 <html>
 
@@ -49,19 +49,27 @@
 		<!-- Ajout Titres "mon profil"-->
 		<h1 class="text-center mt-5 mb-5">Mon Profil</h1>
 		<%
-		Utilisateur user = (Utilisateur) request.getAttribute("user");
+			Utilisateur user = (Utilisateur) request.getAttribute("user");
 		%>
 		<!-- formulaire "mon profil" -->
 		<div class="container">
 			<div class="d-flex justify-content-around">
 
-				<form method="POST" action="<%=request.getContextPath()%>/modifierprofil" class="row col-md-12 col-sm-12 ">
-
+				<form method="POST"
+					action="<%=request.getContextPath()%>/modifierprofil"
+					class="row col-md-12 col-sm-12 ">
+					<%
+						if (request.getAttribute("ErreurSaisi") != null) {
+					%>
+					<%=request.getAttribute("ErreurSaisi")%>
+					<%
+						}
+					%>
 					<div class="row col-sm-12 col-lg-12 ">
 						<div class="d-flex mb-3 col-lg-5 col-sm-12">
 							<label for="inputPseudo" class="col-3 form-label mt-1 ">Pseudo
 								:</label> <input type="text" class="form-control" id="inputPseudo"
-								aria-describedby="pseudoHelp" value="<%= user.getPseudo()%>">
+								aria-describedby="pseudoHelp" value="<%=user.getPseudo()%>">
 						</div>
 						<div class="d-flex mb-3 offset-lg-2 col-lg-5 col-sm-12">
 							<label for="inputNom" class="col-3 form-label mt-1">Nom :</label>
@@ -74,12 +82,12 @@
 						<div class="d-flex mb-3 col-lg-5 col-sm-12">
 							<label for="inputPrenom" class="col-3 form-label mt-1 ">Prenom
 								:</label> <input type="text" class="form-control" id="inputPrenom"
-								aria-describedby="prenomHelp" value="<%= user.getPrenom()%>">
+								aria-describedby="prenomHelp" value="<%=user.getPrenom()%>">
 						</div>
 						<div class="d-flex mb-3 offset-lg-2 col-lg-5 col-sm-12">
 							<label for="inputEmail" class="col-3 form-label mt-1 ">Email
 								:</label> <input type="text" class="form-control" id="inputEmail"
-								aria-describedby="emailHelp" value="<%= user.getEmail()%>">
+								aria-describedby="emailHelp" value="<%=user.getEmail()%>">
 						</div>
 					</div>
 
@@ -87,12 +95,13 @@
 						<div class="d-flex mb-3 col-lg-5 col-sm-12">
 							<label for="inputTelephone" class="col-3 form-label mt-1 ">Telephone
 								:</label> <input type="text" class="form-control" id="inputTelephone"
-								aria-describedby="telephoneHelp" value="<%= user.getTelephone()%>">
+								aria-describedby="telephoneHelp"
+								value="<%=user.getTelephone()%>">
 						</div>
 						<div class="d-flex mb-3 offset-lg-2 col-lg-5 col-sm-12">
 							<label for="inputRue" class="col-3 form-label mt-1">Rue :</label>
 							<input type="text" class="form-control" id="inputRue"
-								aria-describedby="rueHelp" value="<%= user.getRue()%>">
+								aria-describedby="rueHelp" value="<%=user.getRue()%>">
 						</div>
 					</div>
 
@@ -101,12 +110,12 @@
 							<label for="inputCodePostal" class="col-3 form-label mt-1 ">Code
 								Postal :</label> <input type="text" class="form-control"
 								id="inputCodePostal" aria-describedby="codePostalHelp"
-								value="<%= user.getCodePostal()%>">
+								value="<%=user.getCodePostal()%>">
 						</div>
 						<div class="d-flex mb-3 offset-lg-2 col-lg-5 col-sm-12">
 							<label for="inputVille" class="col-3 form-label mt-1 ">Ville
 								:</label> <input type="text" class="form-control" id="inputVille"
-								aria-describedby="villeHelp" value="<%= user.getVille()%>">
+								aria-describedby="villeHelp" value="<%=user.getVille()%>">
 						</div>
 					</div>
 
@@ -117,7 +126,13 @@
 								de passe actuel :</label> <input type="password" class="form-control"
 								id="inputMotDePasse" aria-describedby="motDePasseHelp">
 						</div>
-							<p style="color: red;">Le mot de passe est erroné !</p>
+						<%
+							if (request.getAttribute("ErreurMDP") != null) {
+						%>
+						<%=request.getAttribute("ErreurMDP")%>
+						<%
+							}
+						%>
 					</div>
 
 
@@ -132,15 +147,21 @@
 						<div class="d-flex mb-3 offset-lg-2 col-lg-5 col-sm-12">
 							<label for="inputConfirmation" class="col-3 form-label mt-1 ">Confirmation
 								:</label> <input type="password" class="form-control"
-								id="inputConfirmation" aria-describedby="confirmationHelp">	
+								id="inputConfirmation" aria-describedby="confirmationHelp">
 						</div>
-							<p style="color: red;">Le mot de passe doit être indentique !</p>					
+						<%
+							if (request.getAttribute("ErreurConfirmMDP") != null) {
+						%>
+						<%=request.getAttribute("ErreurConfirmMDP")%>
+						<%
+							}
+						%>
 					</div>
 
 					<div class="row col-sm-12 col-lg-12 mt-3 mb-3">
 						<div class="d-flex mb-3 col-lg-5 col-sm-12">
 							<p>
-								Credit : <strong><%= user.getCredit() %></strong>
+								Credit : <strong><%=user.getCredit()%></strong>
 							</p>
 						</div>
 					</div>
@@ -151,8 +172,8 @@
 						<input type="submit" name="btEnregistrer" value="Enregistrer"
 							class="col-md-2 btn btn-lg btn-dark" title="Enregistrer" />
 						<!-- bouton "Supprimer mon compte -->
-						<a href="<%=request.getContextPath()%>/modifierprofil" class="col-md-2 btn btn-lg btn-outline-dark">Supprimer
-							profil</a>
+						<a href="<%=request.getContextPath()%>/modifierprofil"
+							class="col-md-2 btn btn-lg btn-outline-dark">Supprimer profil</a>
 					</div>
 
 				</form>
