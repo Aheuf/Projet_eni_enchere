@@ -20,7 +20,7 @@ public class ArticleVenduDAOJdbcImpl implements DAO<ArticleVendu> {
 	private static String SELECT_BY_MC = "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, no_utilisateur, no_categorie, etat_vente FROM ARTICLES_VENDUS WHERE nom_article LIKE '%?%' OR description LIKE '%?%'";
 
 	@Override
-	public void insert(ArticleVendu article) throws BusinessException  {
+	public void insert(ArticleVendu article) throws BusinessException {
 
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement rqt = null;
@@ -52,7 +52,7 @@ public class ArticleVenduDAOJdbcImpl implements DAO<ArticleVendu> {
 	}
 
 	@Override
-	public void delete(int id) throws BusinessException  {
+	public void delete(int id) throws BusinessException {
 		PreparedStatement rqt = null;
 
 		try (Connection cnx = ConnectionProvider.getConnection()) {
@@ -68,7 +68,7 @@ public class ArticleVenduDAOJdbcImpl implements DAO<ArticleVendu> {
 	}
 
 	@Override
-	public List<ArticleVendu> selectAll() throws BusinessException  {
+	public List<ArticleVendu> selectAll() throws BusinessException {
 		List<ArticleVendu> articlesVendus = new ArrayList<>();
 		PreparedStatement rqt = null;
 		ResultSet rs = null;
@@ -79,9 +79,11 @@ public class ArticleVenduDAOJdbcImpl implements DAO<ArticleVendu> {
 			ArticleVendu article = null;
 
 			while (rs.next()) {
-				article = new ArticleVendu(article.getNoArticle(), article.getNomArticle(), article.getDescription(),
-						article.getDateDebutEncheres(), article.getDateFinEncheres(), article.getPrixInitial(),
-						article.getPrixVente(), article.getNoUtilisateur(), article.getNoCategorie());
+				
+				
+				article = new ArticleVendu(rs.getInt("no_utilisateur"), rs.getString("nom_article"), rs.getString("description"),
+						rs.getDate("date_debut_encheres"), rs.getDate("date_fin_encheres"), rs.getInt("prix_initial"),
+						rs.getInt("prix_vente"), rs.getInt("no_utilisateur"), rs.getInt("no_categorie"));
 
 				articlesVendus.add(article);
 			}
@@ -96,7 +98,7 @@ public class ArticleVenduDAOJdbcImpl implements DAO<ArticleVendu> {
 	}
 
 	@Override
-	public List<ArticleVendu> selectByMotCle(String motCle) throws BusinessException  {
+	public List<ArticleVendu> selectByMotCle(String motCle) throws BusinessException {
 		List<ArticleVendu> articlesVendus = new ArrayList<>();
 		PreparedStatement rqt = null;
 		ResultSet rs = null;
@@ -111,7 +113,7 @@ public class ArticleVenduDAOJdbcImpl implements DAO<ArticleVendu> {
 				article = new ArticleVendu(article.getNoArticle(), article.getNomArticle(), article.getDescription(),
 						article.getDateDebutEncheres(), article.getDateFinEncheres(), article.getPrixInitial(),
 						article.getPrixVente(), article.getNoUtilisateur(), article.getNoCategorie());
-				
+
 				articlesVendus.add(article);
 			}
 
@@ -126,7 +128,7 @@ public class ArticleVenduDAOJdbcImpl implements DAO<ArticleVendu> {
 	}
 
 	@Override
-	public List<ArticleVendu> selectById(int id) throws BusinessException  {
+	public List<ArticleVendu> selectById(int id) throws BusinessException {
 		List<ArticleVendu> articlesVendus = new ArrayList<>();
 		PreparedStatement rqt = null;
 		ResultSet rs = null;
@@ -175,7 +177,7 @@ public class ArticleVenduDAOJdbcImpl implements DAO<ArticleVendu> {
 			e.printStackTrace();
 			BusinessException businessException = new BusinessException();
 			businessException.ajouterErreur(CodesResultatDAL.UPDATE_OBJET_ECHEC);
-			
+
 		}
 	}
 
