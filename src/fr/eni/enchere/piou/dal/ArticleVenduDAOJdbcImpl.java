@@ -117,7 +117,7 @@ public class ArticleVenduDAOJdbcImpl implements DAO<ArticleVendu> {
 				articlesVendus.add(article);
 			}
 
-		} catch (SQLException e) {
+		} catch (SQLException ) {
 			System.out.println("La selection de tous les articles n'a pas marché :(");
 			e.printStackTrace();
 			BusinessException businessException = new BusinessException();
