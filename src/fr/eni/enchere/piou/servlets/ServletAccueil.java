@@ -28,19 +28,20 @@ public class ServletAccueil extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		Cookie[] cookies = request.getCookies();
+		/*Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("CookieIDUtilisateur")) {
                     request.setAttribute("CookieIDUtilisateur", cookie.getValue());
                 }
             }
-        }
+        }*/
         
 		CreationListArticle(request, response);
 
-        this.getServletContext().getRequestDispatcher("/WEB-INF/Accueil.jsp").forward(request, response);
-
+        
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/Accueil.jsp");
+		requestDispatcher.forward(request, response);
 	}
 
 	@Override

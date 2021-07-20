@@ -39,8 +39,8 @@
 			<div class="collapse navbar-collapse justify-content-end"
 				id="navbarNav">
 				
-				<c:out value="${ CookieIDUtilisateur }" />
-				<c:if test="${!empty CookieIDUtilisateur}">
+				<!--<c:out value="${ CookieIDUtilisateur }" />-->
+				<c:if test="${!empty session}">
 				<a class="nav-link text-light text-end" href="#">Enchères</a> <a
 					class="nav-link text-light text-end" href="#">Vendre un article</a>
 				
@@ -50,7 +50,7 @@
 					<a class="nav-link text-light text-end" href="#"><i
 						class="bi bi-box-arrow-left text-danger">Déconnexion</i></a>
 				</c:if>
-				<c:if test="${empty CookieIDUtilisateur}">
+				<c:if test="${empty session}">
 					<a class="nav-link text-light text-end"
 						href="<%=request.getContextPath()%>/encheres/connexionPage"> <i
 						class="bi bi-person"> S'inscrire - Se connecter</i>

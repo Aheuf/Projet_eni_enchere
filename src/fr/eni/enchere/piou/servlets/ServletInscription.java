@@ -60,18 +60,23 @@ public class ServletInscription extends HttpServlet {
 						codePostal, ville, mdp, credit, false);
 				request.setAttribute("newUtilisateur", newUtilisateur);
 				verification = manager.selectUtilisateurByMotCle(pseudo);
+				
+				request.setAttribute( "session", verification);
 
-				for (Utilisateur u : verification) {
+				/*for (Utilisateur u : verification) {
 					String id = String.valueOf(u.getNoUtilisateur());
 					System.out.println(id);
 					
 					Cookie unCookie = new Cookie("CookieIDUtilisateur", id);
-					unCookie.setMaxAge(300);
+					unCookie.setMaxAge(60);
 					response.addCookie(unCookie);
-					System.out.println(unCookie.getMaxAge());
-				}
-				 this.getServletContext().getRequestDispatcher("/encheres/accueil").forward(request, response);
-				 
+					System.out.println(unCookie.getMaxAge()); 
+				}*/
+			
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/Accueil.jsp");
+				requestDispatcher.forward(request, response);
+			 
+				
 
 			
 		} catch (BusinessException e) {
