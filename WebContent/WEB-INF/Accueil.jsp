@@ -49,7 +49,7 @@
 				</c:if>
 				<c:if test="${empty ok}">
 					<a class="nav-link text-light text-end"
-						href="${pageContext.request.contextPath}/encheres/connexion"> <i
+						href="<%=request.getContextPath()%>/encheres/pageConnexion"> <i
 						class="bi bi-person"> S'inscrire - Se connecter</i></a>
 				</c:if>
 			</div>

@@ -23,11 +23,8 @@ import fr.eni.enchere.piou.bo.Utilisateur;
 public class ServletAccueil extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public ServletAccueil() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
+	
+	 @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		EnchereManager manager = new EnchereManager();
@@ -37,7 +34,7 @@ public class ServletAccueil extends HttpServlet {
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/Accueil.jsp");
 		requestDispatcher.forward(request, response);
 	}
-
+	 @Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
