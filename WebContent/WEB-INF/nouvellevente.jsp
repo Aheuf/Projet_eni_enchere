@@ -50,7 +50,7 @@
                         <label for="categorie">Categorie :</label>
                     </div>
                     <div class="col-md-2 col-sm-6 col-6">
-                        <select class="form-select">
+                        <select class="form-select" id="categorie">
                             <option selected>Choisir...</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
@@ -85,15 +85,15 @@
                         <legend>Retrait</legend>
                         <div class="col-md-12 col-sm-12 col-12 d-flex justify-content-between">
                             <label for="rue" class="mt-2 col-3">Rue :</label>
-                            <input type="text" id="rue" name="rue" class="form-control">
+                            <input type="text" id="rue" name="rue" class="form-control" value="<%=request.getAttribute("Rue")%>">
                         </div>
                         <div class="col-md-12 col-sm-12 col-12 d-flex justify-content-between mt-3">
                             <label for="postal" class="mt-2  col-3">Code postal :</label>
-                            <input type="text" id="postal" name="postal" class="form-control">
+                            <input type="text" id="postal" name="postal" class="form-control" value="<%=request.getAttribute("CodePostal")%>">
                         </div>
                         <div class="col-md-12 col-sm-12 col-12 d-flex justify-content-between mt-3">
                             <label for="ville" class="mt-2  col-3">Ville :</label>
-                            <input type="text" id="ville" name="ville" class="form-control">
+                            <input type="text" id="ville" name="ville" class="form-control" value="<%=request.getAttribute("Ville")%>">
                         </div>
                     </fieldset>
 

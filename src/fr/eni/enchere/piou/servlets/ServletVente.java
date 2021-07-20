@@ -63,7 +63,7 @@ public class ServletVente extends HttpServlet {
 		}
 
 		//je lis les parametres Retrait de l'adresse utilisateur par défault
-		request.setCharacterEncoding("UTF-8");
+		//request.setCharacterEncoding("UTF-8");
 		
 		request.setAttribute("Rue", utilisateur.getRue());
 		request.setAttribute("CodePostal", utilisateur.getCodePostal());
