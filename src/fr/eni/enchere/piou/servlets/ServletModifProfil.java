@@ -51,6 +51,7 @@ public class ServletModifProfil extends HttpServlet {
 					c.setValue("");
 					c.setPath("/");
 					response.addCookie(c);
+					break;
 				}
 			}
 		} catch (BusinessException e) {
@@ -120,7 +121,7 @@ public class ServletModifProfil extends HttpServlet {
 				|| codePostal == null || ville == null || motDePasse == null || nouveauMDP == null
 				|| confirmationMDP == null) {
 			this.getServletContext().setAttribute("ErreurSaisi", "Tous les champs doivent être remplis !");
-			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/modifierprofil.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/encheres/profil");
 			rd.forward(request, response);
 		}
 
@@ -132,11 +133,11 @@ public class ServletModifProfil extends HttpServlet {
 			} catch (BusinessException e) {
 				e.printStackTrace();
 			}
-			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/modifierprofil.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/encheres/profil");
 			rd.forward(request, response);
 		} else {
 			this.getServletContext().setAttribute("ErreurMDP", "Erreur mot de passe !");
-			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/modifierprofil.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/encheres/profil");
 			rd.include(request, response);
 			this.getServletContext().setAttribute("ErreurConfirmMDP", "Les mots de passe doivent être identiques !");
 			rd.forward(request, response);
