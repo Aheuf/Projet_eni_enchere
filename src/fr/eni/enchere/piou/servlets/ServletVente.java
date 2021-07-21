@@ -36,7 +36,7 @@ public class ServletVente extends HttpServlet {
 		Utilisateur utilisateur = null;
 		HttpSession session = request.getSession();
 		idUtilisateur = (int) session.getAttribute("session");
-					//= 1 pour test
+					//= 1 pour test 
 		
 		try {
 			List<Utilisateur> utilisateurs = em.selectUtilisateurById(idUtilisateur);
