@@ -118,9 +118,16 @@ public class ArticleVenduDAOJdbcImpl implements DAO<ArticleVendu> {
 			rs = rqt.executeQuery();
 
 			while (rs.next()) {
-				article = new ArticleVendu(article.getNoArticle(), article.getNomArticle(), article.getDescription(),
-						article.getDateDebutEncheres(), article.getDateFinEncheres(), article.getPrixInitial(),
-						article.getPrixVente(), article.getNoUtilisateur(), article.getNoCategorie());
+				article = new ArticleVendu(
+						rs.getInt("no_article"), 
+						rs.getString("nom_article"), 
+						rs.getString("description"),
+						rs.getDate("date_debut_encheres"), 
+						rs.getDate("date_fin_encheres"), 
+						rs.getInt("prix_initial"),
+						rs.getInt("prix_vente"), 
+						rs.getInt("no_utilisateur"), 
+						rs.getInt("no_categorie"));
 
 				articlesVendus.add(article);
 			}
@@ -143,13 +150,21 @@ public class ArticleVenduDAOJdbcImpl implements DAO<ArticleVendu> {
 
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			rqt = cnx.prepareStatement(SELECT_BY_ID);
+			rqt.setInt(1, id);
 			rs = rqt.executeQuery();
 			ArticleVendu article = null;
 
 			while (rs.next()) {
-				article = new ArticleVendu(article.getNoArticle(), article.getNomArticle(), article.getDescription(),
-						article.getDateDebutEncheres(), article.getDateFinEncheres(), article.getPrixInitial(),
-						article.getPrixVente(), article.getNoUtilisateur(), article.getNoCategorie());
+				article = new ArticleVendu(
+						rs.getInt("no_article"), 
+						rs.getString("nom_article"), 
+						rs.getString("description"),
+						rs.getDate("date_debut_encheres"), 
+						rs.getDate("date_fin_encheres"), 
+						rs.getInt("prix_initial"),
+						rs.getInt("prix_vente"), 
+						rs.getInt("no_utilisateur"), 
+						rs.getInt("no_categorie"));
 
 				articlesVendus.add(article);
 			}

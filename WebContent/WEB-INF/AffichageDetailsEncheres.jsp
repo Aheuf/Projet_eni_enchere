@@ -2,6 +2,7 @@
 <%@page import="fr.eni.enchere.piou.bo.ArticleVendu"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -122,7 +123,7 @@
 
             <div class=" text-center fw-bold">
                 <!--varie en fonction du resultat de la vente-->
-                <% if (date != article.getDateFinEncheres()){ %>
+                <% if (date != article.getDateFinEncheres() || request.getAttribute("idUtilisateur").equals("0")){ %>
                 <!--Cas 1 : vente en cours-->
                 <form method="post" action="<%=request.getContextPath()%>/encheres/encheres">
                     <label for="input_saisie">Ma proposition : </label>
@@ -150,9 +151,9 @@
 
 
 <!--FOOTER-->
-<footer class="bg-dark">
-    <p class="text-light text-center">Copyright - ENI ecole</p>
-</footer>
+	<footer class="bg-dark fixed-bottom">
+		<p class="text-light text-center">Copyright - ENI ecole</p>
+	</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">

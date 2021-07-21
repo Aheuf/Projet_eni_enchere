@@ -11,8 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.catalina.Session;
-
 import fr.eni.enchere.piou.BusinessException;
 import fr.eni.enchere.piou.bll.EnchereManager;
 import fr.eni.enchere.piou.bo.ArticleVendu;
@@ -25,7 +23,8 @@ public class ServletDetails extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int idArticle = Integer.parseInt(request.getParameter("idArticle"));
+		HttpSession session = request.getSession();
+		int idArticle =Integer.parseInt(request.getParameter("idarticle"));
 		RequestDispatcher rd = null;
 		EnchereManager em = new EnchereManager();
 		ArticleVendu article = null;
@@ -54,11 +53,13 @@ public class ServletDetails extends HttpServlet {
 		request.setAttribute("Vendeur", vendeur.getNom());
 // fin de gestion de l'affichage de l'article
 
-// gestion de l'affichage suivant l'utilisateur (vendeur ou non)	
-		HttpSession session = request.getSession();
-		Utilisateur utilisateur = (Utilisateur) session.getAttribute("session");
-		int idUtilisateur = utilisateur.getNoUtilisateur();
-
+// gestion de l'affichage suivant l'utilisateur (vendeur ou non)
+		int idUtilisateur = 0;
+		
+		if (session.getAttribute("session") != null) {
+			idUtilisateur = (int) session.getAttribute("session");
+		}
+		
 		request.setAttribute("idUtilisateur", idUtilisateur);
 		request.setAttribute("idVendeur", vendeur.getNoUtilisateur());
 		
