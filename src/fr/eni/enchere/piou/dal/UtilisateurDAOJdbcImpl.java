@@ -14,6 +14,7 @@ import fr.eni.enchere.piou.bo.Utilisateur;
 public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 
 	private static final String INSERTUTILISATEUR = "INSERT INTO UTILISATEURS(pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit) VALUES(?,?,?,?,?,?,?,?,?,?);";
+	private static final String UPDATEUTILISATEUR = "UPDATE UTILISATEURS SET pseudo=?,nom=?,prenom=?,email=?,telephone=?,rue=?,code_postal=?,ville=?,mot_de_passe=?,credit=? WHERE no_utilisateur =";
 	private static final String DELETEUTILISATEUR = "DELETE FROM UTILISATEURS WHERE no_utilisateur=";
 
 	@Override
@@ -212,7 +213,7 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 		int id = utilisateur.getNoUtilisateur();
 
 		try (Connection cnx = ConnectionProvider.getConnection()) {
-			pstmt = cnx.prepareStatement("UPDATE UTILISATEURS SET pseudo=?,nom=?,prenom=?,email=?,telephone=?,rue=?,code_postal=?,ville=?,mot_de_passe=?,credit=? WHERE no_utilisateur =" + id);
+			pstmt = cnx.prepareStatement(UPDATEUTILISATEUR + id);
 			pstmt.setString(1, utilisateur.getPseudo());
 			pstmt.setString(2, utilisateur.getNom());
 			pstmt.setString(3, utilisateur.getPrenom());
