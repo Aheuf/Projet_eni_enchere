@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.enchere.piou.BusinessException;
-import fr.eni.enchere.piou.bo.Categorie;
 import fr.eni.enchere.piou.bo.Utilisateur;
 
 public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
@@ -63,7 +62,6 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 	@Override
 	public void delete(int id) throws BusinessException {
 
-		PreparedStatement prep = null;
 
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 
@@ -104,9 +102,9 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 				String telephone = rs.getString("telephone");
 				String rue = rs.getString("rue");
 				String codePostal = rs.getString("code_postal");
-				String ville = rs.getString("pseudo");
-				String motDePasse = rs.getString("pseudo");
-				int credit = rs.getInt("no_utilisateur");
+				String ville = rs.getString("ville");
+				String motDePasse = rs.getString("mot_de_passe");
+				int credit = rs.getInt("credit");
 
 				u = new Utilisateur(noUtilisateur, pseudo, nom, prenom, email, telephone, rue, codePostal, ville,
 						motDePasse, credit);
@@ -147,7 +145,7 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 				String codePostal = rs.getString("code_postal");
 				String ville = rs.getString("ville");
 				String motDePasse = rs.getString("mot_de_passe");
-				int credit = rs.getInt("no_utilisateur");
+				int credit = rs.getInt("credit");
 
 				u = new Utilisateur(noUtilisateur, pseudo, nom, prenom, email, telephone, rue, codePostal, ville,
 						motDePasse, credit);
@@ -187,9 +185,9 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 				String telephone = rs.getString("telephone");
 				String rue = rs.getString("rue");
 				String codePostal = rs.getString("code_postal");
-				String ville = rs.getString("pseudo");
-				String motDePasse = rs.getString("pseudo");
-				int credit = rs.getInt("no_utilisateur");
+				String ville = rs.getString("ville");
+				String motDePasse = rs.getString("mot_de_passe");
+				int credit = rs.getInt("credit");
 
 				u = new Utilisateur(noUtilisateur, pseudo, nom, prenom, email, telephone, rue, codePostal, ville,
 						motDePasse, credit);

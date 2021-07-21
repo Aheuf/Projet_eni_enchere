@@ -59,7 +59,7 @@ public class ServletInscription extends HttpServlet {
 			if (mdp.equals(verifMdp)) {
 				System.out.println(mdp);
 				Utilisateur newUtilisateur = manager.insertUtilisateur(pseudo, nom, prenom, email, telephone, rue,
-						codePostal, ville, mdp, credit, false);
+						codePostal, ville, mdp, credit);
 				request.setAttribute("newUtilisateur", newUtilisateur);
 				verification = manager.selectUtilisateurByMotCle(pseudo);
 
