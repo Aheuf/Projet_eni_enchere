@@ -17,7 +17,7 @@ public class ArticleVenduDAOJdbcImpl implements DAO<ArticleVendu> {
 	private static String DELETE_ID = "DELETE FROM ARTICLES_VENDUS WHERE no_article = ?";
 	private static String SELECT_ALL = "SELECT * FROM ARTICLES_VENDUS";
 	private static String SELECT_BY_ID = "SELECT * FROM ARTICLES_VENDUS WHERE no_article = ?";
-	private static String UPDATE = "UPDATE ARTICLES_VENDUS SET nom_article = ?, description = ?, date_debut_encheres = ?, date_fin_encheres = ?, prix_initial = ?,prix_vente = ?, no_utilisateur = ?, no_categorie = ?";
+	private static String UPDATE = "UPDATE ARTICLES_VENDUS SET nom_article = ?, description = ?, date_debut_encheres = ?, date_fin_encheres = ?, prix_initial = ?,prix_vente = ?, no_utilisateur = ?, no_categorie = ?, etat_vente = ? ";
 	private static String SELECT_BY_MC = "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, no_utilisateur, no_categorie, etat_vente FROM ARTICLES_VENDUS WHERE nom_article LIKE '%?%' OR description LIKE '%?%'";
 
 	@Override
@@ -193,6 +193,7 @@ public class ArticleVenduDAOJdbcImpl implements DAO<ArticleVendu> {
 			rqt.setInt(6, article.getPrixVente());
 			rqt.setInt(7, article.getNoUtilisateur());
 			rqt.setInt(8, article.getNoCategorie());
+			rqt.setString(9, article.getEtatVente());
 
 			rqt.executeUpdate();
 

@@ -19,7 +19,7 @@ public class ServletRetraits extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		EnchereManager em = new EnchereManager();
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Accueil.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/encheres/accueil");
 		int idArticle = Integer.parseInt(request.getParameter("retrait"));
 		ArticleVendu article = null;
 		
