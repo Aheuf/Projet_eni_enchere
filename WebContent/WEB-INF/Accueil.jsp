@@ -45,7 +45,7 @@
 						article</a>
 
 					<a class="nav-link text-light text-end"
-						href="<%=request.getContextPath()%>/encheres/profil"><i
+						href="${pageContext.request.contextPath}/encheres/profil"><i
 						class="bi bi-person text-primary">Mon profil</i></a>
 					<a class="nav-link text-light text-end"
 						href="${pageContext.request.contextPath}/encheres/accueil?deconnexion"><i
