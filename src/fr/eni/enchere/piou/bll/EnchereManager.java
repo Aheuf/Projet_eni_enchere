@@ -298,6 +298,7 @@ public class EnchereManager {
 
 		try {
 			DAOUtilisateur.update(utilisateur);
+			System.out.println("C'est passé dans la Bll");
 		} catch (BusinessException e) {
 			System.out.println("erreur bll utilisateur update");
 
