@@ -1,6 +1,7 @@
 package fr.eni.enchere.piou.dal;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,8 +29,8 @@ public class ArticleVenduDAOJdbcImpl implements DAO<ArticleVendu> {
 			rqt = cnx.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
 			rqt.setString(1, article.getNomArticle());
 			rqt.setString(2, article.getDescription());
-			rqt.setDate(3, article.getDateDebutEncheres());
-			rqt.setDate(4, article.getDateFinEncheres());
+			rqt.setDate(3, Date.valueOf(article.getDateDebutEncheres()));
+			rqt.setDate(4, Date.valueOf(article.getDateFinEncheres()));
 			rqt.setInt(5, article.getPrixInitial());
 			rqt.setInt(6, article.getNoUtilisateur());
 			rqt.setInt(7, article.getNoCategorie());
@@ -162,8 +163,8 @@ public class ArticleVenduDAOJdbcImpl implements DAO<ArticleVendu> {
 
 			rqt.setString(1, article.getNomArticle());
 			rqt.setString(2, article.getDescription());
-			rqt.setDate(3, article.getDateDebutEncheres());
-			rqt.setDate(4, article.getDateFinEncheres());
+			rqt.setDate(3, Date.valueOf(article.getDateDebutEncheres()));
+			rqt.setDate(4, Date.valueOf(article.getDateFinEncheres()));
 			rqt.setInt(5, article.getPrixInitial());
 			rqt.setInt(6, article.getNoUtilisateur());
 			rqt.setInt(7, article.getNoCategorie());
