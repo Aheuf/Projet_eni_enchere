@@ -89,7 +89,7 @@
 	                <h1>Vous avez remporté la vente</h1>
                	<% } else {%>
                	<!--Cas 3: vente gagnée par un autre utilisateur vous etes le vendeur-->
-	                <h1><%= (String) request.getAttribute("pseudoVainqueur") %> a remporté la vente</h1>     
+	                <h1><%= %> a remporté la vente</h1>     
                 <% } %>
             </div>
             <div class="row">
