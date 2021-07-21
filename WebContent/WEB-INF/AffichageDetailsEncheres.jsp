@@ -1,3 +1,4 @@
+<%@page import="fr.eni.enchere.piou.bo.Utilisateur"%>
 <%@page import="java.util.Date"%>
 <%@page import="fr.eni.enchere.piou.bo.ArticleVendu"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -84,12 +85,12 @@
                 %>
                 <!--Cas 1: vente en cours-->
                 	<h1>Détail vente:</h1>                	
-               	<% } else if ((int) request.getAttribute("idUtilisateur")==(int) request.getAttribute("idVainqueur")){ %>
+               	<% } else if ((int) request.getAttribute("idUtilisateur") ==  (int) request.getAttribute("gagnant")){ %>
 	            <!--Cas 2 : utilisateur gagne la vente-->
 	                <h1>Vous avez remporté la vente</h1>
                	<% } else {%>
                	<!--Cas 3: vente gagnée par un autre utilisateur vous etes le vendeur-->
-	                <h1><%= %> a remporté la vente</h1>     
+	                <h1><%=article.getDernierEncherisseur() %> a remporté la vente</h1>     
                 <% } %>
             </div>
             <div class="row">
@@ -124,7 +125,8 @@
             <div class=" text-center fw-bold">
                 <!--varie en fonction du resultat de la vente-->
                 <%if ((int) request.getAttribute("idUtilisateur") == 0 
-                || (int) request.getAttribute("idUtilisateur") == (int) request.getAttribute("idVainqueur")
+                || (int) request.getAttribute("idUtilisateur") == (int) request.getAttribute("gagnant")
+                || (int) request.getAttribute("idUtilisateur") == article.getNoUtilisateur()
                 ){ %>
                 <a href="<%=request.getContextPath()%>/encheres/accueil">
                     <button class="btn btn-secondary btn-lg btn-block mb-5">Retour</button>

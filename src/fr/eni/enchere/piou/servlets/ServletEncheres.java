@@ -43,6 +43,7 @@ public class ServletEncheres extends HttpServlet {
 			try {
 				Utilisateur utilisateur =  em.selectUtilisateurById((int) session.getAttribute("session")).get(0);
 				utilisateur.setCredit(utilisateur.getCredit() - proposition);
+				article.setDernierEncherisseur(utilisateur.getPseudo());
 				em.updateUtilisateur(utilisateur);
 				em.updateArticle(article);
 			} catch (BusinessException e) {

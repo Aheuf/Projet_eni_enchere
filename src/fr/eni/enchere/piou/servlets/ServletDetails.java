@@ -50,7 +50,6 @@ public class ServletDetails extends HttpServlet {
 		request.setAttribute("MiseAPrix", article.getPrixInitial());
 		request.setAttribute("Retrait", retrait.toString()); // adresse de retrait
 		request.setAttribute("Vendeur", vendeur.getNom());
-// fin de gestion de l'affichage de l'article
 
 // gestion de l'affichage suivant l'utilisateur (vendeur ou non)
 		int idUtilisateur = 0;
@@ -62,22 +61,19 @@ public class ServletDetails extends HttpServlet {
 		request.setAttribute("idUtilisateur", idUtilisateur);
 		request.setAttribute("idVendeur", vendeur.getNoUtilisateur());
 		
-		String pseudoVainqueur = null;
-		int idVainqueur = 0;
-		try {
-			pseudoVainqueur = em.selectUtilisateurById(article.getNoUtilisateur()).get(0).getPseudo();
-			idVainqueur = em.selectUtilisateurById(article.getNoUtilisateur()).get(0).getNoUtilisateur();
-		} catch (BusinessException e) {
-			System.out.println("GET ServletDetails déconne sur l'user");
-			e.printStackTrace();
+//definition du dernier encherisseur
+		int idgagnant = 0;
+			if (article.getDernierEncherisseur() != null) {
+			try {
+				idgagnant = em.selectUtilisateurByMotCle(article.getDernierEncherisseur()).get(0).getNoUtilisateur();
+			} catch (BusinessException e) {
+				System.out.println("GET ServletDetails déconne sur le gagnant");
+				e.printStackTrace();
+			}
 		}
-		request.setAttribute("idVainqueur", idVainqueur);
-		request.setAttribute("pseudoVainqueur", pseudoVainqueur);
-//fin de gestion de l'affichage suivant l'utilisateur
-		
+		request.setAttribute("gagnant", idgagnant);
 // création d'un attribu de session IdArticle
 			session.setAttribute("idArticle", article.getNoArticle());
-// fin de la gestion du cookie IdArticle
 		
 		rd = request.getRequestDispatcher("/WEB-INF/AffichageDetailsEncheres.jsp");
 		rd.forward(request, response);
