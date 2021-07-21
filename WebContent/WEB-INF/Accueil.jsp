@@ -84,7 +84,7 @@
 
 				</select>
 			</div>
-			
+
 			<c:if test="${!empty session}">
 				<!--RADIO DE SELECTION-->
 				<div class="d-flex justify-content-evenly mt-3">
@@ -166,7 +166,9 @@
 				<img class="card-img-top" src=".../100px180/" alt="image produit">
 				<div class="card-body">
 					<h5 class="card-title">
-						<a href="<%=request.getContextPath()%>/encheres/details?idarticle=${a.noArticle}" class="link-dark">${a.nomArticle}</a>
+						<a
+							href="<%=request.getContextPath()%>/encheres/details?idarticle=${a.noArticle}"
+							class="link-dark">${a.nomArticle}</a>
 					</h5>
 					<p class="card-text">Prix : ${a.prixVente} points</p>
 					<p class="card-text">Fin de l'enchère : ${a.dateFinEncheres}</p>
@@ -175,7 +177,8 @@
 					<c:forEach var="b" items="${listeVendeurArticleActuelle}">
 						<c:if test="${b.noUtilisateur==a.noUtilisateur}">
 							<c:if test="${!empty session}">
-								<form action="<%=request.getContextPath()%>/encheres/details" method ="post">
+								<form action="<%=request.getContextPath()%>/encheres/details"
+									method="post">
 									<input type="submit" class="btn btn-link" value="${b.pseudo}">
 								</form>
 								<!--<p class="card-text">
