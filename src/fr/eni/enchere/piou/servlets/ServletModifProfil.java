@@ -10,6 +10,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.enchere.piou.bo.Utilisateur;
 import fr.eni.enchere.piou.BusinessException;
@@ -28,32 +29,18 @@ public class ServletModifProfil extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		int idUtilisateur = 0;
 		EnchereManager en = new EnchereManager();
-		Cookie[] cookies = request.getCookies();
 		Utilisateur user = null;
+		HttpSession session = request.getSession();
+		Utilisateur utilisateur = (Utilisateur) session.getAttribute("session");
+		int idUtilisateur = utilisateur.getNoUtilisateur();
 
-		for (Cookie c : cookies) {
-			if (c.getName().equals("CookieIDUtilisateur")) {
-				idUtilisateur = Integer.parseInt(c.getValue());
-				break;
-			}
-		}
 
 		try {
 			List<Utilisateur> users = en.selectUtilisateurById(idUtilisateur);
 			user = users.get(0);
 			en.deleteUtilisateur(user.getNoUtilisateur());
-			// session.invalidate();
-			for (Cookie c : cookies) {
-				if (c.getName().equals("CookieIDUtilisateur")) {
-					c.setMaxAge(0);
-					c.setValue("");
-					c.setPath("/");
-					response.addCookie(c);
-					break;
-				}
-			}
+			session.invalidate();
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}
@@ -70,17 +57,13 @@ public class ServletModifProfil extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		int idUtilisateur = 0;
-		EnchereManager en = new EnchereManager();
-		Cookie[] cookies = request.getCookies();
-		Utilisateur user = null;
 
-		for (Cookie c : cookies) {
-			if (c.getName().equals("CookieIDUtilisateur")) {
-				idUtilisateur = Integer.parseInt(c.getValue());
-				break;
-			}
-		}
+		EnchereManager en = new EnchereManager();
+		Utilisateur user = null;
+		HttpSession session = request.getSession();
+		Utilisateur utilisateur = (Utilisateur) session.getAttribute("session");
+		int idUtilisateur = utilisateur.getNoUtilisateur();
+
 
 		try {
 			List<Utilisateur> users = en.selectUtilisateurById(idUtilisateur);
@@ -126,15 +109,23 @@ public class ServletModifProfil extends HttpServlet {
 		}
 
 		if (motDePasse.equals(user.getMotDePasse()) && nouveauMDP == confirmationMDP) {
+			
+			
 			Utilisateur userUpdate = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville,
 					nouveauMDP, credit, administrateur);
+			
+			
 			try {
 				en.updateUtilisateur(userUpdate);
 			} catch (BusinessException e) {
 				e.printStackTrace();
 			}
+			
+			
 			RequestDispatcher rd = request.getRequestDispatcher("/encheres/profil");
 			rd.forward(request, response);
+			
+			
 		} else {
 			this.getServletContext().setAttribute("ErreurMDP", "Erreur mot de passe !");
 			RequestDispatcher rd = request.getRequestDispatcher("/encheres/profil");
