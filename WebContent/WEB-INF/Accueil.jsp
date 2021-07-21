@@ -41,8 +41,9 @@
 				<!--<c:out value="${ CookieIDUtilisateur }" />-->
 				<c:if test="${!empty session}">
 					<a class="nav-link text-light text-end" href="#">Enchères</a>
-					<a class="nav-link text-light text-end" href="${pageContext.request.contextPath}/encheres/ServletVente">Vendre un
-						article</a>
+					<a class="nav-link text-light text-end"
+						href="${pageContext.request.contextPath}/encheres/ServletVente">Vendre
+						un article</a>
 
 					<a class="nav-link text-light text-end"
 						href="${pageContext.request.contextPath}/encheres/profil"><i
@@ -68,14 +69,15 @@
 
 	<!--CHAMPS-->
 	<section>
-		<form action="#" class="container">
+		<form action="post" class="../encheres/recherche">
 			<label for="champ_accueil">Filtres :</label> <input
 				id="champ_accueil" class="form-control col-lg-6" type="text"
-				placeholder="Le nom de l'article contient"
+				name="Filtre"
+				placeholder="Le nom de l'article contient (veuillez mettre UN mot clef)"
 				aria-label="default input example">
 			<div class="row mt-2">
 				<label class="pt-1" for="categorie_accueil">Catégories :</label> <select
-					id="categorie_accueil" class="form-select"
+					id="categorie_accueil" name="ChoixCategorie" class="form-select"
 					aria-label="Default select example">
 					<option selected>Toutes</option>
 					<c:forEach var="c" items="${listeCategorie}">
@@ -90,16 +92,16 @@
 				<div class="d-flex justify-content-evenly mt-3">
 					<div class="form-check-toggle">
 						<input class="form-check-input" type="radio"
-							name="flexRadioDefault" id="flexRadioDefault1"> <label
-							class="form-check-label" for="flexRadioDefault1"> Achats
-						</label>
+							onclick="bloqueVente()" name="radiocheck" value="radioAchats"
+							id="flexRadioDefault1"> <label class="form-check-label"
+							for="flexRadioDefault1"> Achats </label>
 					</div>
 
 					<div class="form-check-toggle">
 						<input class="form-check-input" type="radio"
-							name="flexRadioDefault" id="flexRadioDefault2"> <label
-							class="form-check-label" for="flexRadioDefault2"> Mes
-							ventes </label>
+							onclick="bloqueAchat()" name="radiocheck" value="radioVentes"
+							id="flexRadioDefault2"> <label class="form-check-label"
+							for="flexRadioDefault2"> Mes ventes </label>
 					</div>
 				</div>
 
@@ -107,20 +109,20 @@
 					<!--CHECKBOX ACHAT-->
 					<div>
 						<div class="form-check">
-							<input class="form-check-input" id="achat" type="checkbox"
-								value="Encheres_ouverte"> <label
+							<input class="form-check-input" id="myCheckAchat1"
+								type="checkbox" value="Encheres_ouverte"> <label
 								class="form-check-label" for="flexCheckDefault">
 								Enchères ouverte</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="checkbox"
-								value="encheres_en_cours"> <label
+							<input class="form-check-input" id="myCheckAchat2"
+								type="checkbox" value="encheres_en_cours"> <label
 								class="form-check-label" for="flexCheckDefault"> Mes
 								enchères en cours</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="checkbox"
-								value="encheres_remportees"> <label
+							<input class="form-check-input" id="myCheckAchat3"
+								type="checkbox" value="encheres_remportees"> <label
 								class="form-check-label" for="flexCheckDefault"> Mes
 								enchères remportées</label>
 						</div>
@@ -129,19 +131,20 @@
 					<!--CHECKBOX VENTE-->
 					<div>
 						<div class="form-check">
-							<input class="form-check-input" type="checkbox"
-								value="ventes_en_cours"> <label class="form-check-label"
-								for="flexCheckDefault"> Mes ventes en cours</label>
+							<input class="form-check-input" id="myCheckVente1"
+								type="checkbox" value="ventes_en_cours"> <label
+								class="form-check-label" for="flexCheckDefault"> Mes
+								ventes en cours</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="checkbox"
-								value="ventes_non_debutees"> <label
+							<input class="form-check-input" id="myCheckVente2"
+								type="checkbox" value="ventes_non_debutees"> <label
 								class="form-check-label" for="flexCheckDefault"> Mes
 								ventes non débutées</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="checkbox"
-								value="Ventes_terminees"> <label
+							<input class="form-check-input" id="myCheckVente3"
+								type="checkbox" value="Ventes_terminees"> <label
 								class="form-check-label" for="flexCheckDefault"> Ventes
 								terminées</label>
 						</div>
@@ -177,7 +180,8 @@
 					<c:forEach var="b" items="${listeVendeurArticleActuelle}">
 						<c:if test="${b.noUtilisateur==a.noUtilisateur}">
 							<c:if test="${!empty session}">
-								<form action="<%=request.getContextPath()%>/encheres/details?idVendeur=${a.noUtilisateur}"
+								<form
+									action="<%=request.getContextPath()%>/encheres/details?idVendeur=${a.noUtilisateur}"
 									method="post">
 									<input type="submit" class="btn btn-link" value="${b.pseudo}">
 								</form>
@@ -209,6 +213,27 @@
 		crossorigin="anonymous">
 		
 	</script>
+	<script>
+		function bloqueVente() {
+			document.getElementById("myCheckAchat1").disabled = false;
+			document.getElementById("myCheckAchat2").disabled = false;
+			document.getElementById("myCheckAchat3").disabled = false;
+			document.getElementById("myCheckVente1").disabled = true;
+			document.getElementById("myCheckVente2").disabled = true;
+			document.getElementById("myCheckVente3").disabled = true;
+		}
+
+		function bloqueAchat() {
+			document.getElementById("myCheckAchat1").disabled = true;
+			document.getElementById("myCheckAchat2").disabled = true;
+			document.getElementById("myCheckAchat3").disabled = true;
+			document.getElementById("myCheckVente1").disabled = false;
+			document.getElementById("myCheckVente2").disabled = false;
+			document.getElementById("myCheckVente3").disabled = false;
+
+		}
+	</script>
+
 </body>
 
 </html>

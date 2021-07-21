@@ -25,7 +25,9 @@
 	<header>
 		<nav
 			class="navbar navbar-expand-lg navbar-light bg-dark container-fluid">
-			<a class="navbar-brand text-light" href="#">Eni-Encheres</a>
+
+			<a class="navbar-brand text-light"
+				href="${pageContext.request.contextPath}/encheres/accueil">Eni-Encheres</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarNav"
 				aria-controls="navbarNav" aria-expanded="false"
@@ -35,11 +37,15 @@
 			<div class="collapse navbar-collapse justify-content-end"
 				id="navbarNav">
 				<a class="nav-link text-light text-end" href="#">Enchères</a> <a
-					class="nav-link text-light text-end" href="#">Vendre un article</a>
-				<a class="nav-link text-light text-end" href="#"><i
+					class="nav-link text-light text-end"
+					href="${pageContext.request.contextPath}/encheres/ServletVente">Vendre
+					un article</a> <a class="nav-link text-light text-end"
+					href="${pageContext.request.contextPath}/encheres/profil"><i
 					class="bi bi-person text-primary">Mon profil</i></a> <a
-					class="nav-link text-light text-end" href="#"><i
-					class="bi bi-box-arrow-left text-danger"> Déconnexion</i></a>
+					class="nav-link text-light text-end"
+					href="${pageContext.request.contextPath}/encheres/accueil?deconnexion"><i
+					class="bi bi-box-arrow-left text-danger">Déconnexion</i></a>
+
 			</div>
 		</nav>
 	</header>
@@ -48,9 +54,8 @@
 		<h1 class="text-center mt-5 mb-5">Nouvelle Vente</h1>
 		<div class="container">
 			<div class="d-flex justify-content-around">
-			
-				<form method="post" action="../encheres/accueil" 
-				
+
+				<form method="post" action="../encheres/ServletNouvelArticle"
 					class="row col-md-6 col-sm-12 col-10 g-3">
 					<div class="col-md-6 col-sm-6 col-6">
 						<label for="article">Article :</label>
@@ -70,12 +75,12 @@
 						<label for="categorie">Categorie :</label>
 					</div>
 					<div class="col-md-2 col-sm-6 col-6">
-						<select class="form-select" id="categorie">
+						<select class="form-select" id="categorie" name="categorie">
 
 							<%
 								EnchereManager em = new EnchereManager();
-							List<Categorie> categories = em.selectAllCategorie();
-							for (int i = 0; i < categories.size(); i++) {
+								List<Categorie> categories = em.selectAllCategorie();
+								for (int i = 0; i < categories.size(); i++) {
 							%>
 							<option value="<%=categories.get(i).getNoCategorie()%>">
 								<%=categories.get(i).getLibelle()%>
@@ -97,8 +102,8 @@
 						<label for="prix">Mise à prix :</label>
 					</div>
 					<div class="col-md-6 col-sm-6 col-6">
-						<input type="number" id="quantity" name="quantity" min="1"
-							max="9999" class="form-control">
+						<input type="number" id="prix" name="prix" min="1" max="9999"
+							class="form-control">
 					</div>
 					<div class="col-md-6 col-sm-6 col-6">
 						<label for="debut">Début de l'enchère :</label>
@@ -136,12 +141,12 @@
 						</c:forEach>
 
 					</fieldset>
-			
+
 					<div class="row justify-content-around mt-3 mb-5">
 						<!-- bouton "Enregistrer" -->
 						<input type="submit" class="btn btn-dark col-5 col-sm-3 col-md-3"
 							id="enregistrer" name="enregistrer" value="Enregistrer">
-							<!-- bouton "Annuler -->
+						<!-- bouton "Annuler -->
 						<a href="" class="btn btn-outline-dark col-sm-3 col-md-3 col-5">Annuler</a>
 						<input type="button"
 							class="btn btn-outline-dark col-sm-3 col-md-3 col-5"

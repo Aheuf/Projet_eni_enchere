@@ -32,8 +32,7 @@ public class EnchereManager {
 	// Insert
 	// Insert utilisateur
 	public Utilisateur insertUtilisateur(String pseudo, String nom, String prenom, String email, String telephone,
-			String rue, String codePostal, String ville, String motDePasse, int credit)
-			throws BusinessException {
+			String rue, String codePostal, String ville, String motDePasse, int credit) throws BusinessException {
 
 		BusinessException exception = new BusinessException();
 
@@ -74,6 +73,7 @@ public class EnchereManager {
 
 	// Insert Retrait
 	public Retrait insertRetrait(int noArticle, String rue, String codePostal, String ville) throws BusinessException {
+		
 		Retrait retrait = new Retrait(noArticle, rue, codePostal, ville);
 
 		BusinessException businessException = new BusinessException();
@@ -92,17 +92,23 @@ public class EnchereManager {
 	}
 
 	// Insert Article
-	public void insertArticle(ArticleVendu article) throws BusinessException {
+	public ArticleVendu insertArticle(String nomArticle, String description, Date dateDebutEncheres, Date dateFinEncheres,
+			int prixInitial, int prixVente, int noUtilisateur, int noCategorie, String encherisseur) throws BusinessException {
 
-		BusinessException exception = new BusinessException();
+		ArticleVendu article = new ArticleVendu(nomArticle, description, dateDebutEncheres, dateFinEncheres,
+				prixInitial, prixVente, noUtilisateur, noCategorie, encherisseur);
+		
+		BusinessException businessException = new BusinessException();
+
+		ValiderArticle(article, businessException);
 
 		try {
-			ValiderArticle(article, exception);
-			articleVendu.insert(article);
+			this.articleVendu.insert(article);
 		} catch (BusinessException e) {
 			System.out.println("Erreur addArticle :(");
 			e.printStackTrace();
 		}
+		return article;
 	}
 
 	// ---------------------------------------------------------
@@ -160,7 +166,7 @@ public class EnchereManager {
 			listeUtilisateur = DAOUtilisateur.selectById(id);
 		} catch (BusinessException e) {
 			System.out.println("erreur bll utilisateur selectbyid");
-			
+
 			e.printStackTrace();
 		}
 		return listeUtilisateur;
@@ -222,18 +228,18 @@ public class EnchereManager {
 	// ---------------------------------------------------------
 	// Select All
 	// Select All Utilisateur
-		public List<Utilisateur> selectAllUtilisateur() throws BusinessException {
-			List<Utilisateur> utilisateur = null;
+	public List<Utilisateur> selectAllUtilisateur() throws BusinessException {
+		List<Utilisateur> utilisateur = null;
 
-			try {
-				utilisateur = DAOUtilisateur.selectAll();
-			} catch (BusinessException e) {
-				System.out.println("Erreur getUtilisateur");
-				e.printStackTrace();
-			}
-			return utilisateur;
+		try {
+			utilisateur = DAOUtilisateur.selectAll();
+		} catch (BusinessException e) {
+			System.out.println("Erreur getUtilisateur");
+			e.printStackTrace();
 		}
-		
+		return utilisateur;
+	}
+
 	// Select All Categorie
 	public List<Categorie> selectAllCategorie() throws BusinessException {
 		List<Categorie> categories = null;
@@ -263,20 +269,21 @@ public class EnchereManager {
 
 	// ---------------------------------------------------------
 	// Select By Mot Clef
-	
+
 	// Update Utilisateur
-		public List<Utilisateur> selectUtilisateurByMotCle(String motCle) throws BusinessException {
-			List<Utilisateur> utilisateurs = null;
+	public List<Utilisateur> selectUtilisateurByMotCle(String motCle) throws BusinessException {
+		List<Utilisateur> utilisateurs = null;
 
-			try {
-				utilisateurs = DAOUtilisateur.selectByMotCle(motCle);
-			} catch (BusinessException e) {
-				System.out.println("Erreur selectUtilisateurByMotCle :(");
-				e.printStackTrace();
-			}
-
-			return utilisateurs;
+		try {
+			utilisateurs = DAOUtilisateur.selectByMotCle(motCle);
+		} catch (BusinessException e) {
+			System.out.println("Erreur selectUtilisateurByMotCle :(");
+			e.printStackTrace();
 		}
+
+		return utilisateurs;
+	}
+
 	// Update Article
 	public List<ArticleVendu> selectArticleVenduByMotCle(String motCle) throws BusinessException {
 		List<ArticleVendu> articlesVendus = null;

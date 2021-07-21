@@ -2,6 +2,7 @@ package fr.eni.enchere.piou.servlets;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -16,9 +17,7 @@ import javax.servlet.http.HttpSession;
 import fr.eni.enchere.piou.BusinessException;
 import fr.eni.enchere.piou.bll.EnchereManager;
 import fr.eni.enchere.piou.bo.ArticleVendu;
-//import fr.eni.enchere.piou.bo.Categorie;
-//import fr.eni.enchere.piou.bo.Retrait;
-import fr.eni.enchere.piou.bo.Utilisateur;
+import fr.eni.enchere.piou.bo.Retrait;
 
 /**
  * Servlet implementation class ServletNouvelArticle
@@ -28,46 +27,46 @@ public class ServletNouvelArticle extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	*/
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doPost(request, response);
 	}
-    
+
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-			/** COOKIES
-			Cookie[] cookies = request.getCookies();
-			Utilisateur utilisateur = null;		/// ???
-			
-			for (Cookie c : cookies) {
-				if (c.getName().equals("idUtilisateur")) {
-					idUtilisateur = Integer.parseInt(c.getValue());
-				}
-			}
-			
-			try {
-				List<Utilisateur> utilisateurs = em.selectUtilisateurById(idUtilisateur);
-				utilisateur = utilisateurs.get(0);
-			} catch (BusinessException e) {
-				e.printStackTrace();
-			}
-			*/
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		/**
+		 * COOKIES Cookie[] cookies = request.getCookies(); Utilisateur utilisateur =
+		 * null; /// ???
+		 * 
+		 * for (Cookie c : cookies) { if (c.getName().equals("idUtilisateur")) {
+		 * idUtilisateur = Integer.parseInt(c.getValue()); } }
+		 * 
+		 * try { List<Utilisateur> utilisateurs =
+		 * em.selectUtilisateurById(idUtilisateur); utilisateur = utilisateurs.get(0); }
+		 * catch (BusinessException e) { e.printStackTrace(); }
+		 */
+
 		request.setCharacterEncoding("UTF-8");
 		int idUtilisateur = 0;
 		HttpSession session = request.getSession();
-		idUtilisateur=(int)session.getAttribute("session");
-		
-		//int idArticle =Integer.parseInt(request.getParameter("idarticle"));
-		//RequestDispatcher rd = null;
-		
+		idUtilisateur = (int) session.getAttribute("session");
+
+		System.out.println(idUtilisateur);
+		// int idArticle =Integer.parseInt(request.getParameter("idarticle"));
+		// RequestDispatcher rd = null;
+
 		EnchereManager em = new EnchereManager();
 		ArticleVendu article = null;
-		
+		Retrait retrait = null;
+
 		String nomArticle = null;
 		String description = null;
 		Date dateDebutEncheres = null;
@@ -76,43 +75,72 @@ public class ServletNouvelArticle extends HttpServlet {
 		int prixVente = 0;
 		int noUtilisateur = 0;
 		int noCategorie = 0;
-		
-		//String photo;
-		
+		String potentielAcheteur = null;
+
+		// String photo;
+
 		String rue = null;
 		String codePostal = null;
 		String ville = null;
 
-		nomArticle = request.getParameter("article");
-		description = request.getParameter("description");
-		dateDebutEncheres = Date.valueOf(request.getParameter("debut"));
-		dateFinEncheres = Date.valueOf(request.getParameter("fin"));
-		prixInitial = Integer.parseInt(request.getParameter("prix"));
-		prixVente = prixInitial;
-		noUtilisateur = idUtilisateur;
-/**/	noCategorie = Integer.parseInt(request.getParameter("categorie"));
-		//photo = request.getParameter("photo");
-		rue = request.getParameter("inputRue");
-		codePostal = request.getParameter("inputCodePostal");
-		ville = request.getParameter("inputVille");
-				
-		if (nomArticle == null || description == null || noCategorie == 0 || dateDebutEncheres == null || dateFinEncheres == null || prixInitial == 0 || rue == null || codePostal == null || ville == null ) {
-			this.getServletContext().setAttribute("ErreurSaisi", "Tous les champs doivent être remplis !");
-			RequestDispatcher rd = request.getRequestDispatcher("/encheres/ServletVente");
-			rd.forward(request, response);
-		}
-		
-		article = new ArticleVendu(nomArticle, description, dateDebutEncheres, dateFinEncheres, prixInitial, prixVente, noUtilisateur, noCategorie);
-		
+		List<ArticleVendu> recuperationInfoArticle = new ArrayList<>();
+		int idArticleCree = 0;
+
 		try {
-			em.insertArticle(article);
+
+			nomArticle = request.getParameter("article");
+			description = request.getParameter("description");
+			dateDebutEncheres = Date.valueOf(request.getParameter("debut"));
+			dateFinEncheres = Date.valueOf(request.getParameter("fin"));
+			prixInitial = Integer.parseInt(request.getParameter("prix"));
+			prixVente = prixInitial;
+			noUtilisateur = idUtilisateur;
+			noCategorie = Integer.parseInt(request.getParameter("categorie"));
+			// photo = request.getParameter("photo");
+			rue = request.getParameter("rue");
+			codePostal = request.getParameter("postal");
+			ville = request.getParameter("ville");
+			System.out.println(nomArticle);
+			System.out.println(description);
+			System.out.println(dateDebutEncheres);
+			System.out.println(dateFinEncheres);
+			System.out.println(prixInitial);
+			System.out.println(prixVente);
+			System.out.println(noUtilisateur);
+			System.out.println(noCategorie);
+			System.out.println(rue);
+			System.out.println(codePostal);
+			System.out.println(ville);
+			if (nomArticle == null || description == null || noCategorie == 0 || dateDebutEncheres == null
+					|| dateFinEncheres == null || prixInitial == 0 || rue == null || codePostal == null
+					|| ville == null) {
+
+				System.out.println("probleme dans ici");
+				this.getServletContext().setAttribute("ErreurSaisi", "Tous les champs doivent être remplis !");
+				RequestDispatcher rd = request.getRequestDispatcher("/encheres/ServletVente");
+				rd.forward(request, response);
+
+			} else {
+
+				article = em.insertArticle(nomArticle, description, dateDebutEncheres, dateFinEncheres, prixInitial,
+						prixInitial, noUtilisateur, noCategorie, potentielAcheteur);
+
+				recuperationInfoArticle = em.selectArticleVenduByMotCle(nomArticle);
+
+				for (ArticleVendu av : recuperationInfoArticle) {
+					idArticleCree = av.getNoArticle();
+					System.out.println(idArticleCree);
+				}
+
+				retrait = em.insertRetrait(idArticleCree, rue, codePostal, ville);
+
+				RequestDispatcher rd = request.getRequestDispatcher("/encheres/accueil");
+				rd.forward(request, response);
+			}
+
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}
-		
-		RequestDispatcher rd = request.getRequestDispatcher("/encheres/accueil");
-		rd.forward(request, response);
-	
 	}
 
 }

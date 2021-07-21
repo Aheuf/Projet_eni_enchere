@@ -13,7 +13,7 @@ import fr.eni.enchere.piou.BusinessException;
 import fr.eni.enchere.piou.bo.ArticleVendu;
 
 public class ArticleVenduDAOJdbcImpl implements DAO<ArticleVendu> {
-	private static String INSERT = "INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, no_utilisateur, no_categorie) VALUES (?, ?, ?, ?, ?, ?, ?)";
+	private static String INSERT = "INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial,prix_vente, no_utilisateur, no_categorie) VALUES (?, ?, ?, ?, ?, ?,?, ?)";
 	private static String DELETE_ID = "DELETE FROM ARTICLES_VENDUS WHERE no_article = ?";
 	private static String SELECT_ALL = "SELECT * FROM ARTICLES_VENDUS";
 	private static String SELECT_BY_ID = "SELECT * FROM ARTICLES_VENDUS WHERE no_article = ?";
@@ -32,8 +32,9 @@ public class ArticleVenduDAOJdbcImpl implements DAO<ArticleVendu> {
 			rqt.setDate(3, article.getDateDebutEncheres());
 			rqt.setDate(4, article.getDateFinEncheres());
 			rqt.setInt(5, article.getPrixInitial());
-			rqt.setInt(6, article.getNoUtilisateur());
-			rqt.setInt(7, article.getNoCategorie());
+			rqt.setInt(6, article.getPrixVente());
+			rqt.setInt(7, article.getNoUtilisateur());
+			rqt.setInt(8, article.getNoCategorie());
 
 			int nbRows = rqt.executeUpdate();
 
@@ -109,14 +110,13 @@ public class ArticleVenduDAOJdbcImpl implements DAO<ArticleVendu> {
 	@Override
 	public List<ArticleVendu> selectByMotCle(String motCle) throws BusinessException {
 		List<ArticleVendu> articlesVendus = new ArrayList<>();
-		PreparedStatement rqt = null;
+		Statement rqt = null;
 		ResultSet rs = null;
 		ArticleVendu article = null;
 
 		try (Connection cnx = ConnectionProvider.getConnection()) {
-			rqt = cnx.prepareStatement(SELECT_BY_MC);
-			rqt.setString(1, motCle);
-			rs = rqt.executeQuery();
+			rqt = cnx.createStatement();
+			rs = rqt.executeQuery("SELECT * FROM ARTICLES_VENDUS WHERE nom_article LIKE '%"+motCle+"%' OR description LIKE '%"+motCle+"%'");
 
 			while (rs.next()) {
 				article = new ArticleVendu(
