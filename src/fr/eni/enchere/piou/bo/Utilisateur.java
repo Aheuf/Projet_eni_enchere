@@ -82,19 +82,14 @@ public class Utilisateur {
 	public void setCredit(int credit) {
 		this.credit = credit;
 	}
-	public boolean isAdministrateur() {
-		return administrateur;
-	}
-	public void setAdministrateur(boolean administrateur) {
-		this.administrateur = administrateur;
-	}
+
 	
 	//Constructor
 	public Utilisateur() {}
 	
 	public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
-			String rue, String codePostal, String ville, String motDePasse, int credit, boolean administrateur) {
-		super();
+			String rue, String codePostal, String ville, String motDePasse, int credit) {
+		
 		this.noUtilisateur = noUtilisateur;
 		this.pseudo = pseudo;
 		this.nom = nom;
@@ -106,12 +101,10 @@ public class Utilisateur {
 		this.ville = ville;
 		this.motDePasse = motDePasse;
 		this.credit = credit;
-		this.administrateur = administrateur;
 	}
 	
 	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone,
-			String rue, String codePostal, String ville, String motDePasse, int credit, boolean administrateur) {
-		super();
+			String rue, String codePostal, String ville, String motDePasse, int credit) {
 		
 		this.pseudo = pseudo;
 		this.nom = nom;
@@ -123,7 +116,6 @@ public class Utilisateur {
 		this.ville = ville;
 		this.motDePasse = motDePasse;
 		this.credit = credit;
-		this.administrateur = administrateur;
 	}
     
     

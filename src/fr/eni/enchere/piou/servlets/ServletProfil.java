@@ -6,7 +6,6 @@ import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,23 +27,21 @@ public class ServletProfil extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		EnchereManager en = new EnchereManager();
-		Utilisateur user = null;
+		
+		//recupere l'utilisateur connecté
 		HttpSession session = request.getSession();
-		Utilisateur utilisateur = (Utilisateur) session.getAttribute("session");
-		int idUtilisateur = utilisateur.getNoUtilisateur();;
-
+		int idUtilisateur = (int) session.getAttribute("session");
 
 		try {
+			//cherche dans la liste d'utilisateur 
 			List<Utilisateur> users = en.selectUtilisateurById(idUtilisateur);
-			user = users.get(0);
+			Utilisateur user = users.get(0);
+			request.setAttribute("user", user);
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}
-		
-		this.getServletContext().setAttribute("user", user);
-		
-		
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/modifierprofil.jsp");
+		System.out.println(idUtilisateur);
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/modifierprofil.jsp");
 		rd.forward(request, response);
 	}
 

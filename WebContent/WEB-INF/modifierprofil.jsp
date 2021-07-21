@@ -76,7 +76,7 @@
 			<div class="d-flex justify-content-around">
 
 				<form method="POST"
-					action="<%=request.getContextPath()%>/modifierprofil"
+					action="<%=request.getContextPath()%>/encheres/modifierprofil"
 					class="row col-md-12 col-sm-12 ">
 					<%
 						if (request.getAttribute("ErreurSaisi") != null) {
@@ -94,7 +94,7 @@
 						<div class="d-flex mb-3 offset-lg-2 col-lg-5 col-sm-12">
 							<label for="inputNom" class="col-3 form-label mt-1">Nom :</label>
 							<input type="text" class="form-control" id="inputNom"
-								aria-describedby="nomHelp">
+								aria-describedby="nomHelp" value="<%=user.getNom()%>">
 						</div>
 					</div>
 
@@ -154,7 +154,6 @@
 							}
 						%>
 					</div>
-
 
 					<!-- formulaire "Nouveau mot de passe & Confirmation" -->
 					<div class="row col-sm-12 col-lg-12">

@@ -14,8 +14,8 @@ import fr.eni.enchere.piou.bo.Utilisateur;
 
 public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 
-	private static final String INSERTUTILISATEUR = "INSERT INTO UTILISATEURS(pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur) VALUES(?,?,?,?,?,?,?,?,?,?,?);";
-	private static final String UPDATEUTILISATEUR = "UPDATE UTILISATEURS SET pseudo=?,nom,prenome=?,mail=?,telephone=?,rue=?,code_postal=?,ville=?,mot_de_passe=?,credit=?,administrateur=? WHERE no_utilisateur +";
+	private static final String INSERTUTILISATEUR = "INSERT INTO UTILISATEURS(pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit) VALUES(?,?,?,?,?,?,?,?,?,?);";
+	private static final String UPDATEUTILISATEUR = "UPDATE UTILISATEURS SET pseudo=?,nom,prenome=?,mail=?,telephone=?,rue=?,code_postal=?,ville=?,mot_de_passe=?,credit=? WHERE no_utilisateur =";
 	private static final String DELETEUTILISATEUR = "DELETE FROM UTILISATEURS WHERE no_utilisateur=";
 
 	@Override
@@ -41,7 +41,6 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 			pstmt.setString(8, utilisateur.getVille());
 			pstmt.setString(9, utilisateur.getMotDePasse());
 			pstmt.setInt(10, utilisateur.getCredit());
-			pstmt.setBoolean(11, utilisateur.isAdministrateur());
 			pstmt.executeUpdate();
 			ResultSet rs = pstmt.getGeneratedKeys();
 			if (rs.next()) {
@@ -108,10 +107,9 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 				String ville = rs.getString("pseudo");
 				String motDePasse = rs.getString("pseudo");
 				int credit = rs.getInt("no_utilisateur");
-				boolean administrateur = rs.getBoolean("administrateur");
 
 				u = new Utilisateur(noUtilisateur, pseudo, nom, prenom, email, telephone, rue, codePostal, ville,
-						motDePasse, credit, administrateur);
+						motDePasse, credit);
 
 				listeUtilisateur.add(u);
 			}
@@ -128,14 +126,14 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 	}
 
 	@Override
-	public List<Utilisateur> selectByMotCle(String motCle)throws BusinessException {
+	public List<Utilisateur> selectByMotCle(String motCle) throws BusinessException {
 		Statement stmt = null;
 		List<Utilisateur> utilisateur = new ArrayList<Utilisateur>();
 		Utilisateur u = null;
 
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			stmt = cnx.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM UTILISATEURS WHERE pseudo LIKE '"+ motCle+"'");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM UTILISATEURS WHERE pseudo LIKE '" + motCle + "'");
 
 			while (rs.next()) {
 
@@ -150,10 +148,9 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 				String ville = rs.getString("ville");
 				String motDePasse = rs.getString("mot_de_passe");
 				int credit = rs.getInt("no_utilisateur");
-				boolean administrateur = rs.getBoolean("administrateur");
 
 				u = new Utilisateur(noUtilisateur, pseudo, nom, prenom, email, telephone, rue, codePostal, ville,
-						motDePasse, credit, administrateur);
+						motDePasse, credit);
 				utilisateur.add(u);
 			}
 		} catch (SQLException e) {
@@ -193,10 +190,9 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 				String ville = rs.getString("pseudo");
 				String motDePasse = rs.getString("pseudo");
 				int credit = rs.getInt("no_utilisateur");
-				boolean administrateur = rs.getBoolean("administrateur");
 
 				u = new Utilisateur(noUtilisateur, pseudo, nom, prenom, email, telephone, rue, codePostal, ville,
-						motDePasse, credit, administrateur);
+						motDePasse, credit);
 				utilisateur.add(u);
 			}
 		} catch (SQLException e) {
@@ -229,7 +225,6 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 			pstmt.setString(8, utilisateur.getVille());
 			pstmt.setString(9, utilisateur.getMotDePasse());
 			pstmt.setInt(10, utilisateur.getCredit());
-			pstmt.setBoolean(11, utilisateur.isAdministrateur());
 			pstmt.executeUpdate();
 
 		} catch (SQLException e) {

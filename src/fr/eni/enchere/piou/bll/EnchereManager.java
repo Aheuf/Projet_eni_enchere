@@ -32,13 +32,13 @@ public class EnchereManager {
 	// Insert
 	// Insert utilisateur
 	public Utilisateur insertUtilisateur(String pseudo, String nom, String prenom, String email, String telephone,
-			String rue, String codePostal, String ville, String motDePasse, int credit, boolean administrateur)
+			String rue, String codePostal, String ville, String motDePasse, int credit)
 			throws BusinessException {
 
 		BusinessException exception = new BusinessException();
 
 		Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville,
-				motDePasse, credit, administrateur);
+				motDePasse, credit);
 
 		this.validerInfoUtilisateur(utilisateur, exception);
 

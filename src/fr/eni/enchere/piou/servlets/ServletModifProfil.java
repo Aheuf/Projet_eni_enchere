@@ -35,7 +35,6 @@ public class ServletModifProfil extends HttpServlet {
 		Utilisateur utilisateur = (Utilisateur) session.getAttribute("session");
 		int idUtilisateur = utilisateur.getNoUtilisateur();
 
-
 		try {
 			List<Utilisateur> users = en.selectUtilisateurById(idUtilisateur);
 			user = users.get(0);
@@ -61,9 +60,7 @@ public class ServletModifProfil extends HttpServlet {
 		EnchereManager en = new EnchereManager();
 		Utilisateur user = null;
 		HttpSession session = request.getSession();
-		Utilisateur utilisateur = (Utilisateur) session.getAttribute("session");
-		int idUtilisateur = utilisateur.getNoUtilisateur();
-
+		int idUtilisateur = (int) session.getAttribute("session");
 
 		try {
 			List<Utilisateur> users = en.selectUtilisateurById(idUtilisateur);
@@ -84,7 +81,6 @@ public class ServletModifProfil extends HttpServlet {
 		String nouveauMDP;
 		String confirmationMDP;
 		int credit;
-		boolean administrateur;
 
 		pseudo = request.getParameter("inputPseudo");
 		nom = request.getParameter("inputNom");
@@ -98,7 +94,6 @@ public class ServletModifProfil extends HttpServlet {
 		nouveauMDP = request.getParameter("inputNouveauMotDePasse");
 		confirmationMDP = request.getParameter("inputConfirmation");
 		credit = user.getCredit();
-		administrateur = false;
 
 		if (pseudo == null || nom == null || prenom == null || email == null || telephone == null || rue == null
 				|| codePostal == null || ville == null || motDePasse == null || nouveauMDP == null
@@ -108,31 +103,17 @@ public class ServletModifProfil extends HttpServlet {
 			rd.forward(request, response);
 		}
 
-		if (motDePasse.equals(user.getMotDePasse()) && nouveauMDP == confirmationMDP) {
-			
-			
-			Utilisateur userUpdate = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville,
-					nouveauMDP, credit, administrateur);
-			
-			
-			try {
-				en.updateUtilisateur(userUpdate);
-			} catch (BusinessException e) {
-				e.printStackTrace();
-			}
-			
-			
-			RequestDispatcher rd = request.getRequestDispatcher("/encheres/profil");
-			rd.forward(request, response);
-			
-			
-		} else {
-			this.getServletContext().setAttribute("ErreurMDP", "Erreur mot de passe !");
-			RequestDispatcher rd = request.getRequestDispatcher("/encheres/profil");
-			rd.include(request, response);
-			this.getServletContext().setAttribute("ErreurConfirmMDP", "Les mots de passe doivent être identiques !");
-			rd.forward(request, response);
+		Utilisateur userUpdate = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville,
+				nouveauMDP, credit);
+
+		try {
+			en.updateUtilisateur(userUpdate);
+		} catch (BusinessException e) {
+			e.printStackTrace();
 		}
+
+		RequestDispatcher rd = request.getRequestDispatcher("/encheres/profil");
+		rd.forward(request, response);
 
 	}
 
