@@ -127,7 +127,7 @@
 					<div class="d-flex mb-3 col-lg-5 col-sm-12">
 						<label for="inputCredit" class="col-3 form-label mt-1 ">Credit
 							:</label> <input type="number" class="form-control" id="inputCredit"
-							aria-describedby="creditHelp" value="0" name="Credit">
+							aria-describedby="creditHelp" value="1" min="1" max="9999" name="Credit">
 					</div>
 				</div>
 
