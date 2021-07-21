@@ -84,7 +84,9 @@ public class ServletModifProfil extends HttpServlet {
 
 		pseudo = request.getParameter("inputPseudo");
 		nom = request.getParameter("inputNom");
+		System.out.println("nom " + nom);
 		prenom = request.getParameter("inputPrenom");
+		System.out.println("prenom " + prenom);
 		email = request.getParameter("inputEmail");
 		telephone = request.getParameter("inputTelephone");
 		rue = request.getParameter("inputRue");
@@ -103,7 +105,7 @@ public class ServletModifProfil extends HttpServlet {
 			//rd.forward(request, response);
 		}**/
 
-		Utilisateur userUpdate = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville,
+		Utilisateur userUpdate = new Utilisateur(idUtilisateur, pseudo, nom, prenom, email, telephone, rue, codePostal, ville,
 				nouveauMDP, credit);
 		System.out.println("coucou ca a créé un utilisateur lol");
 
@@ -114,6 +116,7 @@ public class ServletModifProfil extends HttpServlet {
 			e.printStackTrace();
 		}
 
+		
 		RequestDispatcher rd = request.getRequestDispatcher("/encheres/profil");
 		rd.forward(request, response);
 
