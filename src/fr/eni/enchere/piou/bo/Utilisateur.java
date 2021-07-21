@@ -12,7 +12,6 @@ public class Utilisateur {
 	private String ville;
 	private String motDePasse;
 	private int credit;
-	private boolean administrateur;
     
     
   //Getter and Setter

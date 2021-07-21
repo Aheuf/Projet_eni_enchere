@@ -95,19 +95,21 @@ public class ServletModifProfil extends HttpServlet {
 		confirmationMDP = request.getParameter("inputConfirmation");
 		credit = user.getCredit();
 
-		if (pseudo == null || nom == null || prenom == null || email == null || telephone == null || rue == null
+		/**if (pseudo == null || nom == null || prenom == null || email == null || telephone == null || rue == null
 				|| codePostal == null || ville == null || motDePasse == null || nouveauMDP == null
 				|| confirmationMDP == null) {
-			this.getServletContext().setAttribute("ErreurSaisi", "Tous les champs doivent être remplis !");
-			RequestDispatcher rd = request.getRequestDispatcher("/encheres/profil");
-			rd.forward(request, response);
-		}
+			//this.getServletContext().setAttribute("ErreurSaisi", "Tous les champs doivent être remplis !");
+			//RequestDispatcher rd = request.getRequestDispatcher("/encheres/profil");
+			//rd.forward(request, response);
+		}**/
 
 		Utilisateur userUpdate = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville,
 				nouveauMDP, credit);
+		System.out.println("coucou ca a créé un utilisateur lol");
 
 		try {
 			en.updateUtilisateur(userUpdate);
+			System.out.println("coucou c'est passé");
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}
