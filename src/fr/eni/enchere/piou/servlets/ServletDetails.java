@@ -62,15 +62,17 @@ public class ServletDetails extends HttpServlet {
 		request.setAttribute("idUtilisateur", idUtilisateur);
 		request.setAttribute("idVendeur", vendeur.getNoUtilisateur());
 		
-		String vainqueur = null;
+		String pseudoVainqueur = null;
+		int idVainqueur = 0;
 		try {
-			vainqueur = em.selectUtilisateurById(article.getNoUtilisateur()).get(0).getPseudo();
+			pseudoVainqueur = em.selectUtilisateurById(article.getNoUtilisateur()).get(0).getPseudo();
+			idVainqueur = em.selectUtilisateurById(article.getNoUtilisateur()).get(0).getNoUtilisateur();
 		} catch (BusinessException e) {
 			System.out.println("GET ServletDetails déconne sur l'user");
 			e.printStackTrace();
 		}
-		
-		request.setAttribute("vainqueur", vainqueur);
+		request.setAttribute("idVainqueur", idVainqueur);
+		request.setAttribute("pseudoVainqueur", pseudoVainqueur);
 //fin de gestion de l'affichage suivant l'utilisateur
 		
 // création d'un attribu de session IdArticle

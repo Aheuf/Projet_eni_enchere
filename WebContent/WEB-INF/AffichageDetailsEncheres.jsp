@@ -84,12 +84,12 @@
                 %>
                 <!--Cas 1: vente en cours-->
                 	<h1>Détail vente:</h1>                	
-               	<% } else if (request.getAttribute("idUtilisateur").equals((String) request.getAttribute("vainqueur"))){ %>
+               	<% } else if ((int) request.getAttribute("idUtilisateur")==(int) request.getAttribute("idVainqueur")){ %>
 	            <!--Cas 2 : utilisateur gagne la vente-->
 	                <h1>Vous avez remporté la vente</h1>
                	<% } else {%>
                	<!--Cas 3: vente gagnée par un autre utilisateur vous etes le vendeur-->
-	                <h1><%= (String) request.getAttribute("vainqueur") %> a remporté la vente</h1>     
+	                <h1><%= (String) request.getAttribute("pseudoVainqueur") %> a remporté la vente</h1>     
                 <% } %>
             </div>
             <div class="row">
@@ -123,20 +123,18 @@
 
             <div class=" text-center fw-bold">
                 <!--varie en fonction du resultat de la vente-->
-                <% if (!request.getAttribute("idUtilisateur").equals("0") && date != article.getDateFinEncheres()  ){ %>
-                <!--Cas 1 : vente en cours-->
-                <form method="post" action="<%=request.getContextPath()%>/encheres/encheres">
+                <%if ((int) request.getAttribute("idUtilisateur") == 0 
+                || (int) request.getAttribute("idUtilisateur") == (int) request.getAttribute("idVainqueur")
+                ){ %>
+                <a href="<%=request.getContextPath()%>/encheres/accueil">
+                    <button class="btn btn-secondary btn-lg btn-block mb-5">Retour</button>
+                </a>
+                <% } else if (date != article.getDateFinEncheres()){ %>
+                <form method="get" action="<%=request.getContextPath()%>/encheres/encheres">
                     <label for="input_saisie">Ma proposition : </label>
                     <input id="input_saisie" type="number" name="proposition"/>
-                    <button type="submit" class="btn btn-success " name="validation">Encherir</button>
+                    <button type="submit" class="btn btn-success " name="idarticle" value="<%=article.getNoArticle()%>">Encherir</button>
                 </form>
-                <% } else if (request.getAttribute("idUtilisateur").equals((String) request.getAttribute("vainqueur")) || request.getAttribute("idUtilisateur").equals("0")){ %>
-                <!--Cas 2 : utilisateur gagne la vente-->
-                <a href="<%=request.getContextPath()%>/encheres/accueil">
-                    <button class="btn btn-secondary btn-lg btn-block">Retour</button>
-                </a>
-                <br>
-                <!--Cas 3: vente gagnée par un autre utilisateur vous etes le vendeur-->
                 <% } else {%>
                 <form action="<%=request.getContextPath() %>/encheres/retraits" method="get">
                 	<input type="submit" class="badge text-danger" name="retrait" value="<%=article.getNoArticle()%>">
