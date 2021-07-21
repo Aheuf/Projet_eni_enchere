@@ -157,7 +157,7 @@
 	</section>
 
 	<!--CARDS-->
-	<articl
+	<article
 		class="row col-sm-12 col-lg-10 mx-auto mt-5 justify-content-center">
 
 		<c:forEach var="a" items="${listeArticleActuelle}">
