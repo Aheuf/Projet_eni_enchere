@@ -10,6 +10,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.enchere.piou.BusinessException;
 import fr.eni.enchere.piou.bll.EnchereManager;
@@ -26,17 +27,12 @@ public class ServletProfil extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int idUtilisateur = 0;
 		EnchereManager en = new EnchereManager();
-		Cookie[] cookies = request.getCookies();
 		Utilisateur user = null;
+		HttpSession session = request.getSession();
+		Utilisateur utilisateur = (Utilisateur) session.getAttribute("session");
+		int idUtilisateur = utilisateur.getNoUtilisateur();;
 
-		for (Cookie c : cookies) {
-			if (c.getName().equals("CookieIDUtilisateur")) {
-				idUtilisateur = Integer.parseInt(c.getValue());
-				break;
-			}
-		}
 
 		try {
 			List<Utilisateur> users = en.selectUtilisateurById(idUtilisateur);
