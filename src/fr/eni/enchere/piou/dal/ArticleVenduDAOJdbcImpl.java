@@ -82,9 +82,16 @@ public class ArticleVenduDAOJdbcImpl implements DAO<ArticleVendu> {
 			while (rs.next()) {
 				
 				
-				article = new ArticleVendu(rs.getInt("no_utilisateur"), rs.getString("nom_article"), rs.getString("description"),
-						rs.getDate("date_debut_encheres"), rs.getDate("date_fin_encheres"), rs.getInt("prix_initial"),
-						rs.getInt("prix_vente"), rs.getInt("no_utilisateur"), rs.getInt("no_categorie"));
+				article = new ArticleVendu(
+						rs.getInt("no_article"), 
+						rs.getString("nom_article"), 
+						rs.getString("description"),
+						rs.getDate("date_debut_encheres"), 
+						rs.getDate("date_fin_encheres"), 
+						rs.getInt("prix_initial"),
+						rs.getInt("prix_vente"), 
+						rs.getInt("no_utilisateur"), 
+						rs.getInt("no_categorie"));
 
 				articlesVendus.add(article);
 			}

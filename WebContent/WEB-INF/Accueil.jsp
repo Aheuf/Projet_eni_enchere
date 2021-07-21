@@ -166,7 +166,7 @@
 				<img class="card-img-top" src=".../100px180/" alt="image produit">
 				<div class="card-body">
 					<h5 class="card-title">
-						<a href="<%=request.getContextPath()%>/encheres/details?idarticle="${a.noArticle} class="link-dark">${a.nomArticle}</a>
+						<a href="<%=request.getContextPath()%>/encheres/details?idarticle=${a.noArticle}" class="link-dark">${a.nomArticle}</a>
 					</h5>
 					<p class="card-text">Prix : ${a.prixVente} points</p>
 					<p class="card-text">Fin de l'enchère : ${a.dateFinEncheres}</p>
