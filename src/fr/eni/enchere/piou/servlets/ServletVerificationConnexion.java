@@ -46,6 +46,7 @@ public class ServletVerificationConnexion extends HttpServlet {
 			String pseudo = request.getParameter("Identifiant");
 			String mdp = request.getParameter("MdP");
 			String testmdp = null;
+			int idUtilisateur = 0;
 			verification = manager.selectUtilisateurByMotCle(pseudo);
 
 			if (verification.isEmpty()) {
@@ -56,13 +57,14 @@ public class ServletVerificationConnexion extends HttpServlet {
 				
 				for (Utilisateur u : verification) {
 					testmdp = u.getMotDePasse();
+					idUtilisateur=u.getNoUtilisateur();
 				}
 				
 				System.out.println("mdp: "+testmdp);
 				System.out.println(mdp);
 				if (mdp.equals(testmdp)) {
 					HttpSession session = request.getSession();
-					session.setAttribute("session", verification);
+					session.setAttribute("session", idUtilisateur);
 					
 					RequestDispatcher requestDispatcher = request.getRequestDispatcher("/encheres/accueil");
 					requestDispatcher.forward(request, response);
