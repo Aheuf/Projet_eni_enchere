@@ -14,7 +14,7 @@ import fr.eni.enchere.piou.bo.Utilisateur;
 public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 
 	private static final String INSERTUTILISATEUR = "INSERT INTO UTILISATEURS(pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit) VALUES(?,?,?,?,?,?,?,?,?,?);";
-	private static final String UPDATEUTILISATEUR = "UPDATE UTILISATEURS SET pseudo=?,nom=?,prenom=?,mail=?,telephone=?,rue=?,code_postal=?,ville=?,mot_de_passe=?,credit=? WHERE no_utilisateur =";
+	private static final String UPDATEUTILISATEUR = "UPDATE UTILISATEURS SET pseudo=?,nom=?,prenom=?,email=?,telephone=?,rue=?,code_postal=?,ville=?,mot_de_passe=?,credit=? WHERE no_utilisateur =";
 	private static final String DELETEUTILISATEUR = "DELETE FROM UTILISATEURS WHERE no_utilisateur=";
 
 	@Override
