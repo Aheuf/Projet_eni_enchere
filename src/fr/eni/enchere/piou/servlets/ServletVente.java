@@ -33,7 +33,7 @@ public class ServletVente extends HttpServlet {
 		
 		int idUtilisateur = 0;
 		EnchereManager em = new EnchereManager();
-		Utilisateur utilisateur = null;
+		//Utilisateur utilisateur = null;
 		HttpSession session = request.getSession();
 		idUtilisateur = (int) session.getAttribute("session");
 					//= 1 pour test 
