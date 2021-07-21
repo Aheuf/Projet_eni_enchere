@@ -17,10 +17,11 @@ public class ArticleVendu {
 	private int noUtilisateur;
 	private int noCategorie;
 	private String etatVente;
+	private String dernierEncherisseur;
 
 	// Constructor
 	public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres,
-			Date dateFinEncheres, int prixInitial, int prixVente, int noUtilisateur, int noCategorie) {
+			Date dateFinEncheres, int prixInitial, int prixVente, int noUtilisateur, int noCategorie, String dernierEncherisseur) {
 		this.noArticle = noArticle;
 		this.nomArticle = nomArticle;
 		this.description = description;
@@ -30,10 +31,11 @@ public class ArticleVendu {
 		this.prixVente = prixVente;
 		this.noUtilisateur = noUtilisateur;
 		this.noCategorie = noCategorie;
+		this.dernierEncherisseur = dernierEncherisseur;
 	}
 
 	public ArticleVendu(String nomArticle, String description, Date dateDebutEncheres, Date dateFinEncheres,
-			int prixInitial, int prixVente, int noUtilisateur, int noCategorie) {
+			int prixInitial, int prixVente, int noUtilisateur, int noCategorie, String dernierEncherisseur) {
 		this.nomArticle = nomArticle;
 		this.description = description;
 		this.dateDebutEncheres = dateDebutEncheres;
@@ -42,6 +44,7 @@ public class ArticleVendu {
 		this.prixVente = prixVente;
 		this.noUtilisateur = noUtilisateur;
 		this.noCategorie = noCategorie;
+		this.dernierEncherisseur = dernierEncherisseur;
 	}
 
 	public ArticleVendu() {
@@ -126,6 +129,14 @@ public class ArticleVendu {
 
 	public void setEtatVente(String etatVente) {
 		this.etatVente = etatVente;
+	}
+
+	public String getDernierEncherisseur() {
+		return dernierEncherisseur;
+	}
+
+	public void setDernierEncherisseur(String dernierEncherisseur) {
+		this.dernierEncherisseur = dernierEncherisseur;
 	}
 
 }
