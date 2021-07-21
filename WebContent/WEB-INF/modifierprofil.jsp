@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Document</title>
+<title>Mon profil</title>
 
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
@@ -88,12 +88,12 @@
 					<div class="row col-sm-12 col-lg-12 ">
 						<div class="d-flex mb-3 col-lg-5 col-sm-12">
 							<label for="inputPseudo" class="col-3 form-label mt-1 ">Pseudo
-								:</label> <input type="text" class="form-control" id="inputPseudo"
+								:</label> <input type="text" class="form-control" name="inputPseudo"
 								aria-describedby="pseudoHelp" value="<%=user.getPseudo()%>">
 						</div>
 						<div class="d-flex mb-3 offset-lg-2 col-lg-5 col-sm-12">
 							<label for="inputNom" class="col-3 form-label mt-1">Nom :</label>
-							<input type="text" class="form-control" id="inputNom"
+							<input type="text" class="form-control" name="inputNom"
 								aria-describedby="nomHelp" value="<%=user.getNom()%>">
 						</div>
 					</div>
@@ -101,12 +101,12 @@
 					<div class="row col-sm-12 col-lg-12 ">
 						<div class="d-flex mb-3 col-lg-5 col-sm-12">
 							<label for="inputPrenom" class="col-3 form-label mt-1 ">Prenom
-								:</label> <input type="text" class="form-control" id="inputPrenom"
+								:</label> <input type="text" class="form-control" name="inputPrenom"
 								aria-describedby="prenomHelp" value="<%=user.getPrenom()%>">
 						</div>
 						<div class="d-flex mb-3 offset-lg-2 col-lg-5 col-sm-12">
 							<label for="inputEmail" class="col-3 form-label mt-1 ">Email
-								:</label> <input type="text" class="form-control" id="inputEmail"
+								:</label> <input type="text" class="form-control" name="inputEmail"
 								aria-describedby="emailHelp" value="<%=user.getEmail()%>">
 						</div>
 					</div>
@@ -114,13 +114,13 @@
 					<div class="row col-sm-12 col-lg-12 ">
 						<div class="d-flex mb-3 col-lg-5 col-sm-12">
 							<label for="inputTelephone" class="col-3 form-label mt-1 ">Telephone
-								:</label> <input type="text" class="form-control" id="inputTelephone"
+								:</label> <input type="text" class="form-control" name="inputTelephone"
 								aria-describedby="telephoneHelp"
 								value="<%=user.getTelephone()%>">
 						</div>
 						<div class="d-flex mb-3 offset-lg-2 col-lg-5 col-sm-12">
 							<label for="inputRue" class="col-3 form-label mt-1">Rue :</label>
-							<input type="text" class="form-control" id="inputRue"
+							<input type="text" class="form-control" name="inputRue"
 								aria-describedby="rueHelp" value="<%=user.getRue()%>">
 						</div>
 					</div>
@@ -129,12 +129,12 @@
 						<div class="d-flex mb-3 col-lg-5 col-sm-12">
 							<label for="inputCodePostal" class="col-3 form-label mt-1 ">Code
 								Postal :</label> <input type="text" class="form-control"
-								id="inputCodePostal" aria-describedby="codePostalHelp"
+								name="inputCodePostal" aria-describedby="codePostalHelp"
 								value="<%=user.getCodePostal()%>">
 						</div>
 						<div class="d-flex mb-3 offset-lg-2 col-lg-5 col-sm-12">
 							<label for="inputVille" class="col-3 form-label mt-1 ">Ville
-								:</label> <input type="text" class="form-control" id="inputVille"
+								:</label> <input type="text" class="form-control" name="inputVille"
 								aria-describedby="villeHelp" value="<%=user.getVille()%>">
 						</div>
 					</div>
@@ -144,7 +144,7 @@
 						<div class="d-flex mb-3 col-lg-5 col-sm-12">
 							<label for="inputMotDePasse" class="col-3 form-label mt-1 ">Mot
 								de passe actuel :</label> <input type="password" class="form-control"
-								id="inputMotDePasse" aria-describedby="motDePasseHelp">
+								name="inputMotDePasse" aria-describedby="motDePasseHelp">
 						</div>
 						<%
 							if (request.getAttribute("ErreurMDP") != null) {
@@ -160,13 +160,13 @@
 						<div class="d-flex mb-3 col-lg-5 col-sm-12">
 							<label for="inputNouveauMotDePasse"
 								class="col-3 form-label mt-1 ">Nouveau mot de passe :</label> <input
-								type="password" class="form-control" id="inputNouveauMotDePasse"
+								type="password" class="form-control" name="inputNouveauMotDePasse"
 								aria-describedby="motDePasseHelp">
 						</div>
 						<div class="d-flex mb-3 offset-lg-2 col-lg-5 col-sm-12">
 							<label for="inputConfirmation" class="col-3 form-label mt-1 ">Confirmation
 								:</label> <input type="password" class="form-control"
-								id="inputConfirmation" aria-describedby="confirmationHelp">
+								name="inputConfirmation" aria-describedby="confirmationHelp">
 						</div>
 						<%
 							if (request.getAttribute("ErreurConfirmMDP") != null) {
