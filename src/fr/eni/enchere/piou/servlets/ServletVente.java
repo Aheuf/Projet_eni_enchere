@@ -33,10 +33,10 @@ public class ServletVente extends HttpServlet {
 		
 		int idUtilisateur = 0;
 		EnchereManager em = new EnchereManager();
-		Utilisateur utilisateur = null;
+		//Utilisateur utilisateur = null;
 		HttpSession session = request.getSession();
-		idUtilisateur = 1; //(int) session.getAttribute("session");
-		
+		idUtilisateur = (int) session.getAttribute("session");
+					//= 1 pour test 
 		
 		try {
 			List<Utilisateur> utilisateurs = em.selectUtilisateurById(idUtilisateur);
@@ -107,7 +107,11 @@ public class ServletVente extends HttpServlet {
 
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/nouvellevente.jsp");
 			rd.forward(request, response);
-		*/	
+		*/
+		
+		
+		doGet(request, response);
+		
 		}
 
 }
