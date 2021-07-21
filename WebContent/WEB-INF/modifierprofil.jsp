@@ -192,7 +192,7 @@
 						<input type="submit" name="btEnregistrer" value="Enregistrer"
 							class="col-md-2 btn btn-lg btn-dark" title="Enregistrer" />
 						<!-- bouton "Supprimer mon compte -->
-						<a href="<%=request.getContextPath()%>/modifierprofil"
+						<a href="<%=request.getContextPath()%>/encheres/modifierprofil"
 							class="col-md-2 btn btn-lg btn-outline-dark">Supprimer profil</a>
 					</div>
 

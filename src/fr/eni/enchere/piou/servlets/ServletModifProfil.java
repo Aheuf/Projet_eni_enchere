@@ -32,20 +32,18 @@ public class ServletModifProfil extends HttpServlet {
 		EnchereManager en = new EnchereManager();
 		Utilisateur user = null;
 		HttpSession session = request.getSession();
-		Utilisateur utilisateur = (Utilisateur) session.getAttribute("session");
-		int idUtilisateur = utilisateur.getNoUtilisateur();
+		session.getAttribute("session");
+		int idUtilisateur = (int) session.getAttribute("session");
 
 		try {
-			List<Utilisateur> users = en.selectUtilisateurById(idUtilisateur);
-			user = users.get(0);
-			en.deleteUtilisateur(user.getNoUtilisateur());
+			en.deleteUtilisateur(idUtilisateur);
 			session.invalidate();
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}
 
 		this.getServletContext().setAttribute("user", user);
-		RequestDispatcher rd = request.getRequestDispatcher("/FilterConnexion");
+		RequestDispatcher rd = request.getRequestDispatcher("/encheres/accueil");
 		rd.forward(request, response);
 
 	}
