@@ -33,7 +33,7 @@ public class ServletDetails extends HttpServlet {
 		Utilisateur vendeur = null;
 		Retrait retrait = null;
 		
-// gestion de l'affichage de l'article		
+// gestion de l'affichage de l'article
 		try {
 			article = em.selectArticleVenduById(idArticle).get(0);
 			categorie = em.selectCategorieById(article.getNoCategorie()).get(0);
