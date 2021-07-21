@@ -1,5 +1,9 @@
+<%@page import="fr.eni.enchere.piou.bll.EnchereManager"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="fr.eni.enchere.piou.bo.Categorie" %>    
+<%@page import="java.util.List"%>
+
 <!DOCTYPE html>
 <html lang="fr"> 
 
@@ -51,10 +55,16 @@
                     </div>
                     <div class="col-md-2 col-sm-6 col-6">
                         <select class="form-select" id="categorie">
-                            <option selected>Choisir...</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                            
+                            <% 
+                            	EnchereManager em = new EnchereManager();
+                            	List<Categorie> categories = em.selectAllCategorie();
+                            	for (int i = 0 ; i < categories.size() ; i++) {%>         
+                                    <option value="<%=categories.get(i).getNoCategorie()%>">
+                                    	<%= categories.get(i).getLibelle() %>
+                                    </option>		
+                            	<% }%>
+                            		
                         </select>
                     </div>
                     <div class="col-md-6 col-sm-6 col-6">

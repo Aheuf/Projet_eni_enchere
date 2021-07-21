@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import fr.eni.enchere.piou.BusinessException;
 import fr.eni.enchere.piou.bll.EnchereManager;
 import fr.eni.enchere.piou.bo.ArticleVendu;
+import fr.eni.enchere.piou.bo.Categorie;
 import fr.eni.enchere.piou.bo.Utilisateur;
 
 /** 
@@ -64,12 +65,13 @@ public class ServletVente extends HttpServlet {
 
 		//je lis les parametres Retrait de l'adresse utilisateur par défault
 		//request.setCharacterEncoding("UTF-8");
-		
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/nouvellevente.jsp");
 		request.setAttribute("Rue", utilisateur.getRue());
+		rd.include(request, response);
 		request.setAttribute("CodePostal", utilisateur.getCodePostal());
+		rd.include(request, response);
 		request.setAttribute("Ville", utilisateur.getVille());
-		
-		
+				
 		/**
 		List<Integer> listeCodesErreur = new ArrayList<>();
 		
@@ -79,7 +81,7 @@ public class ServletVente extends HttpServlet {
 			//je renvoie les codes d'erreurs
 			request.setAttribute("listeCodeErreur", listeCodesErreur);
 		*/	
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/nouvellevente.jsp");
+			
 			rd.forward(request, response);
 		/**	
 		} else {
