@@ -37,7 +37,7 @@ public class ServletInscription extends HttpServlet {
 			throws ServletException, IOException {
 		EnchereManager manager = new EnchereManager();
 		int idUtilisateur = 0;
-		
+
 		List<Utilisateur> verification = new ArrayList<>();
 
 		// Cookie[] cookies = request.getCookies();
@@ -53,39 +53,45 @@ public class ServletInscription extends HttpServlet {
 		String mdp = request.getParameter("MdP");
 		String verifMdp = request.getParameter("MdP2");
 		int credit = Integer.parseInt(request.getParameter("Credit"));
-		
+
 		try {
 
-			System.out.println(mdp);
-			Utilisateur newUtilisateur = manager.insertUtilisateur(pseudo, nom, prenom, email, telephone, rue,
-					codePostal, ville, mdp, credit, false);
-			request.setAttribute("newUtilisateur", newUtilisateur);
-			verification = manager.selectUtilisateurByMotCle(pseudo);
+			if (mdp.equals(verifMdp)) {
+				System.out.println(mdp);
+				Utilisateur newUtilisateur = manager.insertUtilisateur(pseudo, nom, prenom, email, telephone, rue,
+						codePostal, ville, mdp, credit, false);
+				request.setAttribute("newUtilisateur", newUtilisateur);
+				verification = manager.selectUtilisateurByMotCle(pseudo);
 
-			for (Utilisateur u : verification) {
-				idUtilisateur = u.getNoUtilisateur();
+				for (Utilisateur u : verification) {
+					idUtilisateur = u.getNoUtilisateur();
+				}
+
+				HttpSession session = request.getSession();
+				session.setAttribute("session", idUtilisateur);
+
+				/*
+				 * for (Utilisateur u : verification) { String id =
+				 * String.valueOf(u.getNoUtilisateur()); System.out.println(id);
+				 * 
+				 * Cookie unCookie = new Cookie("CookieIDUtilisateur", id);
+				 * unCookie.setMaxAge(60); response.addCookie(unCookie);
+				 * System.out.println(unCookie.getMaxAge()); }
+				 */
+
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/Accueil.jsp");
+				requestDispatcher.forward(request, response);
+			} else {
+
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/inscription.jsp");
+				requestDispatcher.forward(request, response);
+
 			}
-
-			HttpSession session = request.getSession();
-			session.setAttribute("session", idUtilisateur);
-
-			/*
-			 * for (Utilisateur u : verification) { String id =
-			 * String.valueOf(u.getNoUtilisateur()); System.out.println(id);
-			 * 
-			 * Cookie unCookie = new Cookie("CookieIDUtilisateur", id);
-			 * unCookie.setMaxAge(60); response.addCookie(unCookie);
-			 * System.out.println(unCookie.getMaxAge()); }
-			 */
-
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/Accueil.jsp");
-			requestDispatcher.forward(request, response);
-
 		} catch (BusinessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
 	}
 
 }
