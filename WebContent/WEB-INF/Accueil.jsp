@@ -166,7 +166,7 @@
 				<img class="card-img-top" src=".../100px180/" alt="image produit">
 				<div class="card-body">
 					<h5 class="card-title">
-						<a href="#" class="link-dark">${a.nomArticle}</a>
+						<a href="<%=request.getContextPath()%>/encheres/details" class="link-dark">${a.nomArticle}</a>
 					</h5>
 					<p class="card-text">Prix : ${a.prixVente} points</p>
 					<p class="card-text">Fin de l'enchère : ${a.dateFinEncheres}</p>
@@ -175,11 +175,13 @@
 					<c:forEach var="b" items="${listeVendeurArticleActuelle}">
 						<c:if test="${b.noUtilisateur==a.noUtilisateur}">
 							<c:if test="${!empty session}">
-								<p class="card-text">
-									Vendeur : <a
-										href="${pageContext.request.contextPath}/encheres/profil?idvendeur="
-										${b.noUtilisateur}>${b.pseudo}</a>
-								</p>
+								<form action="<%=request.getContextPath()%>/encheres/details" method ="post">
+									<input type="submit" class="btn btn-link" value="${b.pseudo}">
+								</form>
+								<!--<p class="card-text">
+									Vendeur : 
+									<a href="${pageContext.request.contextPath}/encheres/profil?idvendeur="${b.noUtilisateur}>${b.pseudo}</a>
+								</p>-->
 							</c:if>
 							<c:if test="${empty session}">
 								<p class="card-text">Vendeur :${b.pseudo}</p>

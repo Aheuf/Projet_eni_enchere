@@ -131,7 +131,7 @@
                 </form>
                 <% } else if (request.getAttribute("idUtilisateur").equals((String) request.getAttribute("vainqueur"))){ %>
                 <!--Cas 2 : utilisateur gagne la vente-->
-                <a href="<%=request.getContextPath()%>/FilterConnexion">
+                <a href="<%=request.getContextPath()%>/encheres/accueil">
                     <button class="btn btn-secondary btn-lg btn-block">Retour</button>
                 </a>
                 <br>
