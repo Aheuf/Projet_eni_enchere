@@ -64,7 +64,7 @@ public class ServletVerificationConnexion extends HttpServlet {
 					HttpSession session = request.getSession();
 					session.setAttribute("session", verification);
 					
-					RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/Accueil.jsp");
+					RequestDispatcher requestDispatcher = request.getRequestDispatcher("/encheres/accueil");
 					requestDispatcher.forward(request, response);
 				 
 				} else {

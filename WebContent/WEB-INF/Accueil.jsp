@@ -25,9 +25,8 @@
 		<nav
 			class="navbar navbar-expand-lg navbar-light bg-dark container-fluid">
 
-
-
-			<a class="navbar-brand text-light" href="http://localhost:8080/Projet_eni_enchere/encheres/accueil">Eni-Encheres</a>
+			<a class="navbar-brand text-light"
+				href="${pageContext.request.contextPath}/encheres/accueil">Eni-Encheres</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarNav"
 				aria-controls="navbarNav" aria-expanded="false"
@@ -79,11 +78,13 @@
 					id="categorie_accueil" class="form-select"
 					aria-label="Default select example">
 					<option selected>Toutes</option>
-					<option value="1">One</option>
-					<option value="2">Two</option>
-					<option value="3">Three</option>
+					<c:forEach var="c" items="${listeCategorie}">
+						<option value="${c.noCategorie}">${c.libelle}</option>
+					</c:forEach>
+
 				</select>
 			</div>
+			
 			<c:if test="${!empty session}">
 				<!--RADIO DE SELECTION-->
 				<div class="d-flex justify-content-evenly mt-3">
@@ -173,10 +174,16 @@
 
 					<c:forEach var="b" items="${listeVendeurArticleActuelle}">
 						<c:if test="${b.noUtilisateur==a.noUtilisateur}">
-							<p class="card-text">
-								Vendeur : <a
-									href="${pageContext.request.contextPath}/encheres/profil">${b.pseudo}</a>
-							</p>
+							<c:if test="${!empty session}">
+								<p class="card-text">
+									Vendeur : <a
+										href="${pageContext.request.contextPath}/encheres/profil?idvendeur="
+										${b.noUtilisateur}>${b.pseudo}</a>
+								</p>
+							</c:if>
+							<c:if test="${empty session}">
+								<p class="card-text">Vendeur :${b.pseudo}</p>
+							</c:if>
 						</c:if>
 					</c:forEach>
 				</div>

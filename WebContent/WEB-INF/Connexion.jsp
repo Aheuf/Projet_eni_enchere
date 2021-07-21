@@ -25,9 +25,7 @@
 		<nav
 			class="navbar navbar-expand-lg navbar-light bg-dark container-fluid">
 
-
-
-			<a class="navbar-brand text-light" href="#">Eni-Encheres</a>
+			<a class="navbar-brand text-light" href="${pageContext.request.contextPath}/encheres/accueil">Eni-Encheres</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarNav"
 				aria-controls="navbarNav" aria-expanded="false"
@@ -39,17 +37,6 @@
 
 			<div class="collapse navbar-collapse justify-content-end"
 				id="navbarNav">
-				<c:if test="${!empty ok}">
-					<a class="nav-link text-light text-end" href="#">Enchères</a>
-					<a class="nav-link text-light text-end" href="#">Vendre un
-						article</a>
-
-					<a class="nav-link text-light text-end"
-						href="<%=request.getContextPath()%>/encheres/profil"><i
-						class="bi bi-person text-primary">Mon profil</i></a>
-					<a class="nav-link text-light text-end" href="#"><i
-						class="bi bi-box-arrow-left text-danger">Déconnexion</i></a>
-				</c:if>
 				<c:if test="${empty ok}">
 					<a class="nav-link text-light text-end"
 						href="<%=request.getContextPath()%>/encheres/connexionPage"> <i

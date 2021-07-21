@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import fr.eni.enchere.piou.BusinessException;
 import fr.eni.enchere.piou.bll.EnchereManager;
 import fr.eni.enchere.piou.bo.ArticleVendu;
+import fr.eni.enchere.piou.bo.Categorie;
 import fr.eni.enchere.piou.bo.Utilisateur;
 
 @WebServlet("/encheres/accueil")
@@ -28,17 +29,13 @@ public class ServletAccueil extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		/*
-		 * Cookie[] cookies = request.getCookies(); if (cookies != null) { for (Cookie
-		 * cookie : cookies) { if (cookie.getName().equals("CookieIDUtilisateur")) {
-		 * request.setAttribute("CookieIDUtilisateur", cookie.getValue()); } } }
-		 */
+		CreationListArticle(request, response);
+		CreationListCategorie(request, response);
 
 		if (request.getParameter("deconnexion") != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("session", null);
 		}
-		CreationListArticle(request, response);
 
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/Accueil.jsp");
 		requestDispatcher.forward(request, response);
@@ -70,6 +67,21 @@ public class ServletAccueil extends HttpServlet {
 			}
 			request.setAttribute("listeArticleActuelle", listeArticleActuelle);
 			request.setAttribute("listeVendeurArticleActuelle", listeVendeurArticleActuelle);
+
+		} catch (BusinessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	private void CreationListCategorie(HttpServletRequest request, HttpServletResponse response) {
+		EnchereManager manager = new EnchereManager();
+		List<Categorie> listeCategorie = new ArrayList<>();
+
+		try {
+			listeCategorie = manager.selectAllCategorie();
+			request.setAttribute("listeCategorie", listeCategorie);
 
 		} catch (BusinessException e) {
 			// TODO Auto-generated catch block
