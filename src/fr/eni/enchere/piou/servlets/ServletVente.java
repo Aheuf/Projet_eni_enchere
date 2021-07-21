@@ -107,7 +107,11 @@ public class ServletVente extends HttpServlet {
 
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/nouvellevente.jsp");
 			rd.forward(request, response);
-		*/	
+		*/
+		
+		
+		doGet(request, response);
+		
 		}
 
 }
