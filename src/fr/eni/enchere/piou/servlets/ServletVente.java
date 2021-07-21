@@ -35,8 +35,8 @@ public class ServletVente extends HttpServlet {
 		EnchereManager em = new EnchereManager();
 		Utilisateur utilisateur = null;
 		HttpSession session = request.getSession();
-		idUtilisateur = 1; //(int) session.getAttribute("session");
-		
+		idUtilisateur = (int) session.getAttribute("session");
+					//= 1 pour test
 		
 		try {
 			List<Utilisateur> utilisateurs = em.selectUtilisateurById(idUtilisateur);
