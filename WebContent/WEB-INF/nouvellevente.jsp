@@ -48,8 +48,10 @@
 		<h1 class="text-center mt-5 mb-5">Nouvelle Vente</h1>
 		<div class="container">
 			<div class="d-flex justify-content-around">
-								<!--  une methode & une action -->
-				<form class="row col-md-6 col-sm-12 col-10 g-3">
+			
+				<form method="post" action="../encheres/accueil" 
+				
+					class="row col-md-6 col-sm-12 col-10 g-3">
 					<div class="col-md-6 col-sm-6 col-6">
 						<label for="article">Article :</label>
 					</div>
@@ -136,8 +138,10 @@
 					</fieldset>
 			
 					<div class="row justify-content-around mt-3 mb-5">
+						<!-- bouton "Enregistrer" -->
 						<input type="submit" class="btn btn-dark col-5 col-sm-3 col-md-3"
 							id="enregistrer" name="enregistrer" value="Enregistrer">
+							<!-- bouton "Annuler -->
 						<a href="" class="btn btn-outline-dark col-sm-3 col-md-3 col-5">Annuler</a>
 						<input type="button"
 							class="btn btn-outline-dark col-sm-3 col-md-3 col-5"

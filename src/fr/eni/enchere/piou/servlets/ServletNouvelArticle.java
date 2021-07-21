@@ -17,7 +17,6 @@ import fr.eni.enchere.piou.BusinessException;
 import fr.eni.enchere.piou.bll.EnchereManager;
 import fr.eni.enchere.piou.bo.ArticleVendu;
 //import fr.eni.enchere.piou.bo.Categorie;
-//import fr.eni.enchere.piou.bo.ArticleVendu;
 //import fr.eni.enchere.piou.bo.Retrait;
 import fr.eni.enchere.piou.bo.Utilisateur;
 
@@ -59,38 +58,40 @@ public class ServletNouvelArticle extends HttpServlet {
 			*/
 		
 		request.setCharacterEncoding("UTF-8");
-		
-		//int idUtilisateur = 0;
+		int idUtilisateur = 0;
 		HttpSession session = request.getSession();
+		idUtilisateur=(int)session.getAttribute("session");
+		
 		//int idArticle =Integer.parseInt(request.getParameter("idarticle"));
 		//RequestDispatcher rd = null;
+		
 		EnchereManager em = new EnchereManager();
 		ArticleVendu article = null;
-		Utilisateur utilisateur = null;		/// ???
-		int user=utilisateur.getNoUtilisateur();
-		
-		//session.setAttribute("session", idUtilisateur);
 		
 		String nomArticle = null;
 		String description = null;
-		//List<Categorie> categories = new ArrayList<Categorie>();
-		int noCategorie = 0;
-		//String photo;
 		Date dateDebutEncheres = null;
 		Date dateFinEncheres = null;
 		int prixInitial = 0;
+		int prixVente = 0;
+		int noUtilisateur = 0;
+		int noCategorie = 0;
+		
+		//String photo;
+		
 		String rue = null;
 		String codePostal = null;
 		String ville = null;
 
 		nomArticle = request.getParameter("article");
 		description = request.getParameter("description");
-/**/	noCategorie = Integer.parseInt(request.getParameter("categorie"));
-		//photo = request.getParameter("photo");
 		dateDebutEncheres = Date.valueOf(request.getParameter("debut"));
 		dateFinEncheres = Date.valueOf(request.getParameter("fin"));
 		prixInitial = Integer.parseInt(request.getParameter("prix"));
-		int prixVente = prixInitial;
+		prixVente = prixInitial;
+		noUtilisateur = idUtilisateur;
+/**/	noCategorie = Integer.parseInt(request.getParameter("categorie"));
+		//photo = request.getParameter("photo");
 		rue = request.getParameter("inputRue");
 		codePostal = request.getParameter("inputCodePostal");
 		ville = request.getParameter("inputVille");
@@ -101,15 +102,15 @@ public class ServletNouvelArticle extends HttpServlet {
 			rd.forward(request, response);
 		}
 		
-		ArticleVendu av = new ArticleVendu(nomArticle, description, dateDebutEncheres, dateFinEncheres, prixInitial, prixVente, user, noCategorie);
+		article = new ArticleVendu(nomArticle, description, dateDebutEncheres, dateFinEncheres, prixInitial, prixVente, noUtilisateur, noCategorie);
 		
 		try {
-			em.insertArticle(av);
+			em.insertArticle(article);
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Accueil.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/encheres/accueil");
 		rd.forward(request, response);
 	
 	}
