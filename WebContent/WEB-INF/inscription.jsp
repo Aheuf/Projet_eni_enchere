@@ -26,9 +26,8 @@
 		<nav
 			class="navbar navbar-expand-lg navbar-light bg-dark container-fluid">
 
-
-
-			<a class="navbar-brand text-light" href="#">Eni-Encheres</a>
+			<a class="navbar-brand text-light"
+				href="${pageContext.request.contextPath}/encheres/accueil">Eni-Encheres</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarNav"
 				aria-controls="navbarNav" aria-expanded="false"
@@ -40,17 +39,7 @@
 
 			<div class="collapse navbar-collapse justify-content-end"
 				id="navbarNav">
-				<c:if test="${!empty ok}">
-					<a class="nav-link text-light text-end" href="#">Enchères</a>
-					<a class="nav-link text-light text-end" href="#">Vendre un
-						article</a>
 
-					<a class="nav-link text-light text-end"
-						href="<%=request.getContextPath()%>/encheres/profil"><i
-						class="bi bi-person text-primary">Mon profil</i></a>
-					<a class="nav-link text-light text-end" href="#"><i
-						class="bi bi-box-arrow-left text-danger">Déconnexion</i></a>
-				</c:if>
 				<c:if test="${empty ok}">
 					<a class="nav-link text-light text-end"
 						href="<%=request.getContextPath()%>/encheres/connexionPage"> <i
@@ -62,7 +51,7 @@
 		</nav>
 	</header>
 	<section>
-		<h1 class="text-center mt-5 mb-5">Mon profil</h1>
+		<h1 class="text-center mt-5 mb-5">Inscription</h1>
 		<div class="container">
 
 			<form method="post" action="../encheres/inscription"
@@ -128,8 +117,9 @@
 					</div>
 					<div class="d-flex mb-3 offset-lg-2 col-lg-5 col-sm-12">
 						<label for="inputConfirmation" class="col-3 form-label mt-1 ">Confirmation
-							:</label> <input type="password" class="form-control" id="inputConfirmation"
-							aria-describedby="confirmationHelp" name="MdP2">
+							:</label> <input type="password" class="form-control"
+							id="inputConfirmation" aria-describedby="confirmationHelp"
+							name="MdP2">
 					</div>
 				</div>
 
@@ -146,8 +136,9 @@
 					<input type="submit" name="btEnregistrer" value="Enregistrer"
 						class="col-md-2 btn btn-lg btn-dark" title="Créer" />
 					<!-- bouton "Retour en arriere -->
-					<a href="" class="col-md-2 btn btn-lg btn-outline-dark"
-						title="Annuler">Annuler</a>
+					<a
+						href="${pageContext.request.contextPath}/encheres/accueil?deconnexion"
+						class="col-md-2 btn btn-lg btn-outline-dark" title="Annuler">Annuler</a>
 				</div>
 
 			</form>

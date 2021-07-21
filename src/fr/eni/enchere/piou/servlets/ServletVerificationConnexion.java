@@ -11,6 +11,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.enchere.piou.BusinessException;
 import fr.eni.enchere.piou.bll.EnchereManager;
@@ -31,7 +32,6 @@ public class ServletVerificationConnexion extends HttpServlet {
 		if (request.getParameter("inscription") != null) {
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/inscription.jsp");
 			requestDispatcher.forward(request, response);
-      
         }
 	}
 
@@ -43,26 +43,33 @@ public class ServletVerificationConnexion extends HttpServlet {
 		Cookie[] cookies = request.getCookies();
 
 		try {
-			String pseudo = request.getParameter("identifiant");
-			String mdp = request.getParameter("mdp");
+			String pseudo = request.getParameter("Identifiant");
+			String mdp = request.getParameter("MdP");
 			String testmdp = null;
 			verification = manager.selectUtilisateurByMotCle(pseudo);
 
 			if (verification.isEmpty()) {
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/encheres/connexionPage");
+				requestDispatcher.forward(request, response);
 				System.out.println("rien dedans");
 			} else {
+				
 				for (Utilisateur u : verification) {
 					testmdp = u.getMotDePasse();
 				}
+				
+				System.out.println("mdp: "+testmdp);
+				System.out.println(mdp);
 				if (mdp.equals(testmdp)) {
-
-					for (Utilisateur u : verification) {
-						String id = String.valueOf(u.getNoUtilisateur());
-						Cookie unCookie = new Cookie("CookieIDUtilisateur", id);
-						unCookie.setMaxAge(300);
-						response.addCookie(unCookie);
-					}
+					HttpSession session = request.getSession();
+					session.setAttribute("session", verification);
+					
+					RequestDispatcher requestDispatcher = request.getRequestDispatcher("/encheres/accueil");
+					requestDispatcher.forward(request, response);
+				 
 				} else {
+					RequestDispatcher requestDispatcher = request.getRequestDispatcher("/encheres/connexionPage");
+					requestDispatcher.forward(request, response);
 					System.out.println("probleme de mdp");
 				}
 			}
@@ -71,7 +78,7 @@ public class ServletVerificationConnexion extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		doGet(request, response);
+		;
 	}
 
 }

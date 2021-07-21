@@ -25,9 +25,7 @@
 		<nav
 			class="navbar navbar-expand-lg navbar-light bg-dark container-fluid">
 
-
-
-			<a class="navbar-brand text-light" href="#">Eni-Encheres</a>
+			<a class="navbar-brand text-light" href="${pageContext.request.contextPath}/encheres/accueil">Eni-Encheres</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarNav"
 				aria-controls="navbarNav" aria-expanded="false"
@@ -39,17 +37,6 @@
 
 			<div class="collapse navbar-collapse justify-content-end"
 				id="navbarNav">
-				<c:if test="${!empty ok}">
-					<a class="nav-link text-light text-end" href="#">Enchères</a>
-					<a class="nav-link text-light text-end" href="#">Vendre un
-						article</a>
-
-					<a class="nav-link text-light text-end"
-						href="<%=request.getContextPath()%>/encheres/profil"><i
-						class="bi bi-person text-primary">Mon profil</i></a>
-					<a class="nav-link text-light text-end" href="#"><i
-						class="bi bi-box-arrow-left text-danger">Déconnexion</i></a>
-				</c:if>
 				<c:if test="${empty ok}">
 					<a class="nav-link text-light text-end"
 						href="<%=request.getContextPath()%>/encheres/connexionPage"> <i
@@ -65,19 +52,19 @@
 		<h1 class="text-center mt-5 mb-5">Connexion</h1>
 		<div class="container">
 			<div class="d-flex justify-content-around">
-				<form method="post" action="../encheres/connexion"
+				<form method="post" action="../encheres/VerificationConnexion"
 					class="row col-md-4 col-sm-6 col-7 g-3">
 					<div class="col-md-6 col-sm-12">
-						<label for="identifiant">Identifiant :</label>
+						<label for="identifiant">Identifiant(pseudo) :</label>
 					</div>
 					<div class="col-md-6 col-sm-12">
-						<input type="text" id="identifiant" name="identifiant">
+						<input type="text" id="identifiant" name="Identifiant">
 					</div>
 					<div class="col-md-6 col-sm-12">
 						<label for="mdp">Mot de passe :</label>
 					</div>
 					<div class="col-md-6 col-sm-12">
-						<input type="password" id="mdp" name="mdp">
+						<input type="password" id="mdp" name="MdP">
 					</div>
 					<div
 						class="mt-2 row justify-content-md-end justify-content-sm-center">

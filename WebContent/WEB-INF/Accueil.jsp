@@ -25,9 +25,8 @@
 		<nav
 			class="navbar navbar-expand-lg navbar-light bg-dark container-fluid">
 
-
-
-			<a class="navbar-brand text-light" href="#">Eni-Encheres</a>
+			<a class="navbar-brand text-light"
+				href="${pageContext.request.contextPath}/encheres/accueil">Eni-Encheres</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarNav"
 				aria-controls="navbarNav" aria-expanded="false"
@@ -79,72 +78,77 @@
 					id="categorie_accueil" class="form-select"
 					aria-label="Default select example">
 					<option selected>Toutes</option>
-					<option value="1">One</option>
-					<option value="2">Two</option>
-					<option value="3">Three</option>
+					<c:forEach var="c" items="${listeCategorie}">
+						<option value="${c.noCategorie}">${c.libelle}</option>
+					</c:forEach>
+
 				</select>
 			</div>
-
-			<!--RADIO DE SELECTION-->
-			<div class="d-flex justify-content-evenly mt-3">
-				<div class="form-check-toggle">
-					<input class="form-check-input" type="radio"
-						name="flexRadioDefault" id="flexRadioDefault1"> <label
-						class="form-check-label" for="flexRadioDefault1"> Achats </label>
-				</div>
-
-				<div class="form-check-toggle">
-					<input class="form-check-input" type="radio"
-						name="flexRadioDefault" id="flexRadioDefault2"> <label
-						class="form-check-label" for="flexRadioDefault2"> Mes
-						ventes </label>
-				</div>
-			</div>
-
-			<div class="d-flex justify-content-evenly">
-				<!--CHECKBOX ACHAT-->
-				<div>
-					<div class="form-check">
-						<input class="form-check-input" id="achat" type="checkbox"
-							value="Encheres_ouverte"> <label class="form-check-label"
-							for="flexCheckDefault"> Enchères ouverte</label>
+			
+			<c:if test="${!empty session}">
+				<!--RADIO DE SELECTION-->
+				<div class="d-flex justify-content-evenly mt-3">
+					<div class="form-check-toggle">
+						<input class="form-check-input" type="radio"
+							name="flexRadioDefault" id="flexRadioDefault1"> <label
+							class="form-check-label" for="flexRadioDefault1"> Achats
+						</label>
 					</div>
-					<div class="form-check">
-						<input class="form-check-input" type="checkbox"
-							value="encheres_en_cours"> <label
-							class="form-check-label" for="flexCheckDefault"> Mes
-							enchères en cours</label>
-					</div>
-					<div class="form-check">
-						<input class="form-check-input" type="checkbox"
-							value="encheres_remportees"> <label
-							class="form-check-label" for="flexCheckDefault"> Mes
-							enchères remportées</label>
+
+					<div class="form-check-toggle">
+						<input class="form-check-input" type="radio"
+							name="flexRadioDefault" id="flexRadioDefault2"> <label
+							class="form-check-label" for="flexRadioDefault2"> Mes
+							ventes </label>
 					</div>
 				</div>
 
-				<!--CHECKBOX VENTE-->
-				<div>
-					<div class="form-check">
-						<input class="form-check-input" type="checkbox"
-							value="ventes_en_cours"> <label class="form-check-label"
-							for="flexCheckDefault"> Mes ventes en cours</label>
+				<div class="d-flex justify-content-evenly">
+					<!--CHECKBOX ACHAT-->
+					<div>
+						<div class="form-check">
+							<input class="form-check-input" id="achat" type="checkbox"
+								value="Encheres_ouverte"> <label
+								class="form-check-label" for="flexCheckDefault">
+								Enchères ouverte</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox"
+								value="encheres_en_cours"> <label
+								class="form-check-label" for="flexCheckDefault"> Mes
+								enchères en cours</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox"
+								value="encheres_remportees"> <label
+								class="form-check-label" for="flexCheckDefault"> Mes
+								enchères remportées</label>
+						</div>
 					</div>
-					<div class="form-check">
-						<input class="form-check-input" type="checkbox"
-							value="ventes_non_debutees"> <label
-							class="form-check-label" for="flexCheckDefault"> Mes
-							ventes non débutées</label>
-					</div>
-					<div class="form-check">
-						<input class="form-check-input" type="checkbox"
-							value="Ventes_terminees"> <label class="form-check-label"
-							for="flexCheckDefault"> Ventes terminées</label>
+
+					<!--CHECKBOX VENTE-->
+					<div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox"
+								value="ventes_en_cours"> <label class="form-check-label"
+								for="flexCheckDefault"> Mes ventes en cours</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox"
+								value="ventes_non_debutees"> <label
+								class="form-check-label" for="flexCheckDefault"> Mes
+								ventes non débutées</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox"
+								value="Ventes_terminees"> <label
+								class="form-check-label" for="flexCheckDefault"> Ventes
+								terminées</label>
+						</div>
 					</div>
 				</div>
-			</div>
 
-
+			</c:if>
 			<!--SUBMIT-->
 			<div class="d-flex justify-content-center mt-2">
 				<button type="submit" class="btn btn-secondary">Rechercher</button>
@@ -162,7 +166,7 @@
 				<img class="card-img-top" src=".../100px180/" alt="image produit">
 				<div class="card-body">
 					<h5 class="card-title">
-						<a href="#" class="link-dark">${a.nomArticle}</a>
+						<a href="<%=request.getContextPath()%>/encheres/details" class="link-dark">${a.nomArticle}</a>
 					</h5>
 					<p class="card-text">Prix : ${a.prixVente} points</p>
 					<p class="card-text">Fin de l'enchère : ${a.dateFinEncheres}</p>
@@ -170,10 +174,18 @@
 
 					<c:forEach var="b" items="${listeVendeurArticleActuelle}">
 						<c:if test="${b.noUtilisateur==a.noUtilisateur}">
-							<p class="card-text">
-								Vendeur : <a
-									href="${pageContext.request.contextPath}/encheres/profil">${b.pseudo}</a>
-							</p>
+							<c:if test="${!empty session}">
+								<form action="<%=request.getContextPath()%>/encheres/details" method ="post">
+									<input type="submit" class="btn btn-link" value="${b.pseudo}">
+								</form>
+								<!--<p class="card-text">
+									Vendeur : 
+									<a href="${pageContext.request.contextPath}/encheres/profil?idvendeur="${b.noUtilisateur}>${b.pseudo}</a>
+								</p>-->
+							</c:if>
+							<c:if test="${empty session}">
+								<p class="card-text">Vendeur :${b.pseudo}</p>
+							</c:if>
 						</c:if>
 					</c:forEach>
 				</div>
@@ -184,7 +196,7 @@
 	</article>
 
 	<!--FOOTER-->
-	<footer class="bg-dark">
+	<footer class="bg-dark fixed-bottom">
 		<p class="text-light text-center">Copyright - ENI ecole</p>
 	</footer>
 
