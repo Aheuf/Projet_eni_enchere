@@ -177,7 +177,7 @@
 					<c:forEach var="b" items="${listeVendeurArticleActuelle}">
 						<c:if test="${b.noUtilisateur==a.noUtilisateur}">
 							<c:if test="${!empty session}">
-								<form action="<%=request.getContextPath()%>/encheres/details"
+								<form action="<%=request.getContextPath()%>/encheres/details?idVendeur=${a.noUtilisateur}"
 									method="post">
 									<input type="submit" class="btn btn-link" value="${b.pseudo}">
 								</form>
