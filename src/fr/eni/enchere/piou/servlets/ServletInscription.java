@@ -36,11 +36,12 @@ public class ServletInscription extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		EnchereManager manager = new EnchereManager();
-
+		int idUtilisateur = 0;
+		
 		List<Utilisateur> verification = new ArrayList<>();
 
-		//Cookie[] cookies = request.getCookies();
-		
+		// Cookie[] cookies = request.getCookies();
+
 		String pseudo = request.getParameter("Pseudo");
 		String nom = request.getParameter("Nom");
 		String prenom = request.getParameter("Prenom");
@@ -52,35 +53,34 @@ public class ServletInscription extends HttpServlet {
 		String mdp = request.getParameter("MdP");
 		String verifMdp = request.getParameter("MdP2");
 		int credit = Integer.parseInt(request.getParameter("Credit"));
-
+		
 		try {
-			
+
 			System.out.println(mdp);
-				Utilisateur newUtilisateur = manager.insertUtilisateur(pseudo, nom, prenom, email, telephone, rue,
-						codePostal, ville, mdp, credit, false);
-				request.setAttribute("newUtilisateur", newUtilisateur);
-				verification = manager.selectUtilisateurByMotCle(pseudo);
-				
+			Utilisateur newUtilisateur = manager.insertUtilisateur(pseudo, nom, prenom, email, telephone, rue,
+					codePostal, ville, mdp, credit, false);
+			request.setAttribute("newUtilisateur", newUtilisateur);
+			verification = manager.selectUtilisateurByMotCle(pseudo);
+
+			for (Utilisateur u : verification) {
+				idUtilisateur = u.getNoUtilisateur();
+			}
+
 			HttpSession session = request.getSession();
-			session.setAttribute("session", verification);
-			
+			session.setAttribute("session", idUtilisateur);
 
-				/*for (Utilisateur u : verification) {
-					String id = String.valueOf(u.getNoUtilisateur());
-					System.out.println(id);
-					
-					Cookie unCookie = new Cookie("CookieIDUtilisateur", id);
-					unCookie.setMaxAge(60);
-					response.addCookie(unCookie);
-					System.out.println(unCookie.getMaxAge()); 
-				}*/
-			
-				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/Accueil.jsp");
-				requestDispatcher.forward(request, response);
-			 
-				
+			/*
+			 * for (Utilisateur u : verification) { String id =
+			 * String.valueOf(u.getNoUtilisateur()); System.out.println(id);
+			 * 
+			 * Cookie unCookie = new Cookie("CookieIDUtilisateur", id);
+			 * unCookie.setMaxAge(60); response.addCookie(unCookie);
+			 * System.out.println(unCookie.getMaxAge()); }
+			 */
 
-			
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/Accueil.jsp");
+			requestDispatcher.forward(request, response);
+
 		} catch (BusinessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
