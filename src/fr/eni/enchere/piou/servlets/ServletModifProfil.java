@@ -116,6 +116,7 @@ public class ServletModifProfil extends HttpServlet {
 			e.printStackTrace();
 		}
 
+		
 		RequestDispatcher rd = request.getRequestDispatcher("/encheres/profil");
 		rd.forward(request, response);
 
