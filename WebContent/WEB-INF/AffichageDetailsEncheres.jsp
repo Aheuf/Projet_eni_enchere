@@ -123,14 +123,14 @@
 
             <div class=" text-center fw-bold">
                 <!--varie en fonction du resultat de la vente-->
-                <% if (date != article.getDateFinEncheres() || request.getAttribute("idUtilisateur").equals("0")){ %>
+                <% if (!request.getAttribute("idUtilisateur").equals("0") && date != article.getDateFinEncheres()  ){ %>
                 <!--Cas 1 : vente en cours-->
                 <form method="post" action="<%=request.getContextPath()%>/encheres/encheres">
                     <label for="input_saisie">Ma proposition : </label>
                     <input id="input_saisie" type="number" name="proposition"/>
                     <button type="submit" class="btn btn-success " name="validation">Encherir</button>
                 </form>
-                <% } else if (request.getAttribute("idUtilisateur").equals((String) request.getAttribute("vainqueur"))){ %>
+                <% } else if (request.getAttribute("idUtilisateur").equals((String) request.getAttribute("vainqueur")) || request.getAttribute("idUtilisateur").equals("0")){ %>
                 <!--Cas 2 : utilisateur gagne la vente-->
                 <a href="<%=request.getContextPath()%>/encheres/accueil">
                     <button class="btn btn-secondary btn-lg btn-block">Retour</button>

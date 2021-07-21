@@ -5,7 +5,6 @@ import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,7 +23,7 @@ public class ServletDetails extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		int idArticle =Integer.parseInt(request.getParameter("idarticle"));
+		int idArticle = Integer.parseInt(request.getParameter("idarticle"));
 		RequestDispatcher rd = null;
 		EnchereManager em = new EnchereManager();
 		ArticleVendu article = null;
@@ -74,20 +73,8 @@ public class ServletDetails extends HttpServlet {
 		request.setAttribute("vainqueur", vainqueur);
 //fin de gestion de l'affichage suivant l'utilisateur
 		
-// création d'un cookie IdArticle
-		Cookie[] cookies = request.getCookies();
-		Cookie cookieIdArticle = null;
-		int i = 0;
-		for (Cookie c : cookies) {
-			i++;
-			if(c.getName().equals("IdArticle")) {
-				c.setValue(String.valueOf(idArticle));
-				break;
-			} else if (i == cookies.length-1) {
-				cookieIdArticle = new Cookie("IdArticle", String.valueOf(idArticle));
-				response.addCookie(cookieIdArticle);
-			}
-		}
+// création d'un attribu de session IdArticle
+			session.setAttribute("idArticle", article.getNoArticle());
 // fin de la gestion du cookie IdArticle
 		
 		rd = request.getRequestDispatcher("/WEB-INF/AffichageDetailsEncheres.jsp");
@@ -98,12 +85,10 @@ public class ServletDetails extends HttpServlet {
 		int idVendeur = Integer.parseInt(request.getParameter("idVendeur"));
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/AffichageProfilAutreUtilisateur.jsp");
 		EnchereManager em = new EnchereManager();	
-		Cookie[] cookies = request.getCookies();
 
 // recupération de l'id utilisateur		
 		HttpSession session = request.getSession();
-		Utilisateur utilisateur = (Utilisateur) session.getAttribute("session");
-		int idUtilisateur = utilisateur.getNoUtilisateur();
+		int idUtilisateur = (int) session.getAttribute("session");
 		
 // recupération du vendeur
 		Utilisateur vendeur = null;

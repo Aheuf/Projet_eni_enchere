@@ -26,22 +26,15 @@ public class ServletEncheres extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int proposition = Integer.parseInt(request.getParameter("proposition"));
+		HttpSession session = request.getSession();
 		EnchereManager em = new EnchereManager();
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/AffichageDetailsEncheres.jsp");
-		Cookie[] cookies = request.getCookies();
-		int idArticle = 0;
 
 // recupération de l'id de l'article concerné
-		for (Cookie c : cookies) {
-			if (c.getName().equals("idArticle")) {
-				idArticle = Integer.parseInt(c.getValue());
-			}
-		}
+		int idArticle = (int) session.getAttribute("idArticle");
 		
 // recupération de l'id utilisateur
-		HttpSession session = request.getSession();
-		Utilisateur utilisateur = (Utilisateur) session.getAttribute("session");
-		int idUtilisateur = utilisateur.getNoUtilisateur();
+		int idUtilisateur = (int) session.getAttribute("session");
 		
 // récupération de l'article
 		ArticleVendu article = null;
