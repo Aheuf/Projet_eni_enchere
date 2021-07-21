@@ -1,7 +1,7 @@
 package fr.eni.enchere.piou.servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.enchere.piou.BusinessException;
 import fr.eni.enchere.piou.bll.EnchereManager;
-import fr.eni.enchere.piou.bo.ArticleVendu;
-import fr.eni.enchere.piou.bo.Categorie;
+//import fr.eni.enchere.piou.bo.ArticleVendu;
+//import fr.eni.enchere.piou.bo.Categorie;
 import fr.eni.enchere.piou.bo.Utilisateur;
 
 /** 

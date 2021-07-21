@@ -1,10 +1,7 @@
 package fr.eni.enchere.piou.servlets;
 
 import java.io.IOException;
-import java.time.LocalDate;
-//import java.sql.Date;
-//import java.util.ArrayList;
-//import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -42,6 +39,8 @@ public class ServletNouvelArticle extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		request.setCharacterEncoding("UTF-8");
+		
 		int idUtilisateur = 0;
 		EnchereManager em = new EnchereManager();
 		Cookie[] cookies = request.getCookies();
@@ -67,8 +66,8 @@ public class ServletNouvelArticle extends HttpServlet {
 		int noCategorie = 0;
 		//String photo;
 		
-		LocalDate dateDebutEncheres = null;
-		LocalDate dateFinEncheres = null;
+		Date dateDebutEncheres = null;
+		Date dateFinEncheres = null;
 		int prixInitial = 0;
 				
 		String rue = null;
@@ -83,8 +82,8 @@ public class ServletNouvelArticle extends HttpServlet {
 /**/	noCategorie = Integer.parseInt(request.getParameter("categorie"));
 		//photo = request.getParameter("photo");
 		
-		dateDebutEncheres = LocalDate.parse(request.getParameter("debut"));
-		dateFinEncheres = LocalDate.parse(request.getParameter("fin"));
+		dateDebutEncheres = Date.valueOf(request.getParameter("debut"));
+		dateFinEncheres = Date.valueOf(request.getParameter("fin"));
 		prixInitial = Integer.parseInt(request.getParameter("prix"));
 		
 		int prixVente = prixInitial;
