@@ -59,9 +59,7 @@ public class ServletNouvelArticle extends HttpServlet {
 		HttpSession session = request.getSession();
 		idUtilisateur = (int) session.getAttribute("session");
 
-		System.out.println(idUtilisateur);
-		// int idArticle =Integer.parseInt(request.getParameter("idarticle"));
-		// RequestDispatcher rd = null;
+//		System.out.println(idUtilisateur);
 
 		EnchereManager em = new EnchereManager();
 		ArticleVendu article = null;
@@ -100,22 +98,22 @@ public class ServletNouvelArticle extends HttpServlet {
 			rue = request.getParameter("rue");
 			codePostal = request.getParameter("postal");
 			ville = request.getParameter("ville");
-			System.out.println(nomArticle);
-			System.out.println(description);
-			System.out.println(dateDebutEncheres);
-			System.out.println(dateFinEncheres);
-			System.out.println(prixInitial);
-			System.out.println(prixVente);
-			System.out.println(noUtilisateur);
-			System.out.println(noCategorie);
-			System.out.println(rue);
-			System.out.println(codePostal);
-			System.out.println(ville);
+//			System.out.println(nomArticle);
+//			System.out.println(description);
+//			System.out.println(dateDebutEncheres);
+//			System.out.println(dateFinEncheres);
+//			System.out.println(prixInitial);
+//			System.out.println(prixVente);
+//			System.out.println(noUtilisateur);
+//			System.out.println(noCategorie);
+//			System.out.println(rue);
+//			System.out.println(codePostal);
+//			System.out.println(ville);
 			if (nomArticle == null || description == null || noCategorie == 0 || dateDebutEncheres == null
 					|| dateFinEncheres == null || prixInitial == 0 || rue == null || codePostal == null
 					|| ville == null) {
 
-				System.out.println("probleme dans ici");
+//				System.out.println("probleme dans ici");
 				this.getServletContext().setAttribute("ErreurSaisi", "Tous les champs doivent être remplis !");
 				RequestDispatcher rd = request.getRequestDispatcher("/encheres/ServletVente");
 				rd.forward(request, response);
@@ -129,7 +127,7 @@ public class ServletNouvelArticle extends HttpServlet {
 
 				for (ArticleVendu av : recuperationInfoArticle) {
 					idArticleCree = av.getNoArticle();
-					System.out.println(idArticleCree);
+//					System.out.println(idArticleCree);
 				}
 
 				retrait = em.insertRetrait(idArticleCree, rue, codePostal, ville);
