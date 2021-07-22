@@ -28,12 +28,12 @@ public class ServletProfil extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		EnchereManager en = new EnchereManager();
 		
-		//recupere l'utilisateur connecté
+		//recupere l'ID de l'utilisateur connecté
 		HttpSession session = request.getSession();
 		int idUtilisateur = (int) session.getAttribute("session");
 
 		try {
-			//cherche dans la liste d'utilisateur 
+			//recupere les information de l'utilisateur 
 			List<Utilisateur> users = en.selectUtilisateurById(idUtilisateur);
 			Utilisateur user = users.get(0);
 			request.setAttribute("user", user);
