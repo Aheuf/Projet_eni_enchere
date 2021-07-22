@@ -49,7 +49,6 @@ public class ServletAccueil extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
@@ -66,6 +65,7 @@ public class ServletAccueil extends HttpServlet {
 
 			// filtre pour recuperer la date de fin d'enchere pour la comparer a la date du
 			// jours pour creer une liste d'enchere a jour
+			
 			for (ArticleVendu av : listeArticleBrut) {
 				LocalDate dateFinVente = Instant.ofEpochMilli(av.getDateFinEncheres().getTime())
 						.atZone(ZoneId.systemDefault()).toLocalDate();

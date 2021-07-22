@@ -50,6 +50,8 @@ public class ServletRecherche extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		EnchereManager manager = new EnchereManager();
+		request.setAttribute("listeArticleFiltre", null);
+
 		List<ArticleVendu> listeArticle = new ArrayList<ArticleVendu>();
 		List<ArticleVendu> listeArticleDepartFiltre = new ArrayList<ArticleVendu>();
 		List<ArticleVendu> listeArticleFiltre = new ArrayList<ArticleVendu>();
@@ -57,6 +59,7 @@ public class ServletRecherche extends HttpServlet {
 
 		// RECUPERATION DES INFORMATION JSP---------------------------------------
 		String filtre = request.getParameter("Filtre");
+		System.out.println("filtre: " + filtre);
 		String[] categories = request.getParameterValues("ChoixCategorie");
 		int categorie = Integer.parseInt(categories[0]);
 		String radio = request.getParameter("radiocheck");
@@ -74,7 +77,7 @@ public class ServletRecherche extends HttpServlet {
 					premierCheckBox = request.getParameterValues("myCheckAchat1");
 					secondeCheckBox = request.getParameterValues("myCheckAchat2");
 					troisiemeCheckBox = request.getParameterValues("myCheckAchat3");
-					request.setAttribute("switchOn", true);
+					request.setAttribute("switchOn", "ok");
 					break;
 				case "radioVentes":
 					premierCheckBox = request.getParameterValues("myCheckVente1");
@@ -106,20 +109,28 @@ public class ServletRecherche extends HttpServlet {
 					pseudo = u.getPseudo();
 				}
 				for (ArticleVendu av : listeArticle) {
-					if (av.getNoUtilisateur() == idUtilisateur)
+					if (av.getNoUtilisateur() == idUtilisateur) {
 						listeArticleVente.add(av);
+					}
 				}
 			}
-
+			System.out.println(listeArticleFiltre);
 			// filtre un mot clef-----------------------------------------
-			if (filtre != null || filtre != "") {
+
+			if (filtre.length() > 1 || filtre != "") {
+				listeArticleFiltre = new ArrayList<ArticleVendu>();
 				listeArticleFiltre = manager.selectArticleVenduByMotCle(filtre);
+				System.out.println("valeur filtre " + listeArticleFiltre);
+				System.out.println("je suis passé dans le filtre");
 			}
 
 			// filtre categorie-----------------------------------------
 			if (categorie != 0) {
+				System.out.println("je suis passé dans categorie"+categorie);
+				System.out.println(listeArticleFiltre);
 
 				if (listeArticleFiltre != null) {
+					listeArticleDepartFiltre = new ArrayList<ArticleVendu>();
 					listeArticleDepartFiltre = listeArticleFiltre;
 					listeArticleFiltre = new ArrayList<ArticleVendu>();
 
@@ -128,9 +139,10 @@ public class ServletRecherche extends HttpServlet {
 							listeArticleFiltre.add(article);
 						}
 					}
-				} else {
-
+				}
+				if(listeArticleFiltre.isEmpty()){
 					listeArticleFiltre = new ArrayList<ArticleVendu>();
+					System.out.println("je suis la");
 					for (ArticleVendu article : listeArticle) {
 						int testav = article.getNoCategorie();
 						System.out.println("test8-3-3:" + testav);
@@ -138,6 +150,7 @@ public class ServletRecherche extends HttpServlet {
 							listeArticleFiltre.add(article);
 						}
 					}
+
 				}
 			}
 
@@ -148,11 +161,11 @@ public class ServletRecherche extends HttpServlet {
 				// filtre radio achats-----------------------------------------
 				case "radioAchats":
 
-					
 					if ((premierCheckBox != null && secondeCheckBox != null && troisiemeCheckBox != null)
 							|| (premierCheckBox != null && troisiemeCheckBox != null)) {
 
 						if (listeArticleFiltre != null) {
+							listeArticleDepartFiltre = new ArrayList<ArticleVendu>();
 							listeArticleDepartFiltre = listeArticleFiltre;
 							listeArticleFiltre = new ArrayList<ArticleVendu>();
 
@@ -167,8 +180,7 @@ public class ServletRecherche extends HttpServlet {
 									listeArticleFiltre.add(av);
 								}
 							}
-						}
-						if (listeArticleFiltre.isEmpty()) {
+						} else {
 							listeArticleFiltre = new ArrayList<>();
 
 							for (ArticleVendu av : listeArticle) {
@@ -189,6 +201,7 @@ public class ServletRecherche extends HttpServlet {
 						if (premierCheckBox != null && secondeCheckBox != null) {
 
 							if (listeArticleFiltre != null) {
+								listeArticleDepartFiltre = new ArrayList<ArticleVendu>();
 								listeArticleDepartFiltre = listeArticleFiltre;
 								listeArticleFiltre = new ArrayList<ArticleVendu>();
 
@@ -201,8 +214,7 @@ public class ServletRecherche extends HttpServlet {
 										listeArticleFiltre.add(av);
 									}
 								}
-							}
-							if (listeArticleFiltre.isEmpty()) {
+							} else {
 								listeArticleFiltre = new ArrayList<>();
 
 								for (ArticleVendu av : listeArticle) {
@@ -220,6 +232,7 @@ public class ServletRecherche extends HttpServlet {
 							if (secondeCheckBox != null && troisiemeCheckBox != null) {
 
 								if (listeArticleFiltre != null) {
+									listeArticleDepartFiltre = new ArrayList<ArticleVendu>();
 									listeArticleDepartFiltre = listeArticleFiltre;
 									listeArticleFiltre = new ArrayList<>();
 
@@ -234,8 +247,7 @@ public class ServletRecherche extends HttpServlet {
 										}
 									}
 
-								}
-								if (listeArticleFiltre.isEmpty()) {
+								} else {
 
 									listeArticleFiltre = new ArrayList<>();
 									for (ArticleVendu av : listeArticle) {
@@ -253,6 +265,7 @@ public class ServletRecherche extends HttpServlet {
 							} else {
 								if (premierCheckBox != null || (premierCheckBox != null && secondeCheckBox != null)) {
 									if (listeArticleFiltre != null) {
+										listeArticleDepartFiltre = new ArrayList<ArticleVendu>();
 										listeArticleDepartFiltre = listeArticleFiltre;
 										listeArticleFiltre = new ArrayList<ArticleVendu>();
 
@@ -282,6 +295,7 @@ public class ServletRecherche extends HttpServlet {
 								if (secondeCheckBox != null) {
 
 									if (listeArticleFiltre != null) {
+										listeArticleDepartFiltre = new ArrayList<ArticleVendu>();
 										listeArticleDepartFiltre = listeArticleFiltre;
 										listeArticleFiltre = new ArrayList<>();
 
@@ -293,8 +307,7 @@ public class ServletRecherche extends HttpServlet {
 											}
 										}
 
-									}
-									if (listeArticleFiltre.isEmpty()) {
+									} else {
 
 										listeArticleFiltre = new ArrayList<>();
 										for (ArticleVendu av : listeArticle) {
@@ -309,6 +322,7 @@ public class ServletRecherche extends HttpServlet {
 								}
 								if (troisiemeCheckBox != null) {
 									if (listeArticleFiltre != null) {
+										listeArticleDepartFiltre = new ArrayList<ArticleVendu>();
 										listeArticleDepartFiltre = listeArticleFiltre;
 										listeArticleFiltre = new ArrayList<>();
 
@@ -324,8 +338,7 @@ public class ServletRecherche extends HttpServlet {
 										}
 									}
 
-								}
-								if (listeArticleFiltre.isEmpty()) {
+								} else {
 
 									listeArticleFiltre = new ArrayList<>();
 									for (ArticleVendu av : listeArticle) {
@@ -348,6 +361,7 @@ public class ServletRecherche extends HttpServlet {
 					if ((troisiemeCheckBox != null && secondeCheckBox != null && premierCheckBox != null)
 							|| (troisiemeCheckBox != null && premierCheckBox != null)) {
 						if (listeArticleFiltre != null) {
+							listeArticleDepartFiltre = new ArrayList<ArticleVendu>();
 							listeArticleDepartFiltre = listeArticleFiltre;
 							listeArticleFiltre = new ArrayList<>();
 
@@ -367,6 +381,7 @@ public class ServletRecherche extends HttpServlet {
 					} else {
 						if (troisiemeCheckBox != null && secondeCheckBox != null) {
 							if (listeArticleFiltre != null) {
+								listeArticleDepartFiltre = new ArrayList<ArticleVendu>();
 								listeArticleDepartFiltre = listeArticleFiltre;
 								listeArticleFiltre = new ArrayList<>();
 
@@ -410,6 +425,7 @@ public class ServletRecherche extends HttpServlet {
 							if (premierCheckBox != null || (secondeCheckBox != null && premierCheckBox != null)) {
 								System.out.println("test10-1:dans le premier if");
 								if (listeArticleFiltre != null) {
+									listeArticleDepartFiltre = new ArrayList<ArticleVendu>();
 									listeArticleDepartFiltre = listeArticleFiltre;
 									listeArticleFiltre = new ArrayList<>();
 
@@ -439,6 +455,7 @@ public class ServletRecherche extends HttpServlet {
 							if (secondeCheckBox != null) {
 
 								if (listeArticleFiltre != null) {
+									listeArticleDepartFiltre = new ArrayList<ArticleVendu>();
 									listeArticleDepartFiltre = listeArticleFiltre;
 									listeArticleFiltre = new ArrayList<>();
 
@@ -468,6 +485,7 @@ public class ServletRecherche extends HttpServlet {
 							}
 							if (troisiemeCheckBox != null) {
 								if (listeArticleFiltre != null) {
+									listeArticleDepartFiltre = new ArrayList<ArticleVendu>();
 									listeArticleDepartFiltre = listeArticleFiltre;
 									listeArticleFiltre = new ArrayList<>();
 
@@ -499,20 +517,24 @@ public class ServletRecherche extends HttpServlet {
 				default:
 					break;
 				}
+			}
+			System.out.println(filtre);
+			System.out.println(categorie);
+			System.out.println(premierCheckBox);
+			System.out.println(secondeCheckBox);
+			System.out.println(troisiemeCheckBox);
 
-				if (filtre.equals(null) && categorie == 0 && premierCheckBox.equals(null)
-						&& secondeCheckBox.equals(null) && troisiemeCheckBox.equals(null))
-				{
+			if (filtre.equals(null) && categorie == 0 && premierCheckBox.equals(null) && secondeCheckBox.equals(null)
+					&& troisiemeCheckBox.equals(null)) {
 
-					request.setAttribute("listeArticleFiltre", null);
-					RequestDispatcher requestDispatcher = request.getRequestDispatcher("/encheres/accueil");
-					requestDispatcher.forward(request, response);
+				request.setAttribute("listeArticleFiltre", null);
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/encheres/accueil");
+				requestDispatcher.forward(request, response);
 
-				} else {
-					request.setAttribute("listeArticleFiltre", listeArticleFiltre);
-					RequestDispatcher requestDispatcher = request.getRequestDispatcher("/encheres/accueil");
-					requestDispatcher.forward(request, response);
-				}
+			} else {
+				request.setAttribute("listeArticleFiltre", listeArticleFiltre);
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/encheres/accueil");
+				requestDispatcher.forward(request, response);
 			}
 
 		} catch (
