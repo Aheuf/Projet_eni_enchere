@@ -149,8 +149,9 @@ public class ServletRecherche extends HttpServlet {
 				// filtre radio achats-----------------------------------------
 				case "radioAchats":
 					System.out.println("test10:je suis passé dans filtre radio achat");
+					if ((premierCheckBox != null && secondeCheckBox != null && troisiemeCheckBox != null)
+							|| (premierCheckBox != null && troisiemeCheckBox != null)) {
 
-					if (premierCheckBox != null) {
 						if (listeArticleFiltre != null) {
 							listeArticleDepartFiltre = listeArticleFiltre;
 							listeArticleFiltre = new ArrayList<ArticleVendu>();
@@ -158,7 +159,11 @@ public class ServletRecherche extends HttpServlet {
 							for (ArticleVendu av : listeArticleDepartFiltre) {
 								LocalDate dateFinVente = Instant.ofEpochMilli(av.getDateFinEncheres().getTime())
 										.atZone(ZoneId.systemDefault()).toLocalDate();
-								if (LocalDate.now().isBefore(dateFinVente)) {
+								if (LocalDate.now().isBefore(dateFinVente)
+										|| av.getDernierEncherisseur().equals(pseudo)
+												&& av.getEtatVente().equals("retiré")
+										|| av.getEtatVente().equals("fini")
+												&& av.getDernierEncherisseur().equals(pseudo)) {
 									listeArticleFiltre.add(av);
 								}
 							}
@@ -169,86 +174,169 @@ public class ServletRecherche extends HttpServlet {
 							for (ArticleVendu av : listeArticle) {
 								LocalDate dateFinVente = Instant.ofEpochMilli(av.getDateFinEncheres().getTime())
 										.atZone(ZoneId.systemDefault()).toLocalDate();
-								if (LocalDate.now().isBefore(dateFinVente)) {
+								if (LocalDate.now().isBefore(dateFinVente)
+										|| av.getDernierEncherisseur().equals(pseudo)
+												&& av.getEtatVente().equals("retiré")
+										|| av.getEtatVente().equals("fini")
+												&& av.getDernierEncherisseur().equals(pseudo)) {
 									listeArticleFiltre.add(av);
 
 								}
 							}
 						}
-					}
-					if (secondeCheckBox != null) {
 
-						if (listeArticleFiltre != null) {
-							listeArticleDepartFiltre = listeArticleFiltre;
-							listeArticleFiltre = new ArrayList<>();
-							List<ArticleVendu> listeArticleDeuxiemeFiltre = new ArrayList<>();
+					} else {
+						if (premierCheckBox != null && secondeCheckBox != null) {
 
-							for (ArticleVendu av : listeArticleDepartFiltre) {
-								if (av.getDernierEncherisseur().equals(pseudo)) {
-									listeArticleDeuxiemeFiltre.add(av);
-									for (ArticleVendu as : listeArticleDeuxiemeFiltre) {
-										if (as.getEtatVente().equals("en cours")) {
-											listeArticleFiltre.add(as);
-										}
+							if (listeArticleFiltre != null) {
+								listeArticleDepartFiltre = listeArticleFiltre;
+								listeArticleFiltre = new ArrayList<ArticleVendu>();
+
+								for (ArticleVendu av : listeArticleDepartFiltre) {
+									LocalDate dateFinVente = Instant.ofEpochMilli(av.getDateFinEncheres().getTime())
+											.atZone(ZoneId.systemDefault()).toLocalDate();
+									if (LocalDate.now().isBefore(dateFinVente)
+											|| av.getDernierEncherisseur().equals(pseudo)
+													&& av.getEtatVente().equals("en cours")) {
+										listeArticleFiltre.add(av);
+									}
+								}
+							}
+							if (listeArticleFiltre.isEmpty()) {
+								listeArticleFiltre = new ArrayList<>();
+
+								for (ArticleVendu av : listeArticle) {
+									LocalDate dateFinVente = Instant.ofEpochMilli(av.getDateFinEncheres().getTime())
+											.atZone(ZoneId.systemDefault()).toLocalDate();
+									if (LocalDate.now().isBefore(dateFinVente)
+											|| av.getDernierEncherisseur().equals(pseudo)
+													&& av.getEtatVente().equals("en cours")) {
+										listeArticleFiltre.add(av);
 									}
 								}
 							}
 
-						}
-						if (listeArticleFiltre.isEmpty()) {
+						} else {
+							if (secondeCheckBox != null && troisiemeCheckBox != null) {
 
-							listeArticleFiltre = new ArrayList<>();
-							List<ArticleVendu> listeArticleDeuxiemeFiltre = new ArrayList<>();
-							for (ArticleVendu av : listeArticle) {
-								if (av.getDernierEncherisseur().equals(pseudo)) {
-									listeArticleDeuxiemeFiltre.add(av);
-									for (ArticleVendu as : listeArticleDeuxiemeFiltre) {
-										if (as.getEtatVente().equals("en cours")) {
-											listeArticleFiltre.add(as);
-										}
-									}
-								}
-							}
-						}
+								if (listeArticleFiltre != null) {
+									listeArticleDepartFiltre = listeArticleFiltre;
+									listeArticleFiltre = new ArrayList<>();
 
-					}
-					if (troisiemeCheckBox != null) {
-						if (listeArticleFiltre != null) {
-							listeArticleDepartFiltre = listeArticleFiltre;
-							listeArticleFiltre = new ArrayList<>();
-							List<ArticleVendu> listeArticleDeuxiemeFiltre = new ArrayList<>();
-
-							for (ArticleVendu av : listeArticleDepartFiltre) {
-								if (av.getDernierEncherisseur().equals(pseudo)) {
-									listeArticleDeuxiemeFiltre.add(av);
-									for (ArticleVendu as : listeArticleDeuxiemeFiltre) {
-										if (as.getEtatVente().equals("retiré")) {
-											listeArticleFiltre.add(as);
-										}
-										if (as.getEtatVente().equals("fini")) {
-											listeArticleFiltre.add(as);
+									for (ArticleVendu av : listeArticleDepartFiltre) {
+										if (av.getDernierEncherisseur().equals(pseudo)
+												&& av.getEtatVente().equals("en cours")
+												|| av.getDernierEncherisseur().equals(pseudo)
+														&& av.getEtatVente().equals("retiré")
+												|| av.getEtatVente().equals("fini")
+														&& av.getDernierEncherisseur().equals(pseudo)) {
+											listeArticleFiltre.add(av);
 										}
 									}
 
 								}
-							}
+								if (listeArticleFiltre.isEmpty()) {
 
-						}
-						if (listeArticleFiltre.isEmpty()) {
-
-							listeArticleFiltre = new ArrayList<>();
-							List<ArticleVendu> listeArticleDeuxiemeFiltre = new ArrayList<>();
-							for (ArticleVendu av : listeArticle) {
-								if (av.getDernierEncherisseur().equals(pseudo)) {
-									listeArticleDeuxiemeFiltre.add(av);
-									for (ArticleVendu as : listeArticleDeuxiemeFiltre) {
-										if (as.getEtatVente().equals("retiré")) {
-											listeArticleFiltre.add(as);
-										}
-										if (as.getEtatVente().equals("fini")) {
-											listeArticleFiltre.add(as);
+									listeArticleFiltre = new ArrayList<>();
+									for (ArticleVendu av : listeArticle) {
+										if (av.getDernierEncherisseur().equals(pseudo)
+												&& av.getEtatVente().equals("en cours")
+												|| av.getDernierEncherisseur().equals(pseudo)
+														&& av.getEtatVente().equals("retiré")
+												|| av.getEtatVente().equals("fini")
+														&& av.getDernierEncherisseur().equals(pseudo)) {
+											listeArticleFiltre.add(av);
 										}
 									}
+								}
+
+							} else {
+								if (premierCheckBox != null || (premierCheckBox != null && secondeCheckBox != null)) {
+									if (listeArticleFiltre != null) {
+										listeArticleDepartFiltre = listeArticleFiltre;
+										listeArticleFiltre = new ArrayList<ArticleVendu>();
+
+										for (ArticleVendu av : listeArticleDepartFiltre) {
+											LocalDate dateFinVente = Instant
+													.ofEpochMilli(av.getDateFinEncheres().getTime())
+													.atZone(ZoneId.systemDefault()).toLocalDate();
+											if (LocalDate.now().isBefore(dateFinVente)) {
+												listeArticleFiltre.add(av);
+											}
+										}
+									}
+									if (listeArticleFiltre.isEmpty()) {
+										listeArticleFiltre = new ArrayList<>();
+
+										for (ArticleVendu av : listeArticle) {
+											LocalDate dateFinVente = Instant
+													.ofEpochMilli(av.getDateFinEncheres().getTime())
+													.atZone(ZoneId.systemDefault()).toLocalDate();
+											if (LocalDate.now().isBefore(dateFinVente)) {
+												listeArticleFiltre.add(av);
+
+											}
+										}
+									}
+								}
+								if (secondeCheckBox != null) {
+
+									if (listeArticleFiltre != null) {
+										listeArticleDepartFiltre = listeArticleFiltre;
+										listeArticleFiltre = new ArrayList<>();
+
+										for (ArticleVendu av : listeArticleDepartFiltre) {
+											if (av.getDernierEncherisseur().equals(pseudo)
+													&& av.getEtatVente().equals("en cours")) {
+												listeArticleFiltre.add(av);
+
+											}
+										}
+
+									}
+									if (listeArticleFiltre.isEmpty()) {
+
+										listeArticleFiltre = new ArrayList<>();
+										for (ArticleVendu av : listeArticle) {
+											if (av.getDernierEncherisseur().equals(pseudo)
+													&& av.getEtatVente().equals("en cours")) {
+												listeArticleFiltre.add(av);
+
+											}
+										}
+									}
+
+								}
+								if (troisiemeCheckBox != null) {
+									if (listeArticleFiltre != null) {
+										listeArticleDepartFiltre = listeArticleFiltre;
+										listeArticleFiltre = new ArrayList<>();
+
+										for (ArticleVendu av : listeArticleDepartFiltre) {
+											if (av.getDernierEncherisseur().equals(pseudo)
+													&& av.getEtatVente().equals("retiré")
+													|| av.getEtatVente().equals("fini")
+															&& av.getDernierEncherisseur().equals(pseudo)) {
+												listeArticleFiltre.add(av);
+
+											}
+
+										}
+									}
+
+								}
+								if (listeArticleFiltre.isEmpty()) {
+
+									listeArticleFiltre = new ArrayList<>();
+									for (ArticleVendu av : listeArticle) {
+										if (av.getDernierEncherisseur().equals(pseudo)
+												&& av.getEtatVente().equals("retiré")
+												|| av.getEtatVente().equals("fini")
+														&& av.getDernierEncherisseur().equals(pseudo)) {
+											listeArticleFiltre.add(av);
+										}
+									}
+
 								}
 							}
 						}
@@ -257,7 +345,8 @@ public class ServletRecherche extends HttpServlet {
 					break;
 				// filtre radio vente-----------------------------------------
 				case "radioVentes":
-					if (troisiemeCheckBox != null && secondeCheckBox != null && premierCheckBox != null) {
+					if ((troisiemeCheckBox != null && secondeCheckBox != null && premierCheckBox != null)
+							|| (troisiemeCheckBox != null && premierCheckBox != null)) {
 						if (listeArticleFiltre != null) {
 							listeArticleDepartFiltre = listeArticleFiltre;
 							listeArticleFiltre = new ArrayList<>();
@@ -276,39 +365,7 @@ public class ServletRecherche extends HttpServlet {
 							}
 						}
 					} else {
-
-						System.out.println("test10:je suis passé dans filtre radio vente");
-						if (premierCheckBox != null) {
-							System.out.println("test10-1:dans le premier if");
-							if (listeArticleFiltre != null) {
-								listeArticleDepartFiltre = listeArticleFiltre;
-								listeArticleFiltre = new ArrayList<>();
-
-								for (ArticleVendu av : listeArticleDepartFiltre) {
-									if (av.getEtatVente().equals("en cours")) {
-										if (av.getNoUtilisateur() == idUtilisateur) {
-											listeArticleFiltre.add(av);
-										}
-									}
-								}
-
-							} else {
-
-								listeArticleFiltre = new ArrayList<>();
-								for (ArticleVendu av : listeArticleVente) {
-
-									if (av.getEtatVente().equals("en cours")) {
-										if (av.getNoUtilisateur() == idUtilisateur) {
-											listeArticleFiltre.add(av);
-										}
-									}
-								}
-							}
-						}
-						System.out.println("test12:" + listeArticleFiltre);
-
-						if (secondeCheckBox != null) {
-
+						if (troisiemeCheckBox != null && secondeCheckBox != null) {
 							if (listeArticleFiltre != null) {
 								listeArticleDepartFiltre = listeArticleFiltre;
 								listeArticleFiltre = new ArrayList<>();
@@ -320,11 +377,15 @@ public class ServletRecherche extends HttpServlet {
 										if (av.getNoUtilisateur() == idUtilisateur) {
 											listeArticleFiltre.add(av);
 										}
+										if (av.getEtatVente().equals("retiré") || av.getEtatVente().equals("fini")) {
+											if (av.getNoUtilisateur() == idUtilisateur) {
+												listeArticleFiltre.add(av);
+											}
+										}
 									}
 								}
 
 							} else {
-
 								listeArticleFiltre = new ArrayList<>();
 								for (ArticleVendu av : listeArticleVente) {
 									int valeurDeDepart = av.getPrixVente();
@@ -333,45 +394,103 @@ public class ServletRecherche extends HttpServlet {
 										if (av.getNoUtilisateur() == idUtilisateur) {
 											listeArticleFiltre.add(av);
 										}
-									}
-								}
-							}
-						}
-						if (troisiemeCheckBox != null) {
-							if (listeArticleFiltre != null) {
-								listeArticleDepartFiltre = listeArticleFiltre;
-								listeArticleFiltre = new ArrayList<>();
+										if (av.getEtatVente().equals("retiré") || av.getEtatVente().equals("fini")) {
+											if (av.getNoUtilisateur() == idUtilisateur) {
+												listeArticleFiltre.add(av);
+											}
+										}
 
-								for (ArticleVendu av : listeArticleDepartFiltre) {
-									if (av.getEtatVente().equals("retiré")) {
-										if (av.getNoUtilisateur() == idUtilisateur) {
-											listeArticleFiltre.add(av);
-										}
-									}
-									if (av.getEtatVente().equals("fini")) {
-										if (av.getNoUtilisateur() == idUtilisateur) {
-											listeArticleFiltre.add(av);
-										}
-									}
-								}
-
-							} else {
-
-								listeArticleFiltre = new ArrayList<>();
-								for (ArticleVendu av : listeArticleVente) {
-									if (av.getEtatVente().equals("retiré")) {
-										if (av.getNoUtilisateur() == idUtilisateur) {
-											listeArticleFiltre.add(av);
-										}
-									}
-									if (av.getEtatVente().equals("fini")) {
-										if (av.getNoUtilisateur() == idUtilisateur) {
-											listeArticleFiltre.add(av);
-										}
 									}
 								}
 							}
 
+						} else {
+
+							System.out.println("test10:je suis passé dans filtre radio vente");
+							if (premierCheckBox != null || (secondeCheckBox != null && premierCheckBox != null)) {
+								System.out.println("test10-1:dans le premier if");
+								if (listeArticleFiltre != null) {
+									listeArticleDepartFiltre = listeArticleFiltre;
+									listeArticleFiltre = new ArrayList<>();
+
+									for (ArticleVendu av : listeArticleDepartFiltre) {
+										if (av.getEtatVente().equals("en cours")) {
+											if (av.getNoUtilisateur() == idUtilisateur) {
+												listeArticleFiltre.add(av);
+											}
+										}
+									}
+
+								} else {
+
+									listeArticleFiltre = new ArrayList<>();
+									for (ArticleVendu av : listeArticleVente) {
+
+										if (av.getEtatVente().equals("en cours")) {
+											if (av.getNoUtilisateur() == idUtilisateur) {
+												listeArticleFiltre.add(av);
+											}
+										}
+									}
+								}
+							}
+							System.out.println("test12:" + listeArticleFiltre);
+
+							if (secondeCheckBox != null) {
+
+								if (listeArticleFiltre != null) {
+									listeArticleDepartFiltre = listeArticleFiltre;
+									listeArticleFiltre = new ArrayList<>();
+
+									for (ArticleVendu av : listeArticleDepartFiltre) {
+										int valeurDeDepart = av.getPrixVente();
+										int valeurInitiale = av.getPrixInitial();
+										if (valeurDeDepart == valeurInitiale) {
+											if (av.getNoUtilisateur() == idUtilisateur) {
+												listeArticleFiltre.add(av);
+											}
+										}
+									}
+
+								} else {
+
+									listeArticleFiltre = new ArrayList<>();
+									for (ArticleVendu av : listeArticleVente) {
+										int valeurDeDepart = av.getPrixVente();
+										int valeurInitiale = av.getPrixInitial();
+										if (valeurDeDepart == valeurInitiale) {
+											if (av.getNoUtilisateur() == idUtilisateur) {
+												listeArticleFiltre.add(av);
+											}
+										}
+									}
+								}
+							}
+							if (troisiemeCheckBox != null) {
+								if (listeArticleFiltre != null) {
+									listeArticleDepartFiltre = listeArticleFiltre;
+									listeArticleFiltre = new ArrayList<>();
+
+									for (ArticleVendu av : listeArticleDepartFiltre) {
+										if (av.getEtatVente().equals("retiré") || av.getEtatVente().equals("fini")) {
+											if (av.getNoUtilisateur() == idUtilisateur) {
+												listeArticleFiltre.add(av);
+											}
+										}
+									}
+
+								} else {
+
+									listeArticleFiltre = new ArrayList<>();
+									for (ArticleVendu av : listeArticleVente) {
+										if (av.getEtatVente().equals("retiré") || av.getEtatVente().equals("fini")) {
+											if (av.getNoUtilisateur() == idUtilisateur) {
+												listeArticleFiltre.add(av);
+											}
+										}
+									}
+								}
+							}
 						}
 					}
 
@@ -380,20 +499,22 @@ public class ServletRecherche extends HttpServlet {
 				default:
 					break;
 				}
-			}
 
-			if (filtre.equals(null) && categorie == 0 && premierCheckBox.equals(null) && secondeCheckBox.equals(null)
-					&& troisiemeCheckBox.equals(null)) {
+				if (filtre.equals(null) && categorie == 0 && premierCheckBox.equals(null)
+						&& secondeCheckBox.equals(null) && troisiemeCheckBox.equals(null))
 
-				request.setAttribute("listeArticleFiltre", null);
+				{
 
-				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/encheres/accueil");
-				requestDispatcher.forward(request, response);
+					request.setAttribute("listeArticleFiltre", null);
 
-			} else {
-				request.setAttribute("listeArticleFiltre", listeArticleFiltre);
-				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/encheres/accueil");
-				requestDispatcher.forward(request, response);
+					RequestDispatcher requestDispatcher = request.getRequestDispatcher("/encheres/accueil");
+					requestDispatcher.forward(request, response);
+
+				} else {
+					request.setAttribute("listeArticleFiltre", listeArticleFiltre);
+					RequestDispatcher requestDispatcher = request.getRequestDispatcher("/encheres/accueil");
+					requestDispatcher.forward(request, response);
+				}
 			}
 
 		} catch (
