@@ -505,7 +505,6 @@ public class ServletRecherche extends HttpServlet {
 				{
 
 					request.setAttribute("listeArticleFiltre", null);
-					request.setAttribute("recuperationEnchere", "aucune enchere retrouvé");
 					RequestDispatcher requestDispatcher = request.getRequestDispatcher("/encheres/accueil");
 					requestDispatcher.forward(request, response);
 

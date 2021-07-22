@@ -159,20 +159,7 @@
 	</section>
 
 	<!--CARDS-->
-	<%
-		if (request.getAttribute("recuperationEnchere") != null) {
-	%>
-	<div class="alert alert-dark d-flex align-items-center" role="alert">
-		<div>
-			<i class="bi bi-x-circle"></i> Aucun éléments correspond a votre
-			recherche
 
-
-		</div>
-	</div>
-	<%
-		}
-	%>
 	<article
 		class="row col-sm-12 col-lg-10 mx-auto mt-5 justify-content-center">
 		<c:if test="${empty listeArticleFiltre}">
@@ -232,10 +219,7 @@
 										method="post">
 										<input type="submit" class="btn btn-link" value="${b.pseudo}">
 									</form>
-									<!--<p class="card-text">
-									Vendeur : 
-									<a href="${pageContext.request.contextPath}/encheres/profil?idvendeur="${b.noUtilisateur}>${b.pseudo}</a>
-								</p>-->
+
 								</c:if>
 								<c:if test="${empty session}">
 									<p class="card-text">Vendeur :${b.pseudo}</p>
