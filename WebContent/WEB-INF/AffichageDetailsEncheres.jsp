@@ -125,7 +125,7 @@
             <div class=" text-center fw-bold">
                 <!--varie en fonction du resultat de la vente-->
                 <%if ((int) request.getAttribute("idUtilisateur") == 0 
-                || (int) request.getAttribute("idUtilisateur") == (int) request.getAttribute("gagnant")
+                || (int) request.getAttribute("idUtilisateur") == (int) request.getAttribute("dernierEncherisseur")
                 || (int) request.getAttribute("idUtilisateur") == article.getNoUtilisateur()
                 ){ %>
                 <a href="<%=request.getContextPath()%>/encheres/accueil">

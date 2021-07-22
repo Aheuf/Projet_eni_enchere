@@ -62,16 +62,16 @@ public class ServletDetails extends HttpServlet {
 		request.setAttribute("idVendeur", vendeur.getNoUtilisateur());
 		
 //definition du dernier encherisseur
-		int idgagnant = 0;
+		int idDernierEncherisseur = 0;
 			if (article.getDernierEncherisseur() != null) {
 			try {
-				idgagnant = em.selectUtilisateurByMotCle(article.getDernierEncherisseur()).get(0).getNoUtilisateur();
+				idDernierEncherisseur = em.selectUtilisateurByMotCle(article.getDernierEncherisseur()).get(0).getNoUtilisateur();
 			} catch (BusinessException e) {
 				System.out.println("GET ServletDetails déconne sur le gagnant");
 				e.printStackTrace();
 			}
 		}
-		request.setAttribute("gagnant", idgagnant);
+		request.setAttribute("dernierEncherisseur", idDernierEncherisseur);
 // création d'un attribu de session IdArticle
 			session.setAttribute("idArticle", article.getNoArticle());
 		

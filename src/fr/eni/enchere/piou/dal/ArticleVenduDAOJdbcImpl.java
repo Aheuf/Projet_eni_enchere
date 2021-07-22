@@ -1,7 +1,6 @@
 package fr.eni.enchere.piou.dal;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,8 +16,6 @@ public class ArticleVenduDAOJdbcImpl implements DAO<ArticleVendu> {
 	private static String DELETE_ID = "DELETE FROM ARTICLES_VENDUS WHERE no_article = ?";
 	private static String SELECT_ALL = "SELECT * FROM ARTICLES_VENDUS";
 	private static String SELECT_BY_ID = "SELECT * FROM ARTICLES_VENDUS WHERE no_article = ?";
-	private static String UPDATE = "UPDATE ARTICLES_VENDUS SET nom_article = ?, description = ?, date_debut_encheres = ?, date_fin_encheres = ?, prix_initial = ?,prix_vente = ?, no_utilisateur = ?, no_categorie = ?, etat_vente = ?, dernier_encherisseur = ? ";
-	private static String SELECT_BY_MC = "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, no_utilisateur, no_categorie, etat_vente FROM ARTICLES_VENDUS WHERE nom_article LIKE '%?%' OR description LIKE '%?%'";
 
 	@Override
 	public void insert(ArticleVendu article) throws BusinessException {
@@ -186,7 +183,9 @@ public class ArticleVenduDAOJdbcImpl implements DAO<ArticleVendu> {
 		PreparedStatement rqt = null;
 
 		try (Connection cnx = ConnectionProvider.getConnection()) {
-			rqt = cnx.prepareStatement(UPDATE);
+			int idArticle = article.getNoArticle();
+			rqt = cnx.prepareStatement("UPDATE ARTICLES_VENDUS SET nom_article = ?, description = ?, date_debut_encheres = ?, date_fin_encheres = ?, prix_initial = ?,prix_vente = ?, no_utilisateur = ?, no_categorie = ?, etat_vente = ?, dernier_encherisseur = ? WHERE no_article =" + idArticle);
+			System.out.println(idArticle);
 
 			rqt.setString(1, article.getNomArticle());
 			rqt.setString(2, article.getDescription());

@@ -104,7 +104,7 @@ public class EnchereDAOJdbcImpl implements DAO<Enchere>{
 		int id = enchere.getNoArticle();
 		
 		try (Connection con = ConnectionProvider.getConnection()) {
-			stmt = con.prepareStatement("UPDATE ENCHERES no_utilisateur=?, date_enchere=?, montant_enchere=? WHERE no_article =" + id);
+			stmt = con.prepareStatement("UPDATE ENCHERES SET no_utilisateur=?, date_enchere=?, montant_enchere=? WHERE no_article =" + id);
 			stmt.setInt(1, enchere.getNoUtilisateur());
 			stmt.setDate(2, enchere.getDateEnchere());
 			stmt.setInt(3, enchere.getMontantEnchere());
