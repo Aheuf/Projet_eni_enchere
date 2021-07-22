@@ -58,25 +58,23 @@ public class ServletNouvelArticle extends HttpServlet {
 		int idUtilisateur = 0;
 		HttpSession session = request.getSession();
 		idUtilisateur = (int) session.getAttribute("session");
-
 //		System.out.println(idUtilisateur);
-
 		EnchereManager em = new EnchereManager();
 		ArticleVendu article = null;
 		Retrait retrait = null;
 
+		//initialiser les infos passés dans le formulaire
 		String nomArticle = null;
 		String description = null;
 		Date dateDebutEncheres = null;
 		Date dateFinEncheres = null;
 		int prixInitial = 0;
-		int prixVente = 0;
+		//int prixVente = 0;
 		int noUtilisateur = 0;
 		int noCategorie = 0;
 		String potentielAcheteur = null;
-		String etatVente = "retire";
+		String etatVente = "en cours";
 		// String photo;
-
 		String rue = null;
 		String codePostal = null;
 		String ville = null;
@@ -86,12 +84,13 @@ public class ServletNouvelArticle extends HttpServlet {
 
 		try {
 
+			//Récupère les informations passés dans le formulaire
 			nomArticle = request.getParameter("article");
 			description = request.getParameter("description");
 			dateDebutEncheres = Date.valueOf(request.getParameter("debut"));
 			dateFinEncheres = Date.valueOf(request.getParameter("fin"));
 			prixInitial = Integer.parseInt(request.getParameter("prix"));
-			prixVente = prixInitial;
+			//prixVente = prixInitial;
 			noUtilisateur = idUtilisateur;
 			noCategorie = Integer.parseInt(request.getParameter("categorie"));
 			// photo = request.getParameter("photo");
@@ -109,17 +108,21 @@ public class ServletNouvelArticle extends HttpServlet {
 //			System.out.println(rue);
 //			System.out.println(codePostal);
 //			System.out.println(ville);
+			
+			// Vérifie que tous les champs sont remplis
 			if (nomArticle == null || description == null || noCategorie == 0 || dateDebutEncheres == null
 					|| dateFinEncheres == null || prixInitial == 0 || rue == null || codePostal == null
 					|| ville == null) {
 
+				
 //				System.out.println("probleme dans ici");
 				this.getServletContext().setAttribute("ErreurSaisi", "Tous les champs doivent être remplis !");
 				RequestDispatcher rd = request.getRequestDispatcher("/encheres/ServletVente");
 				rd.forward(request, response);
 
 			} else {
-
+			
+			// insert dans la BDD les infos remplis de l'article
 				article = em.insertArticle(nomArticle, description, dateDebutEncheres, dateFinEncheres, prixInitial,
 						prixInitial, noUtilisateur, noCategorie,etatVente, potentielAcheteur);
 
@@ -129,7 +132,9 @@ public class ServletNouvelArticle extends HttpServlet {
 					idArticleCree = av.getNoArticle();
 //					System.out.println(idArticleCree);
 				}
-
+			
+			// insert dans la BDD les infos remplis de retrait
+			// (adresse par default du vendeur)
 				retrait = em.insertRetrait(idArticleCree, rue, codePostal, ville);
 
 				RequestDispatcher rd = request.getRequestDispatcher("/encheres/accueil");
