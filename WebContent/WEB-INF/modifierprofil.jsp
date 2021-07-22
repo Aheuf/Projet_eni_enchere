@@ -24,7 +24,7 @@
 
 <body>
 	<!--HEADER-->
-<header>
+	<header>
 		<nav
 			class="navbar navbar-expand-lg navbar-light bg-dark container-fluid">
 
@@ -60,18 +60,34 @@
 		%>
 		<!-- formulaire "mon profil" -->
 		<div class="container">
+			<%
+				if (request.getAttribute("success") != null) {
+			%>
+			<div class="alert alert-dark d-flex align-items-center" role="alert">
+				<div>
+					<i class="bi bi-check-circle"></i> Modification enregistrée
+					!
+				</div>
+			</div>
+			<%
+				}
+			%>
+			<%
+				if (request.getAttribute("ErreurSaisi") != null) {
+			%>
+			<div class="alert alert-dark d-flex align-items-center" role="alert">
+				<div>
+					<i class="bi bi-x-circle"></i> Tous les champs doivent être remplis
+					!
+				</div>
+			</div>
+			<%
+				}
+			%>
 			<div class="d-flex justify-content-around">
-
 				<form method="POST"
 					action="<%=request.getContextPath()%>/encheres/modifierprofil"
 					class="row col-md-12 col-sm-12 ">
-					<%
-						if (request.getAttribute("ErreurSaisi") != null) {
-					%>
-					<%=request.getAttribute("ErreurSaisi")%>
-					<%
-						}
-					%>
 					<div class="row col-sm-12 col-lg-12 ">
 						<div class="d-flex mb-3 col-lg-5 col-sm-12">
 							<label for="inputPseudo" class="col-3 form-label mt-1 ">Pseudo
@@ -84,7 +100,7 @@
 								aria-describedby="nomHelp" value="<%=user.getNom()%>">
 						</div>
 					</div>
-					
+
 
 					<div class="row col-sm-12 col-lg-12 ">
 						<div class="d-flex mb-3 col-lg-5 col-sm-12">
@@ -134,13 +150,6 @@
 								de passe actuel :</label> <input type="password" class="form-control"
 								name="inputMotDePasse" aria-describedby="motDePasseHelp">
 						</div>
-						<%
-							if (request.getAttribute("ErreurMDP") != null) {
-						%>
-						<%=request.getAttribute("ErreurMDP")%>
-						<%
-							}
-						%>
 					</div>
 
 					<!-- formulaire "Nouveau mot de passe & Confirmation" -->
@@ -148,21 +157,14 @@
 						<div class="d-flex mb-3 col-lg-5 col-sm-12">
 							<label for="inputNouveauMotDePasse"
 								class="col-3 form-label mt-1 ">Nouveau mot de passe :</label> <input
-								type="password" class="form-control" name="inputNouveauMotDePasse"
-								aria-describedby="motDePasseHelp">
+								type="password" class="form-control"
+								name="inputNouveauMotDePasse" aria-describedby="motDePasseHelp">
 						</div>
 						<div class="d-flex mb-3 offset-lg-2 col-lg-5 col-sm-12">
 							<label for="inputConfirmation" class="col-3 form-label mt-1 ">Confirmation
 								:</label> <input type="password" class="form-control"
 								name="inputConfirmation" aria-describedby="confirmationHelp">
 						</div>
-						<%
-							if (request.getAttribute("ErreurConfirmMDP") != null) {
-						%>
-						<%=request.getAttribute("ErreurConfirmMDP")%>
-						<%
-							}
-						%>
 					</div>
 
 					<div class="row col-sm-12 col-lg-12 mt-3 mb-3">
@@ -173,6 +175,30 @@
 						</div>
 					</div>
 
+					<%
+						if (request.getAttribute("ErreurMDP") != null) {
+					%>
+					<div class="alert alert-dark d-flex align-items-center"
+						role="alert">
+						<div>
+							<i class="bi bi-x-circle"></i> Entrez votre mot de passe actuel !
+						</div>
+					</div>
+					<%
+						}
+					%>
+					<%
+						if (request.getAttribute("ErreurConfirmMDP") != null) {
+					%>
+					<div class="alert alert-dark d-flex align-items-center"
+						role="alert">
+						<div>
+							<i class="bi bi-x-circle"></i> Le nouveau mot de passe et la confirmation doivent être identique ! !
+						</div>
+					</div>
+					<%
+						}
+					%>
 					<!-- bouton "Enregistrer / Supprimer mon compte" -->
 					<div class="d-flex justify-content-around mb-5">
 						<!-- bouton "Enregistrer" -->

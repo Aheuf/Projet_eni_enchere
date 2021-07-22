@@ -6,7 +6,6 @@ import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -95,30 +94,47 @@ public class ServletModifProfil extends HttpServlet {
 		confirmationMDP = request.getParameter("inputConfirmation");
 		credit = user.getCredit();
 
-		/**if (pseudo == null || nom == null || prenom == null || email == null || telephone == null || rue == null
-				|| codePostal == null || ville == null || motDePasse == null || nouveauMDP == null
-				|| confirmationMDP == null) {
-			//this.getServletContext().setAttribute("ErreurSaisi", "Tous les champs doivent être remplis !");
-			//RequestDispatcher rd = request.getRequestDispatcher("/encheres/profil");
-			//rd.forward(request, response);
-		}**/
-
-		Utilisateur userUpdate = new Utilisateur(idUtilisateur, pseudo, nom, prenom, email, telephone, rue, codePostal, ville,
-				nouveauMDP, credit);
-		System.out.println("coucou ca a créé un utilisateur lol");
-
-		try {
-			en.updateUtilisateur(userUpdate);
-			System.out.println("coucou c'est passé");
-		} catch (BusinessException e) {
-			e.printStackTrace();
+		if (pseudo.trim().equals("") || nom.trim().equals("") || prenom.trim().equals("") || email.trim().equals("")
+				|| telephone.trim().equals("") || rue.trim().equals("") || codePostal.trim().equals("")
+				|| ville.trim().equals("") || motDePasse.trim().equals("") || nouveauMDP.trim().equals("")
+				|| confirmationMDP.trim().equals("")) {
+			request.setAttribute("ErreurSaisi", "Tous les champs doivent être remplis !");
+			RequestDispatcher rd = request.getRequestDispatcher("/encheres/profil");
+			rd.forward(request, response);
 		}
 
-		
-		RequestDispatcher rd = request.getRequestDispatcher("/encheres/profil");
-		rd.forward(request, response);
+		if (motDePasse.equals(user.getMotDePasse())) {
+		} else {
+			request.setAttribute("ErreurMDP", "Entrez votre mot de passe actuel !");
+			RequestDispatcher rd = request.getRequestDispatcher("/encheres/profil");
+			rd.forward(request, response);
+		}
 
+		if (nouveauMDP.equals(confirmationMDP)) {
+		} else {
+			request.setAttribute("ErreurConfirmMDP", "Confirmez votre nouveau mot de passe !");
+			RequestDispatcher rd = request.getRequestDispatcher("/encheres/profil");
+			rd.forward(request, response);
+		}
+
+		if (motDePasse.equals(user.getMotDePasse()) && nouveauMDP.equals(confirmationMDP)) {
+			
+			Utilisateur userUpdate = new Utilisateur(idUtilisateur, pseudo, nom, prenom, email, telephone, rue,
+					codePostal, ville, nouveauMDP, credit);
+			System.out.println("coucou ca a créé un utilisateur lol");
+
+			try {
+				en.updateUtilisateur(userUpdate);
+				System.out.println("coucou c'est passé");
+			} catch (BusinessException e) {
+				e.printStackTrace();
+			}
+			
+			request.setAttribute("success", "success");
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/encheres/profil");
+			rd.forward(request, response);
+		}
 	}
 
 }
-
