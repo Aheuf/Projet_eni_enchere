@@ -126,7 +126,17 @@
                 <p class="col-sm-3 col-lg-3 fw-bold">Vendeur:</p>
                 <p class="col-sm-9 col-lg-9"><%=request.getAttribute("Vendeur") %></p>
             </div>
-
+			<%if(request.getAttribute("valide") != null) {%>
+				<%if ((boolean) request.getAttribute("valide")){%>
+				<div class="alert alert-success" role="alert">
+	  				votre proposition à été accepté, bonne chance
+				</div>
+				<%} else { %>
+				<div class="alert alert-danger" role="alert">
+	  				votre mise est inferieur à la dernière enchère, reessayer
+				</div>
+				<%} %>
+			<%} %>
             <div class=" text-center fw-bold">
                 <!--varie en fonction du resultat de la vente-->
                 <%if ((int) request.getAttribute("idUtilisateur") == 0 

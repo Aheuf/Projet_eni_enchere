@@ -21,6 +21,7 @@ public class ServletEncheres extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int proposition = Integer.parseInt(request.getParameter("proposition"));
+		boolean encherePasse = false;
 		HttpSession session = request.getSession();
 		EnchereManager em = new EnchereManager();
 		RequestDispatcher rd = request.getRequestDispatcher("/encheres/details");
@@ -46,6 +47,7 @@ public class ServletEncheres extends HttpServlet {
 				article.setDernierEncherisseur(utilisateur.getPseudo());
 				em.updateUtilisateur(utilisateur);
 				em.updateArticle(article);
+				encherePasse = true;
 			} catch (BusinessException e) {
 				System.out.println("POST servletEnchere déconne à l'update de l'article");
 				e.printStackTrace();
@@ -53,6 +55,7 @@ public class ServletEncheres extends HttpServlet {
 		} else {
 			System.out.println("l'enchère doit être superieure wesh, tu sais pas compter ou bien ?");
 		}
+		request.setAttribute("valide", encherePasse);
 		rd.forward(request, response);
 	}
 	
