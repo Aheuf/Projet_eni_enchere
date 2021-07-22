@@ -52,7 +52,7 @@ public class ServletEncheres extends HttpServlet {
 				System.out.println("POST servletEnchere déconne à l'update de l'article");
 				e.printStackTrace();
 			}
-		} else {
+		}else {
 			System.out.println("l'enchère doit être superieure wesh, tu sais pas compter ou bien ?");
 		}
 		request.setAttribute("valide", encherePasse);

@@ -147,7 +147,7 @@
                 <a href="<%=request.getContextPath()%>/encheres/accueil">
                     <button class="btn btn-secondary btn-lg btn-block mb-5">Retour</button>
                 </a>
-                <% } else if (date.before(dateLimite)){ %>
+                <% }else if (date.before(dateLimite)){ %>
                 <form class="mb-5" method="get" action="<%=request.getContextPath()%>/encheres/encheres">
                     <label for="input_saisie">Ma proposition : </label>
                     <input id="input_saisie" type="number" name="proposition"/>
