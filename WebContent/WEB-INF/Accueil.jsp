@@ -38,7 +38,6 @@
 			<div class="collapse navbar-collapse justify-content-end"
 				id="navbarNav">
 
-				<!--<c:out value="${ CookieIDUtilisateur }" />-->
 				<c:if test="${!empty session}">
 					<a class="nav-link text-light text-end" href="#">Enchères</a>
 					<a class="nav-link text-light text-end"
@@ -68,8 +67,8 @@
 	<h2 class="text-center">Liste des enchères</h2>
 
 	<!--CHAMPS-->
-	<section>
-		<form action="post" class="../encheres/recherche">
+	<section class="container">
+		<form method="post" action="../encheres/recherche">
 			<label for="champ_accueil">Filtres :</label> <input
 				id="champ_accueil" class="form-control col-lg-6" type="text"
 				name="Filtre"
@@ -79,7 +78,7 @@
 				<label class="pt-1" for="categorie_accueil">Catégories :</label> <select
 					id="categorie_accueil" name="ChoixCategorie" class="form-select"
 					aria-label="Default select example">
-					<option selected>Toutes</option>
+					<option value=0 selected>Toutes</option>
 					<c:forEach var="c" items="${listeCategorie}">
 						<option value="${c.noCategorie}">${c.libelle}</option>
 					</c:forEach>
@@ -110,21 +109,21 @@
 					<div>
 						<div class="form-check">
 							<input class="form-check-input" id="myCheckAchat1"
-								type="checkbox" value="Encheres_ouverte"> <label
-								class="form-check-label" for="flexCheckDefault">
+								name="myCheckAchat1" type="checkbox" value="Encheres_ouverte">
+							<label class="form-check-label" for="flexCheckDefault">
 								Enchères ouverte</label>
 						</div>
 						<div class="form-check">
 							<input class="form-check-input" id="myCheckAchat2"
-								type="checkbox" value="encheres_en_cours"> <label
-								class="form-check-label" for="flexCheckDefault"> Mes
-								enchères en cours</label>
+								name="myCheckAchat2" type="checkbox" value="encheres_en_cours">
+							<label class="form-check-label" for="flexCheckDefault">
+								Mes enchères en cours</label>
 						</div>
 						<div class="form-check">
 							<input class="form-check-input" id="myCheckAchat3"
-								type="checkbox" value="encheres_remportees"> <label
-								class="form-check-label" for="flexCheckDefault"> Mes
-								enchères remportées</label>
+								name="myCheckAchat3" type="checkbox" value="encheres_remportees">
+							<label class="form-check-label" for="flexCheckDefault">
+								Mes enchères remportées</label>
 						</div>
 					</div>
 
@@ -132,21 +131,21 @@
 					<div>
 						<div class="form-check">
 							<input class="form-check-input" id="myCheckVente1"
-								type="checkbox" value="ventes_en_cours"> <label
-								class="form-check-label" for="flexCheckDefault"> Mes
-								ventes en cours</label>
+								name="myCheckVente1" type="checkbox" value="ventes_en_cours">
+							<label class="form-check-label" for="flexCheckDefault">
+								Mes ventes en cours</label>
 						</div>
 						<div class="form-check">
 							<input class="form-check-input" id="myCheckVente2"
-								type="checkbox" value="ventes_non_debutees"> <label
-								class="form-check-label" for="flexCheckDefault"> Mes
-								ventes non débutées</label>
+								name="myCheckVente2" type="checkbox" value="ventes_non_debutees">
+							<label class="form-check-label" for="flexCheckDefault">
+								Mes ventes non débutées</label>
 						</div>
 						<div class="form-check">
 							<input class="form-check-input" id="myCheckVente3"
-								type="checkbox" value="Ventes_terminees"> <label
-								class="form-check-label" for="flexCheckDefault"> Ventes
-								terminées</label>
+								name="myCheckVente3" type="checkbox" value="Ventes_terminees">
+							<label class="form-check-label" for="flexCheckDefault">
+								Ventes terminées</label>
 						</div>
 					</div>
 				</div>
@@ -176,25 +175,47 @@
 					<p class="card-text">Prix : ${a.prixVente} points</p>
 					<p class="card-text">Fin de l'enchère : ${a.dateFinEncheres}</p>
 					<br>
-
-					<c:forEach var="b" items="${listeVendeurArticleActuelle}">
-						<c:if test="${b.noUtilisateur==a.noUtilisateur}">
-							<c:if test="${!empty session}">
-								<form
-									action="<%=request.getContextPath()%>/encheres/details?idVendeur=${a.noUtilisateur}"
-									method="post">
-									<input type="submit" class="btn btn-link" value="${b.pseudo}">
-								</form>
-								<!--<p class="card-text">
+					<c:if test="${!empty listeArticleFiltre}">
+						<c:forEach var="b" items="${listeArticleFiltre}">
+							<c:if test="${b.noUtilisateur==a.noUtilisateur}">
+								<c:if test="${!empty session}">
+									<form
+										action="<%=request.getContextPath()%>/encheres/details?idVendeur=${a.noUtilisateur}"
+										method="post">
+										<input type="submit" class="btn btn-link" value="${b.pseudo}">
+									</form>
+									<!--<p class="card-text">
 									Vendeur : 
 									<a href="${pageContext.request.contextPath}/encheres/profil?idvendeur="${b.noUtilisateur}>${b.pseudo}</a>
 								</p>-->
+								</c:if>
+								<c:if test="${empty session}">
+									<p class="card-text">Vendeur :${b.pseudo}</p>
+								</c:if>
 							</c:if>
-							<c:if test="${empty session}">
-								<p class="card-text">Vendeur :${b.pseudo}</p>
+						</c:forEach>
+					</c:if>
+					
+					<c:if test="${!empty listeArticleFiltre}">
+						<c:forEach var="b" items="${listeVendeurArticleActuelle}">
+							<c:if test="${b.noUtilisateur==a.noUtilisateur}">
+								<c:if test="${!empty session}">
+									<form
+										action="<%=request.getContextPath()%>/encheres/details?idVendeur=${a.noUtilisateur}"
+										method="post">
+										<input type="submit" class="btn btn-link" value="${b.pseudo}">
+									</form>
+									<!--<p class="card-text">
+									Vendeur : 
+									<a href="${pageContext.request.contextPath}/encheres/profil?idvendeur="${b.noUtilisateur}>${b.pseudo}</a>
+								</p>-->
+								</c:if>
+								<c:if test="${empty session}">
+									<p class="card-text">Vendeur :${b.pseudo}</p>
+								</c:if>
 							</c:if>
-						</c:if>
-					</c:forEach>
+						</c:forEach>
+					</c:if>
 				</div>
 			</div>
 		</c:forEach>
