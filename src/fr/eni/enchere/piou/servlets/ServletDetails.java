@@ -79,6 +79,7 @@ public class ServletDetails extends HttpServlet {
 		rd.forward(request, response);
 	}
 
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int idVendeur = Integer.parseInt(request.getParameter("idVendeur"));
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/AffichageProfilAutreUtilisateur.jsp");
@@ -99,7 +100,7 @@ public class ServletDetails extends HttpServlet {
 		
 //redirection en fonction de l'user
 		if (idVendeur == idUtilisateur) {
-			rd = request.getRequestDispatcher("/encheres/modifierprofil");
+			rd = request.getRequestDispatcher("/encheres/MonProfil");
 		} else {
 			request.setAttribute("pseudo", vendeur.getPseudo());
 			request.setAttribute("nom", vendeur.getNom());

@@ -1,3 +1,6 @@
+<%@page import="java.time.LocalDate"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="fr.eni.enchere.piou.bo.Utilisateur"%>
 <%@page import="java.util.Date"%>
 <%@page import="fr.eni.enchere.piou.bo.ArticleVendu"%>
@@ -23,9 +26,8 @@
 		<nav
 			class="navbar navbar-expand-lg navbar-light bg-dark container-fluid">
 
-
-
-			<a class="navbar-brand text-light" href="http://localhost:8080/Projet_eni_enchere/encheres/accueil">Eni-Encheres</a>
+			<a class="navbar-brand text-light"
+				href="${pageContext.request.contextPath}/encheres/accueil">Eni-Encheres</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarNav"
 				aria-controls="navbarNav" aria-expanded="false"
@@ -40,11 +42,12 @@
 				<!--<c:out value="${ CookieIDUtilisateur }" />-->
 				<c:if test="${!empty session}">
 					<a class="nav-link text-light text-end" href="#">Enchères</a>
-					<a class="nav-link text-light text-end" href="#">Vendre un
-						article</a>
+					<a class="nav-link text-light text-end"
+						href="${pageContext.request.contextPath}/encheres/ServletVente">Vendre
+						un article</a>
 
 					<a class="nav-link text-light text-end"
-						href="<%=request.getContextPath()%>/encheres/profil"><i
+						href="${pageContext.request.contextPath}/encheres/MonProfil"><i
 						class="bi bi-person text-primary">Mon profil</i></a>
 					<a class="nav-link text-light text-end"
 						href="${pageContext.request.contextPath}/encheres/accueil?deconnexion"><i
@@ -79,13 +82,15 @@
             <div class="text-center">
                 <!--varie en fonction du resultat de la vente-->
                 <%
-                ArticleVendu article =(ArticleVendu) request.getAttribute("article"); 
+                ArticleVendu article =(ArticleVendu) request.getAttribute("article");
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 Date date = new Date();
-                if (date != article.getDateFinEncheres()){
+                Date dateLimite = sdf.parse(sdf.format(article.getDateFinEncheres()));
+                if (date.before(dateLimite)){
                 %>
                 <!--Cas 1: vente en cours-->
                 	<h1>Détail vente:</h1>                	
-               	<% } else if ((int) request.getAttribute("idUtilisateur") ==  (int) request.getAttribute("gagnant")){ %>
+               	<% } else if ((int) request.getAttribute("idUtilisateur") ==  (int) request.getAttribute("dernierEncherisseur")){%>
 	            <!--Cas 2 : utilisateur gagne la vente-->
 	                <h1>Vous avez remporté la vente</h1>
                	<% } else {%>
@@ -125,22 +130,26 @@
             <div class=" text-center fw-bold">
                 <!--varie en fonction du resultat de la vente-->
                 <%if ((int) request.getAttribute("idUtilisateur") == 0 
-                || (int) request.getAttribute("idUtilisateur") == (int) request.getAttribute("dernierEncherisseur")
-                || (int) request.getAttribute("idUtilisateur") == article.getNoUtilisateur()
+                || (int) request.getAttribute("idUtilisateur") == (int) request.getAttribute("dernierEncherisseur") && !article.getEtatVente().equals("retiré")
+                || (int) request.getAttribute("idUtilisateur") == article.getNoUtilisateur() && date.before(dateLimite)
+                || (int) request.getAttribute("idUtilisateur") != article.getNoUtilisateur() && date.after(dateLimite) && !article.getEtatVente().equals("retiré")
                 ){ %>
                 <a href="<%=request.getContextPath()%>/encheres/accueil">
                     <button class="btn btn-secondary btn-lg btn-block mb-5">Retour</button>
                 </a>
-                <% } else if (date != article.getDateFinEncheres()){ %>
-                <form method="get" action="<%=request.getContextPath()%>/encheres/encheres">
+                <% } else if (date.before(dateLimite)){ %>
+                <form class="mb-5" method="get" action="<%=request.getContextPath()%>/encheres/encheres">
                     <label for="input_saisie">Ma proposition : </label>
                     <input id="input_saisie" type="number" name="proposition"/>
-                    <button type="submit" class="btn btn-success " name="idarticle" value="<%=article.getNoArticle()%>">Encherir</button>
+                    <button type="submit" class="btn btn-success" name="idarticle" value="<%=article.getNoArticle()%>">Encherir</button>
                 </form>
-                <% } else {%>
-                <form action="<%=request.getContextPath() %>/encheres/retraits" method="get">
-                	<input type="submit" class="badge text-danger" name="retrait" value="<%=article.getNoArticle()%>">
-                </form>
+                <% } else if (article.getEtatVente().equals("retiré")){%>
+                <p class="mb-1">l'article a été retiré</p>
+                <a href="<%=request.getContextPath()%>/encheres/accueil">
+                    <button class="btn btn-secondary btn-lg btn-block mb-5">Retour</button>
+                </a>
+               <%} else { System.out.println(article.getEtatVente());%>
+                <a href="<%=request.getContextPath() %>/encheres/retraits?idarticle=${article.noArticle}" class="btn btn-secondary btn-lg btn-block text-danger mb-5">retirer</a>
                 <% } %>
             </div>
         </div>
