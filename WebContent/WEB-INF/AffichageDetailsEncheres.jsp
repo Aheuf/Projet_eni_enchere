@@ -25,6 +25,9 @@
 	<header>
 		<nav
 			class="navbar navbar-expand-lg navbar-light bg-dark container-fluid">
+			       <img SRC="https://thumbs.dreamstime.com/b/vogelavatar-45383570.jpg"
+                 class="img-fluid rounded-circle me-2" width="3%" height="auto">
+            <br>
 
 			<a class="navbar-brand text-light"
 				href="${pageContext.request.contextPath}/encheres/accueil">Eni-Encheres</a>
