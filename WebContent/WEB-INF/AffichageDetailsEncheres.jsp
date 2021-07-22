@@ -129,11 +129,11 @@
 			<%if(request.getAttribute("valide") != null) {%>
 				<%if ((boolean) request.getAttribute("valide")){%>
 				<div class="alert alert-success" role="alert">
-	  				votre proposition à été accepté, bonne chance
+	  				<i class="bi bi-check-circle"></i> votre proposition à été accepté, bonne chance
 				</div>
 				<%} else { %>
 				<div class="alert alert-danger" role="alert">
-	  				votre mise est inferieur à la dernière enchère, reessayer
+	  				<i class="bi bi-x-circle"></i> votre mise est inferieur à la dernière enchère, reessayer
 				</div>
 				<%} %>
 			<%} %>
