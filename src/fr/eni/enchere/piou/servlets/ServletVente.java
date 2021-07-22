@@ -38,6 +38,7 @@ public class ServletVente extends HttpServlet {
 		idUtilisateur = (int) session.getAttribute("session");
 					//= 1 pour test 
 		
+		//Récupère les information de retrait (adresse par default) du vendeur
 		try {
 			List<Utilisateur> utilisateurs = em.selectUtilisateurById(idUtilisateur);
 			request.setAttribute("adresseUtilisateur", utilisateurs);
