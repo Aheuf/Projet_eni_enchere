@@ -46,7 +46,7 @@
 						un article</a>
 
 					<a class="nav-link text-light text-end"
-						href="${pageContext.request.contextPath}/encheres/profil"><i
+						href="${pageContext.request.contextPath}/encheres/MonProfil"><i
 						class="bi bi-person text-primary">Mon profil</i></a>
 					<a class="nav-link text-light text-end"
 						href="${pageContext.request.contextPath}/encheres/accueil?deconnexion"><i
