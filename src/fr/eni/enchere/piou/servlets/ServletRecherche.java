@@ -54,53 +54,82 @@ public class ServletRecherche extends HttpServlet {
 
 		// RECUPERATION DES INFORMATION JSP---------------------------------------
 		String filtre = request.getParameter("Filtre");
-		int categorie = Integer.parseInt(request.getParameter("ChoixCategorie"));
+		String[] categories = request.getParameterValues("ChoixCategorie");
+		int categorie = Integer.parseInt(categories[0]);
 		String radio = request.getParameter("radiocheck");
 		String[] premierCheckBox = null;
 		String[] secondeCheckBox = null;
 		String[] troisiemeCheckBox = null;
 		String pseudo = null;
-
-		System.out.println(categorie);
-		int idUtilisateur = (int) session.getAttribute("session");
+		request.setAttribute("switchOn", null);
+		int idUtilisateur = 0;
 
 		if (session.getAttribute("session") != null) {
-			switch (radio) {
-			case "radioAchats":
-				premierCheckBox = request.getParameterValues("myCheckAchat1");
-				secondeCheckBox = request.getParameterValues("myCheckAchat2");
-				troisiemeCheckBox = request.getParameterValues("myCheckAchat3");
-				break;
-			case "radioVentes":
-				premierCheckBox = request.getParameterValues("myCheckVente1");
-				secondeCheckBox = request.getParameterValues("myCheckVente2");
-				troisiemeCheckBox = request.getParameterValues("myCheckVente3");
-				break;
+			if (radio != null) {
+				switch (radio) {
+				case "radioAchats":
+					premierCheckBox = request.getParameterValues("myCheckAchat1");
+					secondeCheckBox = request.getParameterValues("myCheckAchat2");
+					troisiemeCheckBox = request.getParameterValues("myCheckAchat3");
+					request.setAttribute("switchOn", true);
+					System.out.println("test1:je suis passé dans radio achat");
+					break;
+				case "radioVentes":
+					premierCheckBox = request.getParameterValues("myCheckVente1");
+					secondeCheckBox = request.getParameterValues("myCheckVente2");
+					troisiemeCheckBox = request.getParameterValues("myCheckVente3");
+					request.setAttribute("switchOn", "ok");
+					System.out.println("test2:je suis passé dans radio vente");
 
-			default:
-				break;
+					break;
+
+				default:
+					request.setAttribute("switchOn", null);
+					break;
+				}
 			}
 		}
+
+		String test = (String) request.getAttribute("switchOn");
+		System.out.println("test2-1:" + test);
+		System.out.println("test3:" + premierCheckBox);
+		System.out.println("test4:" + secondeCheckBox);
+		System.out.println("test5:" + troisiemeCheckBox);
+		System.out.println("test5+1:" + listeArticleFiltre);
 		// MISE EN PLACE DE LA FILTRATION-----------------------------------------
 
 		try {
 			// appelle des listes-----------------------------------------
 			listeArticle = manager.selectAllArticleVendu();
-			List<Utilisateur> listPseudo = manager.selectUtilisateurById(idUtilisateur);
-			for (Utilisateur u : listPseudo) {
-				pseudo = u.getPseudo();
-			}
-			for (ArticleVendu av : listeArticle) {
-				if (av.getNoUtilisateur() == idUtilisateur)
-					listeArticleVente.add(av);
-			}
 
+			if (session.getAttribute("session") != null) {
+
+				idUtilisateur = (int) session.getAttribute("session");
+
+				List<Utilisateur> listPseudo = manager.selectUtilisateurById(idUtilisateur);
+				for (Utilisateur u : listPseudo) {
+					pseudo = u.getPseudo();
+				}
+				for (ArticleVendu av : listeArticle) {
+					if (av.getNoUtilisateur() == idUtilisateur)
+						listeArticleVente.add(av);
+				}
+			}
+			System.out.println("test6:" + idUtilisateur);
+			System.out.println("test7:" + pseudo);
+			System.out.println("test8:" + listeArticleVente);
+			System.out.println("test8-1:" + listeArticleFiltre);
+			
 			// filtre un mot clef-----------------------------------------
-			if (filtre != null || filtre != "") {
+			if (filtre.equals(null)|| filtre != "") {
 				listeArticleFiltre = manager.selectArticleVenduByMotCle(filtre);
 			}
+			System.out.println("test8-2:" + listeArticleFiltre);
+			System.out.println("test8-3:" + categorie);
 			// filtre categorie-----------------------------------------
-			if (categorie != 0) {
+			if (categorie > 0) {
+				System.out.println("test8-3-1:je suis dans le fitltre categori");
+
 				if (listeArticleFiltre != null) {
 					listeArticleDepartFiltre = listeArticleFiltre;
 					listeArticleFiltre = new ArrayList<>();
@@ -119,12 +148,16 @@ public class ServletRecherche extends HttpServlet {
 					}
 				}
 			}
+			System.out.println("test8-4:" + listeArticleFiltre);
 			// filtre sur switch achat/vente-----------------------------------------
-			if (session.getAttribute("session") != null) {
+			if (request.getAttribute("switchOn") != null) {
+				System.out.println("test9:je suis dans le switch de tete");
 				switch (radio) {
 
 				// filtre radio achats-----------------------------------------
 				case "radioAchats":
+					System.out.println("test10:je suis passé dans filtre radio achat");
+
 					if (premierCheckBox != null) {
 						if (listeArticleFiltre != null) {
 							listeArticleDepartFiltre = listeArticleFiltre;
@@ -190,7 +223,6 @@ public class ServletRecherche extends HttpServlet {
 							listeArticleDepartFiltre = listeArticleFiltre;
 							listeArticleFiltre = new ArrayList<>();
 							List<ArticleVendu> listeArticleDeuxiemeFiltre = new ArrayList<>();
-							List<ArticleVendu> listeArticleTroisiemeFiltre = new ArrayList<>();
 
 							for (ArticleVendu av : listeArticleDepartFiltre) {
 								if (av.getDernierEncherisseur().equals(pseudo)) {
@@ -228,31 +260,37 @@ public class ServletRecherche extends HttpServlet {
 					}
 
 					break;
-
 				// filtre radio vente-----------------------------------------
 				case "radioVentes":
+					System.out.println("test10:je suis passé dans filtre radio vente");
 					if (premierCheckBox != null) {
-
+						System.out.println("test10-1:dans le premier if");
 						if (listeArticleFiltre != null) {
 							listeArticleDepartFiltre = listeArticleFiltre;
 							listeArticleFiltre = new ArrayList<>();
 
 							for (ArticleVendu av : listeArticleDepartFiltre) {
+								String testav= av.getEtatVente();
+								System.out.println("test11:"+testav);
 								if (av.getEtatVente().equals("en cours")) {
 									listeArticleFiltre.add(av);
 								}
 							}
 
-						} else if (listeArticleFiltre == null) {
+						} 
+						if (listeArticleFiltre== null) {
 
 							listeArticleFiltre = new ArrayList<>();
 							for (ArticleVendu av : listeArticleVente) {
+								String testav= av.getEtatVente();
+								System.out.println("test11:"+testav);
 								if (av.getEtatVente().equals("en cours")) {
 									listeArticleFiltre.add(av);
 								}
 							}
 						}
 					}
+					System.out.println("test12:"+listeArticleFiltre);
 
 					if (secondeCheckBox != null) {
 
@@ -311,16 +349,21 @@ public class ServletRecherche extends HttpServlet {
 				}
 			}
 
-			if(filtre==null&& categorie==0&& premierCheckBox.equals(null) && secondeCheckBox.equals(null) && troisiemeCheckBox.equals(null)) {
+			if (filtre==null && categorie == 0 && premierCheckBox.equals(null) && secondeCheckBox.equals(null)
+					&& troisiemeCheckBox.equals(null)) {
+				
+				
 				request.setAttribute("listeArticleFiltre", null);
-				doGet(request, response);
-			
-			}else {
+				
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/encheres/accueil");
+				requestDispatcher.forward(request, response);
+
+			} else {
 				request.setAttribute("listeArticleFiltre", listeArticleFiltre);
-				doGet(request, response);
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/encheres/accueil");
+				requestDispatcher.forward(request, response);
 			}
-			
-			
+
 		} catch (
 
 		BusinessException e) {
@@ -328,7 +371,6 @@ public class ServletRecherche extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		
 	}
 
 	private void CreationListCategorie(HttpServletRequest request, HttpServletResponse response) {

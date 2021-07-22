@@ -74,7 +74,7 @@ public class ServletNouvelArticle extends HttpServlet {
 		int noUtilisateur = 0;
 		int noCategorie = 0;
 		String potentielAcheteur = null;
-
+		String etatVente = null;
 		// String photo;
 
 		String rue = null;
@@ -121,7 +121,7 @@ public class ServletNouvelArticle extends HttpServlet {
 			} else {
 
 				article = em.insertArticle(nomArticle, description, dateDebutEncheres, dateFinEncheres, prixInitial,
-						prixInitial, noUtilisateur, noCategorie, potentielAcheteur);
+						prixInitial, noUtilisateur, noCategorie,etatVente, potentielAcheteur);
 
 				recuperationInfoArticle = em.selectArticleVenduByMotCle(nomArticle);
 

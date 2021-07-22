@@ -12,7 +12,7 @@ import fr.eni.enchere.piou.BusinessException;
 import fr.eni.enchere.piou.bo.ArticleVendu;
 
 public class ArticleVenduDAOJdbcImpl implements DAO<ArticleVendu> {
-	private static String INSERT = "INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial,prix_vente, no_utilisateur, no_categorie) VALUES (?, ?, ?, ?, ?, ?,?, ?)";
+	private static String INSERT = "INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial,prix_vente, no_utilisateur, no_categorie,etat_vente) VALUES (?, ?,?, ?, ?, ?, ?,?, ?)";
 	private static String DELETE_ID = "DELETE FROM ARTICLES_VENDUS WHERE no_article = ?";
 	private static String SELECT_ALL = "SELECT * FROM ARTICLES_VENDUS";
 	private static String SELECT_BY_ID = "SELECT * FROM ARTICLES_VENDUS WHERE no_article = ?";
@@ -32,6 +32,7 @@ public class ArticleVenduDAOJdbcImpl implements DAO<ArticleVendu> {
 			rqt.setInt(6, article.getPrixVente());
 			rqt.setInt(7, article.getNoUtilisateur());
 			rqt.setInt(8, article.getNoCategorie());
+			rqt.setString(9, article.getEtatVente());
 
 			int nbRows = rqt.executeUpdate();
 
@@ -90,6 +91,7 @@ public class ArticleVenduDAOJdbcImpl implements DAO<ArticleVendu> {
 						rs.getInt("prix_vente"), 
 						rs.getInt("no_utilisateur"), 
 						rs.getInt("no_categorie"),
+						rs.getString("etat_vente"),
 						rs.getString("dernier_encherisseur"));
 
 				articlesVendus.add(article);
@@ -126,6 +128,7 @@ public class ArticleVenduDAOJdbcImpl implements DAO<ArticleVendu> {
 						rs.getInt("prix_vente"), 
 						rs.getInt("no_utilisateur"), 
 						rs.getInt("no_categorie"),
+						rs.getString("etat_vente"),
 						rs.getString("dernier_encherisseur"));
 
 				articlesVendus.add(article);
@@ -164,6 +167,7 @@ public class ArticleVenduDAOJdbcImpl implements DAO<ArticleVendu> {
 						rs.getInt("prix_vente"), 
 						rs.getInt("no_utilisateur"), 
 						rs.getInt("no_categorie"),
+						rs.getString("etat_vente"),
 						rs.getString("dernier_encherisseur"));
 
 				articlesVendus.add(article);

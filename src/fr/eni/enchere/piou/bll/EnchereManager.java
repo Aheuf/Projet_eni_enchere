@@ -93,10 +93,10 @@ public class EnchereManager {
 
 	// Insert Article
 	public ArticleVendu insertArticle(String nomArticle, String description, Date dateDebutEncheres, Date dateFinEncheres,
-			int prixInitial, int prixVente, int noUtilisateur, int noCategorie, String encherisseur) throws BusinessException {
+			int prixInitial, int prixVente, int noUtilisateur, int noCategorie,String etatVente, String encherisseur) throws BusinessException {
 
 		ArticleVendu article = new ArticleVendu(nomArticle, description, dateDebutEncheres, dateFinEncheres,
-				prixInitial, prixVente, noUtilisateur, noCategorie, encherisseur);
+				prixInitial, prixVente, noUtilisateur, noCategorie,etatVente, encherisseur);
 		
 		BusinessException businessException = new BusinessException();
 

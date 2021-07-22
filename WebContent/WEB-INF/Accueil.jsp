@@ -38,6 +38,7 @@
 			<div class="collapse navbar-collapse justify-content-end"
 				id="navbarNav">
 
+				<!--<c:out value="${ CookieIDUtilisateur }" />-->
 				<c:if test="${!empty session}">
 					<a class="nav-link text-light text-end" href="#">Enchères</a>
 					<a class="nav-link text-light text-end"
@@ -78,7 +79,7 @@
 				<label class="pt-1" for="categorie_accueil">Catégories :</label> <select
 					id="categorie_accueil" name="ChoixCategorie" class="form-select"
 					aria-label="Default select example">
-					<option value=0 selected>Toutes</option>
+					<option selected value=0>Toutes</option>
 					<c:forEach var="c" items="${listeCategorie}">
 						<option value="${c.noCategorie}">${c.libelle}</option>
 					</c:forEach>
@@ -161,22 +162,22 @@
 	<!--CARDS-->
 	<article
 		class="row col-sm-12 col-lg-10 mx-auto mt-5 justify-content-center">
+		<c:if test="${empty listeArticleFiltre}">
+			<c:forEach var="a" items="${listeArticleActuelle}">
 
-		<c:forEach var="a" items="${listeArticleActuelle}">
+				<div class="card shadow col-11 col-lg-2 m-1">
+					<img class="card-img-top" src=".../100px180/" alt="image produit">
+					<div class="card-body">
+						<h5 class="card-title">
+							<a
+								href="<%=request.getContextPath()%>/encheres/details?idarticle=${a.noArticle}"
+								class="link-dark">${a.nomArticle}</a>
+						</h5>
+						<p class="card-text">Prix : ${a.prixVente} points</p>
+						<p class="card-text">Fin de l'enchère : ${a.dateFinEncheres}</p>
+						<br>
 
-			<div class="card shadow col-11 col-lg-2 m-1">
-				<img class="card-img-top" src=".../100px180/" alt="image produit">
-				<div class="card-body">
-					<h5 class="card-title">
-						<a
-							href="<%=request.getContextPath()%>/encheres/details?idarticle=${a.noArticle}"
-							class="link-dark">${a.nomArticle}</a>
-					</h5>
-					<p class="card-text">Prix : ${a.prixVente} points</p>
-					<p class="card-text">Fin de l'enchère : ${a.dateFinEncheres}</p>
-					<br>
-					<c:if test="${!empty listeArticleFiltre}">
-						<c:forEach var="b" items="${listeArticleFiltre}">
+						<c:forEach var="b" items="${listeVendeurArticleActuelle}">
 							<c:if test="${b.noUtilisateur==a.noUtilisateur}">
 								<c:if test="${!empty session}">
 									<form
@@ -184,19 +185,32 @@
 										method="post">
 										<input type="submit" class="btn btn-link" value="${b.pseudo}">
 									</form>
-									<!--<p class="card-text">
-									Vendeur : 
-									<a href="${pageContext.request.contextPath}/encheres/profil?idvendeur="${b.noUtilisateur}>${b.pseudo}</a>
-								</p>-->
+
 								</c:if>
 								<c:if test="${empty session}">
 									<p class="card-text">Vendeur :${b.pseudo}</p>
 								</c:if>
 							</c:if>
 						</c:forEach>
-					</c:if>
-					
-					<c:if test="${!empty listeArticleFiltre}">
+					</div>
+				</div>
+			</c:forEach>
+		</c:if>
+		<c:if test="${!empty listeArticleFiltre}">
+			<c:forEach var="a" items="${listeArticleFiltre}">
+
+				<div class="card shadow col-11 col-lg-2 m-1">
+					<img class="card-img-top" src=".../100px180/" alt="image produit">
+					<div class="card-body">
+						<h5 class="card-title">
+							<a
+								href="<%=request.getContextPath()%>/encheres/details?idarticle=${a.noArticle}"
+								class="link-dark">${a.nomArticle}</a>
+						</h5>
+						<p class="card-text">Prix : ${a.prixVente} points</p>
+						<p class="card-text">Fin de l'enchère : ${a.dateFinEncheres}</p>
+						<br>
+
 						<c:forEach var="b" items="${listeVendeurArticleActuelle}">
 							<c:if test="${b.noUtilisateur==a.noUtilisateur}">
 								<c:if test="${!empty session}">
@@ -215,11 +229,10 @@
 								</c:if>
 							</c:if>
 						</c:forEach>
-					</c:if>
+					</div>
 				</div>
-			</div>
-		</c:forEach>
-
+			</c:forEach>
+		</c:if>
 
 	</article>
 
