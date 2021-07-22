@@ -42,7 +42,7 @@
 					class="nav-link text-light text-end"
 					href="${pageContext.request.contextPath}/encheres/ServletVente">Vendre
 					un article</a> <a class="nav-link text-light text-end"
-					href="${pageContext.request.contextPath}/encheres/profil"><i
+					href="${pageContext.request.contextPath}/encheres/MonProfil"><i
 					class="bi bi-person text-primary">Mon profil</i></a> <a
 					class="nav-link text-light text-end"
 					href="${pageContext.request.contextPath}/encheres/accueil?deconnexion"><i
@@ -61,11 +61,11 @@
 		<!-- formulaire "mon profil" -->
 		<div class="container">
 			<%
-				if (request.getAttribute("success") != null) {
+				if (request.getAttribute("ErreurSaisi") != null) {
 			%>
 			<div class="alert alert-dark d-flex align-items-center" role="alert">
 				<div>
-					<i class="bi bi-check-circle"></i> Modification enregistrée
+					<i class="bi bi-x-circle"></i> Tous les champs doivent être remplis
 					!
 				</div>
 			</div>
@@ -73,12 +73,11 @@
 				}
 			%>
 			<%
-				if (request.getAttribute("ErreurSaisi") != null) {
+				if (request.getAttribute("ErreurSupprMDP") != null) {
 			%>
 			<div class="alert alert-dark d-flex align-items-center" role="alert">
 				<div>
-					<i class="bi bi-x-circle"></i> Tous les champs doivent être remplis
-					!
+					<i class="bi bi-x-circle"></i> Pour supprimer votre profil, veuillez renseigner votre mot de passe actuel !
 				</div>
 			</div>
 			<%

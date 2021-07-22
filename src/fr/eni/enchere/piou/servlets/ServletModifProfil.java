@@ -35,15 +35,30 @@ public class ServletModifProfil extends HttpServlet {
 		int idUtilisateur = (int) session.getAttribute("session");
 
 		try {
-			en.deleteUtilisateur(idUtilisateur);
-			session.invalidate();
-		} catch (BusinessException e) {
-			e.printStackTrace();
+			List<Utilisateur> users = en.selectUtilisateurById(idUtilisateur);
+			user = users.get(0);
+		} catch (BusinessException e1) {
+			e1.printStackTrace();
 		}
 
-		this.getServletContext().setAttribute("user", user);
-		RequestDispatcher rd = request.getRequestDispatcher("/encheres/accueil");
-		rd.forward(request, response);
+		String motDePasse = request.getParameter("inputMotDePasse");
+
+		if (motDePasse.equals(user.getMotDePasse())) {
+			
+			try {
+				en.deleteUtilisateur(idUtilisateur);
+				session.invalidate();
+			} catch (BusinessException e) {
+				e.printStackTrace();
+			}
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/encheres/accueil");
+			rd.forward(request, response);
+		} else {
+			request.setAttribute("ErreurSupprMDP", "Pour supprimer votre profil vous devez entrer votre mot de passe !");
+			RequestDispatcher rd = request.getRequestDispatcher("/encheres/profil");
+			rd.forward(request, response);
+		}
 
 	}
 
@@ -58,8 +73,8 @@ public class ServletModifProfil extends HttpServlet {
 		Utilisateur user = null;
 		HttpSession session = request.getSession();
 		int idUtilisateur = (int) session.getAttribute("session");
-		
-		//Récupère les informations de l'utilisateur connecté
+
+		// Récupère les informations de l'utilisateur connecté
 		try {
 			List<Utilisateur> users = en.selectUtilisateurById(idUtilisateur);
 			user = users.get(0);
@@ -79,8 +94,8 @@ public class ServletModifProfil extends HttpServlet {
 		String nouveauMDP;
 		String confirmationMDP;
 		int credit;
-		
-		//Récupère les informations passés dans le formulaire
+
+		// Récupère les informations passés dans le formulaire
 		pseudo = request.getParameter("inputPseudo");
 		nom = request.getParameter("inputNom");
 		System.out.println("nom " + nom);
@@ -95,7 +110,7 @@ public class ServletModifProfil extends HttpServlet {
 		nouveauMDP = request.getParameter("inputNouveauMotDePasse");
 		confirmationMDP = request.getParameter("inputConfirmation");
 		credit = user.getCredit();
-		
+
 		// Vérifie que tous les champs sont remplis
 		if (pseudo.trim().equals("") || nom.trim().equals("") || prenom.trim().equals("") || email.trim().equals("")
 				|| telephone.trim().equals("") || rue.trim().equals("") || codePostal.trim().equals("")
@@ -105,8 +120,8 @@ public class ServletModifProfil extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("/encheres/profil");
 			rd.forward(request, response);
 		}
-		
-		//Vérifie que le mot de passe actuel est bien le mot de passe enregistrer
+
+		// Vérifie que le mot de passe actuel est bien le mot de passe enregistrer
 		if (motDePasse.equals(user.getMotDePasse())) {
 		} else {
 			request.setAttribute("ErreurMDP", "Entrez votre mot de passe actuel !");
@@ -114,7 +129,8 @@ public class ServletModifProfil extends HttpServlet {
 			rd.forward(request, response);
 		}
 
-		//Vérifie que le nouveau mot de passe est le même que celui inscrit dans la confirmation
+		// Vérifie que le nouveau mot de passe est le même que celui inscrit dans la
+		// confirmation
 		if (nouveauMDP.equals(confirmationMDP)) {
 		} else {
 			request.setAttribute("ErreurConfirmMDP", "Confirmez votre nouveau mot de passe !");
@@ -122,9 +138,10 @@ public class ServletModifProfil extends HttpServlet {
 			rd.forward(request, response);
 		}
 
-		//Si le mot de passe actuel est bon et que le nouveau mot de passe correspond a la confirmation alors ca modifie les informations
+		// Si le mot de passe actuel est bon et que le nouveau mot de passe correspond a
+		// la confirmation alors ca modifie les informations
 		if (motDePasse.equals(user.getMotDePasse()) && nouveauMDP.equals(confirmationMDP)) {
-			
+
 			Utilisateur userUpdate = new Utilisateur(idUtilisateur, pseudo, nom, prenom, email, telephone, rue,
 					codePostal, ville, nouveauMDP, credit);
 			System.out.println("coucou ca a créé un utilisateur lol");
@@ -135,10 +152,10 @@ public class ServletModifProfil extends HttpServlet {
 			} catch (BusinessException e) {
 				e.printStackTrace();
 			}
-			
+
 			request.setAttribute("success", "success");
-			
-			RequestDispatcher rd = request.getRequestDispatcher("/encheres/profil");
+
+			RequestDispatcher rd = request.getRequestDispatcher("/encheres/MonProfil");
 			rd.forward(request, response);
 		}
 	}
