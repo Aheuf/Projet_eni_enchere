@@ -68,11 +68,26 @@
 
 	<!--CHAMPS-->
 	<section class="container">
+
+		<%
+			if (request.getAttribute("infoRecherche") != null) {
+		%>
+		<div class="alert alert-danger" role="alert">
+			<div>
+				<i class="bi bi-x-circle"></i> La recherche n'a pas aboutie a votre
+				demande
+			</div>
+		</div>
+
+		<%
+			}
+		%>
+
 		<form method="post" action="../encheres/recherche">
 			<label for="champ_accueil">Filtres :</label> <input
 				id="champ_accueil" class="form-control col-lg-6" type="text"
 				name="Filtre"
-				placeholder="Le nom de l'article contient (veuillez mettre UN mot clef)"
+				placeholder="Veuillez mettre UN mot clef"
 				aria-label="default input example">
 			<div class="row mt-2">
 				<label class="pt-1" for="categorie_accueil">Catégories :</label> <select
@@ -166,7 +181,9 @@
 			<c:forEach var="a" items="${listeArticleActuelle}">
 
 				<div class="card shadow col-11 col-lg-2 m-1">
-					<img class="card-img-top" src=".../100px180/" alt="image produit">
+					<br> <img
+						SRC="https://hexus.net/media/uploaded/2018/8/cb3ef351-2986-4a37-b9ff-cb980479c029.jpg"
+						class="card-img-top" alt="image produit">
 					<div class="card-body">
 						<h5 class="card-title">
 							<a
@@ -200,7 +217,9 @@
 			<c:forEach var="a" items="${listeArticleFiltre}">
 
 				<div class="card shadow col-11 col-lg-2 m-1">
-					<img class="card-img-top" src=".../100px180/" alt="image produit">
+					<br> <img
+						SRC="https://hexus.net/media/uploaded/2018/8/cb3ef351-2986-4a37-b9ff-cb980479c029.jpg"
+						class="card-img-top" alt="image produit">
 					<div class="card-body">
 						<h5 class="card-title">
 							<a

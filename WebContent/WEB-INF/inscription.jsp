@@ -56,20 +56,23 @@
 			<%
 				if (request.getAttribute("ErreurSaisiInscrition") != null) {
 			%>
-			<div class="alert alert-dark d-flex align-items-center" role="alert">
+
+			<div class="alert alert-danger" role="alert">
 				<div>
 					<i class="bi bi-x-circle"></i> Tous les champs doivent être remplis
 				</div>
 			</div>
+
 			<%
 				}
 			%>
 			<%
 				if (request.getAttribute("ErreurPseudo") != null) {
 			%>
-			<div class="alert alert-dark d-flex align-items-center" role="alert">
+			<div class="alert alert-danger align-items-center" role="alert">
 				<div>
-					<i class="bi bi-x-circle"></i> Pseudo deja existant
+					<i class="bi bi-x-circle"></i> <i class="bi bi-x-circle"></i>
+					Pseudo deja existant
 				</div>
 			</div>
 			<%
@@ -78,7 +81,8 @@
 			<%
 				if (request.getAttribute("ErreurEmail") != null) {
 			%>
-			<div class="alert alert-dark d-flex align-items-center" role="alert">
+			<div class="alert alert-danger d-flex align-items-center"
+				role="alert">
 				<div>
 					<i class="bi bi-x-circle"></i> Email deja existant.
 
@@ -90,7 +94,8 @@
 			<%
 				if (request.getAttribute("ErreurConfirmMDPInscription") != null) {
 			%>
-			<div class="alert alert-dark d-flex align-items-center" role="alert">
+			<div class="alert alert-danger d-flex align-items-center"
+				role="alert">
 				<div>
 					<i class="bi bi-x-circle"></i> Les mots de passes doivent être
 					identique.

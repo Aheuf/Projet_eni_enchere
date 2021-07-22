@@ -68,13 +68,15 @@
 					<%
 						if (request.getAttribute("ErreurLoginPseudo") != null) {
 					%>
-					<div class="alert alert-dark d-flex align-items-center"
+
+					<div class="alert alert-danger d-flex align-items-center"
 						role="alert">
 						<div>
-							<i class="bi bi-x-circle"></i> Identifiant inconnu veuillez
-							saisir le bon identifiant.
+							 <i class="bi bi-x-circle"></i>
+							Identifiant inconnu veuillez saisir le bon identifiant.
 						</div>
 					</div>
+
 					<%
 						}
 					%>
@@ -88,7 +90,7 @@
 					<%
 						if (request.getAttribute("ErreurLoginMDP") != null) {
 					%>
-					<div class="alert alert-dark d-flex align-items-center"
+					<div class="alert alert-dangerd-flex align-items-center"
 						role="alert">
 						<div>
 							<i class="bi bi-x-circle"></i> Mot de passe erroné.

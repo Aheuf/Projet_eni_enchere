@@ -117,7 +117,7 @@ public class ServletRecherche extends HttpServlet {
 			System.out.println(listeArticleFiltre);
 			// filtre un mot clef-----------------------------------------
 
-			if (filtre.length() > 1 || filtre != "") {
+			if (filtre!=null || filtre != "") {
 				listeArticleFiltre = new ArrayList<ArticleVendu>();
 				listeArticleFiltre = manager.selectArticleVenduByMotCle(filtre);
 				System.out.println("valeur filtre " + listeArticleFiltre);
@@ -538,6 +538,7 @@ public class ServletRecherche extends HttpServlet {
 					&& troisiemeCheckBox.equals(null)) {
 
 				request.setAttribute("listeArticleFiltre", null);
+				request.setAttribute("infoRecherche", "la recherche n'a pas aboutie a votre demande");
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/encheres/accueil");
 				requestDispatcher.forward(request, response);
 
