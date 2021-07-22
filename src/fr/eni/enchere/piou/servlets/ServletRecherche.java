@@ -126,7 +126,7 @@ public class ServletRecherche extends HttpServlet {
 
 			// filtre categorie-----------------------------------------
 			if (categorie != 0) {
-				System.out.println("je suis passé dans categorie"+categorie);
+				System.out.println("je suis passé dans categorie" + categorie);
 				System.out.println(listeArticleFiltre);
 
 				if (listeArticleFiltre != null) {
@@ -140,7 +140,7 @@ public class ServletRecherche extends HttpServlet {
 						}
 					}
 				}
-				if(listeArticleFiltre.isEmpty()){
+				if (listeArticleFiltre.isEmpty()) {
 					listeArticleFiltre = new ArrayList<ArticleVendu>();
 					System.out.println("je suis la");
 					for (ArticleVendu article : listeArticle) {
@@ -180,7 +180,8 @@ public class ServletRecherche extends HttpServlet {
 									listeArticleFiltre.add(av);
 								}
 							}
-						} else {
+						}
+						if (listeArticleFiltre.isEmpty()) {
 							listeArticleFiltre = new ArrayList<>();
 
 							for (ArticleVendu av : listeArticle) {
@@ -214,7 +215,8 @@ public class ServletRecherche extends HttpServlet {
 										listeArticleFiltre.add(av);
 									}
 								}
-							} else {
+							}
+							if (listeArticleFiltre.isEmpty()) {
 								listeArticleFiltre = new ArrayList<>();
 
 								for (ArticleVendu av : listeArticle) {
@@ -247,7 +249,8 @@ public class ServletRecherche extends HttpServlet {
 										}
 									}
 
-								} else {
+								}
+								if (listeArticleFiltre.isEmpty()) {
 
 									listeArticleFiltre = new ArrayList<>();
 									for (ArticleVendu av : listeArticle) {
@@ -307,7 +310,8 @@ public class ServletRecherche extends HttpServlet {
 											}
 										}
 
-									} else {
+									}
+									if (listeArticleFiltre.isEmpty()) {
 
 										listeArticleFiltre = new ArrayList<>();
 										for (ArticleVendu av : listeArticle) {
@@ -338,7 +342,8 @@ public class ServletRecherche extends HttpServlet {
 										}
 									}
 
-								} else {
+								}
+								if (listeArticleFiltre.isEmpty()) {
 
 									listeArticleFiltre = new ArrayList<>();
 									for (ArticleVendu av : listeArticle) {
@@ -370,7 +375,8 @@ public class ServletRecherche extends HttpServlet {
 									listeArticleFiltre.add(av);
 								}
 							}
-						} else {
+						}
+						if (listeArticleFiltre.isEmpty()) {
 							listeArticleFiltre = new ArrayList<>();
 							for (ArticleVendu av : listeArticleVente) {
 								if (av.getNoUtilisateur() == idUtilisateur) {
@@ -400,7 +406,8 @@ public class ServletRecherche extends HttpServlet {
 									}
 								}
 
-							} else {
+							}
+							if (listeArticleFiltre.isEmpty()) {
 								listeArticleFiltre = new ArrayList<>();
 								for (ArticleVendu av : listeArticleVente) {
 									int valeurDeDepart = av.getPrixVente();
@@ -437,7 +444,8 @@ public class ServletRecherche extends HttpServlet {
 										}
 									}
 
-								} else {
+								}
+								if (listeArticleFiltre.isEmpty()) {
 
 									listeArticleFiltre = new ArrayList<>();
 									for (ArticleVendu av : listeArticleVente) {
@@ -469,7 +477,8 @@ public class ServletRecherche extends HttpServlet {
 										}
 									}
 
-								} else {
+								}
+								if (listeArticleFiltre.isEmpty()) {
 
 									listeArticleFiltre = new ArrayList<>();
 									for (ArticleVendu av : listeArticleVente) {
@@ -497,7 +506,8 @@ public class ServletRecherche extends HttpServlet {
 										}
 									}
 
-								} else {
+								}
+								if (listeArticleFiltre.isEmpty()) {
 
 									listeArticleFiltre = new ArrayList<>();
 									for (ArticleVendu av : listeArticleVente) {
