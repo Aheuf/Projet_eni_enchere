@@ -110,13 +110,17 @@ public class ServletNouvelArticle extends HttpServlet {
 //			System.out.println(ville);
 			
 			// Vérifie que tous les champs sont remplis
-			if (nomArticle == null || description == null || noCategorie == 0 || dateDebutEncheres == null
+			if (nomArticle.trim().equals("") || description.trim().equals("") || noCategorie == 0 
+					|| dateDebutEncheres == null || dateFinEncheres == null || prixInitial == 0 
+					|| rue.trim().equals("") || codePostal.trim().equals("") || ville.trim().equals("")) {
+		/**	if (nomArticle == null || description == null || noCategorie == 0 || dateDebutEncheres == null
 					|| dateFinEncheres == null || prixInitial == 0 || rue == null || codePostal == null
 					|| ville == null) {
-
+		*/
 				
 //				System.out.println("probleme dans ici");
 				this.getServletContext().setAttribute("ErreurSaisi", "Tous les champs doivent être remplis !");
+				//request.setAttribute("ErreurSaisi", "Tous les champs doivent être remplis !");
 				RequestDispatcher rd = request.getRequestDispatcher("/encheres/ServletVente");
 				rd.forward(request, response);
 

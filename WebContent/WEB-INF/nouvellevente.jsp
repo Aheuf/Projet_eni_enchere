@@ -149,9 +149,8 @@
 							id="enregistrer" name="enregistrer" value="Enregistrer">
 						<!-- bouton "Annuler -->
 						<a href="" class="btn btn-outline-dark col-sm-3 col-md-3 col-5">Annuler</a>
-						<input type="button"
-							class="btn btn-outline-dark col-sm-3 col-md-3 col-5"
-							value="Annuler Vente" />
+
+						<a href="/Projet_eni_enchere/encheres/accueil" class="btn btn-outline-dark col-sm-3 col-md-3 col-5">Annuler Vente</a>	
 					</div>
 				</form>
 			</div>
