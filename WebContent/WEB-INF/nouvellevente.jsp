@@ -53,6 +53,7 @@
 	<section>
 		<h1 class="text-center mt-5 mb-5">Nouvelle Vente</h1>
 		<div class="container">
+		
 			<div class="d-flex justify-content-around">
 
 				<form method="post" action="../encheres/ServletNouvelArticle"
