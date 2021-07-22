@@ -29,14 +29,19 @@ public class ServletAccueil extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		// creation de la liste d'article a affficher
 		CreationListArticle(request, response);
+		
+		// recuperation des catégories dans la bdd
 		CreationListCategorie(request, response);
 
+		// recuperration d'un lien paramétré pour fermer la session
 		if (request.getParameter("deconnexion") != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("session", null);
 		}
 
+		// renvoie sur la jsp accueil
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/Accueil.jsp");
 		requestDispatcher.forward(request, response);
 	}
@@ -54,9 +59,13 @@ public class ServletAccueil extends HttpServlet {
 		List<ArticleVendu> listeArticleActuelle = new ArrayList<ArticleVendu>();
 		List<Utilisateur> listeVendeurArticleActuelle = new ArrayList<Utilisateur>();
 
+		// recuperationdes de la liste d'article dans la bdd
 		try {
 			listeArticleBrut = manager.selectAllArticleVendu();
 			listeVendeurArticleActuelle = manager.selectAllUtilisateur();
+
+			// filtre pour recuperer la date de fin d'enchere pour la comparer a la date du
+			// jours pour creer une liste d'enchere a jour
 			for (ArticleVendu av : listeArticleBrut) {
 				LocalDate dateFinVente = Instant.ofEpochMilli(av.getDateFinEncheres().getTime())
 						.atZone(ZoneId.systemDefault()).toLocalDate();
@@ -79,6 +88,7 @@ public class ServletAccueil extends HttpServlet {
 		EnchereManager manager = new EnchereManager();
 		List<Categorie> listeCategorie = new ArrayList<>();
 
+		// recuperation des information de la bdd categorie
 		try {
 			listeCategorie = manager.selectAllCategorie();
 			request.setAttribute("listeCategorie", listeCategorie);

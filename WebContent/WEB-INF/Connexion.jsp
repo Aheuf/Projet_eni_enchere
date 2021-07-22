@@ -25,7 +25,8 @@
 		<nav
 			class="navbar navbar-expand-lg navbar-light bg-dark container-fluid">
 
-			<a class="navbar-brand text-light" href="${pageContext.request.contextPath}/encheres/accueil">Eni-Encheres</a>
+			<a class="navbar-brand text-light"
+				href="${pageContext.request.contextPath}/encheres/accueil">Eni-Encheres</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarNav"
 				aria-controls="navbarNav" aria-expanded="false"
@@ -49,6 +50,10 @@
 	</header>
 
 	<section>
+
+
+
+
 		<h1 class="text-center mt-5 mb-5">Connexion</h1>
 		<div class="container">
 			<div class="d-flex justify-content-around">
@@ -60,12 +65,38 @@
 					<div class="col-md-6 col-sm-12">
 						<input type="text" id="identifiant" name="Identifiant">
 					</div>
+					<%
+						if (request.getAttribute("ErreurLoginPseudo") != null) {
+					%>
+					<div class="alert alert-dark d-flex align-items-center"
+						role="alert">
+						<div>
+							<i class="bi bi-x-circle"></i> Identifiant inconnu veuillez
+							saisir le bon identifiant.
+						</div>
+					</div>
+					<%
+						}
+					%>
+
 					<div class="col-md-6 col-sm-12">
 						<label for="mdp">Mot de passe :</label>
 					</div>
 					<div class="col-md-6 col-sm-12">
 						<input type="password" id="mdp" name="MdP">
 					</div>
+					<%
+						if (request.getAttribute("ErreurLoginMDP") != null) {
+					%>
+					<div class="alert alert-dark d-flex align-items-center"
+						role="alert">
+						<div>
+							<i class="bi bi-x-circle"></i> Mot de passe erroné.
+						</div>
+					</div>
+					<%
+						}
+					%>
 					<div
 						class="mt-2 row justify-content-md-end justify-content-sm-center">
 						<a href="" class="text-md-end text-sm-center">Mot de passe

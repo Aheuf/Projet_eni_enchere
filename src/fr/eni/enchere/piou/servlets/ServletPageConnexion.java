@@ -17,7 +17,7 @@ public class ServletPageConnexion extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		// renvoie sur jsp connexion
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/Connexion.jsp");
 		requestDispatcher.forward(request, response);
 	}

@@ -34,8 +34,11 @@ public class ServletRecherche extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		// recuperation des catégories dans la bdd
 		CreationListCategorie(request, response);
 
+		// renvoie sur la jsp accueil
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/Accueil.jsp");
 		requestDispatcher.forward(request, response);
 
@@ -115,8 +118,6 @@ public class ServletRecherche extends HttpServlet {
 
 			// filtre categorie-----------------------------------------
 			if (categorie != 0) {
-				System.out.println("test8-3-1:je suis dans le fitltre categori");
-				System.out.println("test8-3-2:" + categorie);
 
 				if (listeArticleFiltre != null) {
 					listeArticleDepartFiltre = listeArticleFiltre;
@@ -139,16 +140,15 @@ public class ServletRecherche extends HttpServlet {
 					}
 				}
 			}
-			System.out.println("test8-4:" + listeArticleFiltre);
 
 			// filtre sur switch achat/vente-----------------------------------------
 			if (request.getAttribute("switchOn") != null) {
-				System.out.println("test9:je suis dans le switch de tete");
 				switch (radio) {
 
 				// filtre radio achats-----------------------------------------
 				case "radioAchats":
-					System.out.println("test10:je suis passé dans filtre radio achat");
+
+					
 					if ((premierCheckBox != null && secondeCheckBox != null && troisiemeCheckBox != null)
 							|| (premierCheckBox != null && troisiemeCheckBox != null)) {
 
@@ -502,11 +502,10 @@ public class ServletRecherche extends HttpServlet {
 
 				if (filtre.equals(null) && categorie == 0 && premierCheckBox.equals(null)
 						&& secondeCheckBox.equals(null) && troisiemeCheckBox.equals(null))
-
 				{
 
 					request.setAttribute("listeArticleFiltre", null);
-
+					request.setAttribute("recuperationEnchere", "aucune enchere retrouvé");
 					RequestDispatcher requestDispatcher = request.getRequestDispatcher("/encheres/accueil");
 					requestDispatcher.forward(request, response);
 

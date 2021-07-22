@@ -53,7 +53,52 @@
 	<section>
 		<h1 class="text-center mt-5 mb-5">Inscription</h1>
 		<div class="container">
+			<%
+				if (request.getAttribute("ErreurSaisiInscrition") != null) {
+			%>
+			<div class="alert alert-dark d-flex align-items-center" role="alert">
+				<div>
+					<i class="bi bi-x-circle"></i> Tous les champs doivent être remplis
+				</div>
+			</div>
+			<%
+				}
+			%>
+			<%
+				if (request.getAttribute("ErreurPseudo") != null) {
+			%>
+			<div class="alert alert-dark d-flex align-items-center" role="alert">
+				<div>
+					<i class="bi bi-x-circle"></i> Pseudo deja existant
+				</div>
+			</div>
+			<%
+				}
+			%>
+			<%
+				if (request.getAttribute("ErreurEmail") != null) {
+			%>
+			<div class="alert alert-dark d-flex align-items-center" role="alert">
+				<div>
+					<i class="bi bi-x-circle"></i> Email deja existant.
 
+				</div>
+			</div>
+			<%
+				}
+			%>
+			<%
+				if (request.getAttribute("ErreurConfirmMDPInscription") != null) {
+			%>
+			<div class="alert alert-dark d-flex align-items-center" role="alert">
+				<div>
+					<i class="bi bi-x-circle"></i> Les mots de passes doivent être
+					identique.
+				</div>
+			</div>
+			<%
+				}
+			%>
 			<form method="post" action="../encheres/inscription"
 				class="row col-md-12 col-sm-12 ">
 
@@ -63,6 +108,7 @@
 							:</label> <input type="text" class="form-control" id="inputPseudo"
 							aria-describedby="pseudoHelp" name="Pseudo">
 					</div>
+
 					<div class="d-flex mb-3 offset-lg-2 col-lg-5 col-sm-12">
 						<label for="inputNom" class="col-3 form-label mt-1">Nom :</label>
 						<input type="text" class="form-control" id="inputNom"
@@ -82,6 +128,7 @@
 							aria-describedby="emailHelp" name="Email">
 					</div>
 				</div>
+
 
 				<div class="row col-sm-12 col-lg-12 ">
 					<div class="d-flex mb-3 col-lg-5 col-sm-12">
@@ -127,7 +174,8 @@
 					<div class="d-flex mb-3 col-lg-5 col-sm-12">
 						<label for="inputCredit" class="col-3 form-label mt-1 ">Credit
 							:</label> <input type="number" class="form-control" id="inputCredit"
-							aria-describedby="creditHelp" value="1" min="1" max="9999" name="Credit">
+							aria-describedby="creditHelp" value="1" min="1" max="9999"
+							name="Credit">
 					</div>
 				</div>
 

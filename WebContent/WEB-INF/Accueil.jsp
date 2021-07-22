@@ -38,7 +38,6 @@
 			<div class="collapse navbar-collapse justify-content-end"
 				id="navbarNav">
 
-				<!--<c:out value="${ CookieIDUtilisateur }" />-->
 				<c:if test="${!empty session}">
 					<a class="nav-link text-light text-end" href="#">Enchères</a>
 					<a class="nav-link text-light text-end"
@@ -160,6 +159,20 @@
 	</section>
 
 	<!--CARDS-->
+	<%
+		if (request.getAttribute("recuperationEnchere") != null) {
+	%>
+	<div class="alert alert-dark d-flex align-items-center" role="alert">
+		<div>
+			<i class="bi bi-x-circle"></i> Aucun éléments correspond a votre
+			recherche
+
+
+		</div>
+	</div>
+	<%
+		}
+	%>
 	<article
 		class="row col-sm-12 col-lg-10 mx-auto mt-5 justify-content-center">
 		<c:if test="${empty listeArticleFiltre}">
