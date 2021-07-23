@@ -13,6 +13,10 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
+
+//CREATION D UN FICHIER FILTRE EN CAS DE CONDITION UTILISATION 
+//NON FONCTIONNELLE 
+
 @WebFilter(urlPatterns = "/Projet_eni_enchere/*", dispatcherTypes = { DispatcherType.REQUEST, DispatcherType.INCLUDE,
 		DispatcherType.FORWARD, DispatcherType.ERROR })
 public class FilterConnexion implements Filter {
