@@ -27,8 +27,9 @@
 	<header>
 		<nav
 			class="navbar navbar-expand-lg navbar-light bg-dark container-fluid">
-
-			<a class="navbar-brand text-light"
+			<img SRC="https://thumbs.dreamstime.com/b/vogelavatar-45383570.jpg"
+				class="img-fluid rounded-circle me-2" width="3%" height="auto">
+			<br> <a class="navbar-brand text-light"
 				href="${pageContext.request.contextPath}/encheres/accueil">Eni-Encheres</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -38,8 +39,9 @@
 			</button>
 			<div class="collapse navbar-collapse justify-content-end"
 				id="navbarNav">
-				<a class="nav-link text-light text-end" href="#">Enchères</a> <a
-					class="nav-link text-light text-end"
+				<a class="nav-link text-light text-end"
+					href="${pageContext.request.contextPath}/encheres/accueil">Enchères</a>
+				<a class="nav-link text-light text-end"
 					href="${pageContext.request.contextPath}/encheres/ServletVente">Vendre
 					un article</a> <a class="nav-link text-light text-end"
 					href="${pageContext.request.contextPath}/encheres/MonProfil"><i
@@ -77,7 +79,8 @@
 			%>
 			<div class="alert alert-dark d-flex align-items-center" role="alert">
 				<div>
-					<i class="bi bi-x-circle"></i> Pour supprimer votre profil, veuillez renseigner votre mot de passe actuel !
+					<i class="bi bi-x-circle"></i> Pour supprimer votre profil,
+					veuillez renseigner votre mot de passe actuel !
 				</div>
 			</div>
 			<%
@@ -192,7 +195,8 @@
 					<div class="alert alert-dark d-flex align-items-center"
 						role="alert">
 						<div>
-							<i class="bi bi-x-circle"></i> Le nouveau mot de passe et la confirmation doivent être identique ! !
+							<i class="bi bi-x-circle"></i> Le nouveau mot de passe et la
+							confirmation doivent être identique ! !
 						</div>
 					</div>
 					<%

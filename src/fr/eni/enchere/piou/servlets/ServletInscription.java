@@ -3,6 +3,8 @@ package fr.eni.enchere.piou.servlets;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -75,6 +77,17 @@ public class ServletInscription extends HttpServlet {
 						RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/inscription.jsp");
 						rd.forward(request, response);
 					}
+					
+					boolean formatEmail=true;
+					formatEmail=isEmailAdress(email);
+					System.out.println(formatEmail);
+					if (formatEmail==false) {
+						validationError = true;
+						request.setAttribute("ErreurFormatEmail", "Email non conforme");
+						RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/inscription.jsp");
+						rd.forward(request, response);
+					}
+					
 					// email identique dans la bdd
 					if (u.getEmail().equals(email)) {
 						validationError = true;
@@ -121,5 +134,13 @@ public class ServletInscription extends HttpServlet {
 		}
 
 	}
+	
+	  public boolean isEmailAdress(String email) {
+	        Pattern p = Pattern
+	                .compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$");
+	        Matcher m = p.matcher(email.toUpperCase());
+	        return m.matches();
+	    }
+	  
 
 }

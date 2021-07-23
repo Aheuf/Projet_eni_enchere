@@ -44,7 +44,7 @@
 
 				<!--<c:out value="${ CookieIDUtilisateur }" />-->
 				<c:if test="${!empty session}">
-					<a class="nav-link text-light text-end" href="#">Enchères</a>
+					<a class="nav-link text-light text-end" href="${pageContext.request.contextPath}/encheres/accueil">Enchères</a>
 					<a class="nav-link text-light text-end"
 						href="${pageContext.request.contextPath}/encheres/ServletVente">Vendre
 						un article</a>

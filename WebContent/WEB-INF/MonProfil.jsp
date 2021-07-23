@@ -24,10 +24,9 @@
 	<header>
 		<nav
 			class="navbar navbar-expand-lg navbar-light bg-dark container-fluid">
-
-
-
-			<a class="navbar-brand text-light"
+			<img SRC="https://thumbs.dreamstime.com/b/vogelavatar-45383570.jpg"
+				class="img-fluid rounded-circle me-2" width="3%" height="auto">
+			<br> <a class="navbar-brand text-light"
 				href="http://localhost:8080/Projet_eni_enchere/encheres/accueil">Eni-Encheres</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -42,9 +41,11 @@
 
 				<!--<c:out value="${ CookieIDUtilisateur }" />-->
 				<c:if test="${!empty session}">
-					<a class="nav-link text-light text-end" href="#">Enchères</a>
-					<a class="nav-link text-light text-end" href="${pageContext.request.contextPath}/encheres/ServletVente">Vendre un
-						article</a>
+					<a class="nav-link text-light text-end"
+						href="${pageContext.request.contextPath}/encheres/accueil">Enchères</a>
+					<a class="nav-link text-light text-end"
+						href="${pageContext.request.contextPath}/encheres/ServletVente">Vendre
+						un article</a>
 
 					<a class="nav-link text-light text-end"
 						href="${pageContext.request.contextPath}/encheres/MonProfil"><i
@@ -72,7 +73,8 @@
 		<%
 			if (request.getAttribute("success") != null) {
 		%>
-		<div class="alert alert-dark d-flex align-items-center mb-5" role="alert">
+		<div class="alert alert-dark d-flex align-items-center mb-5"
+			role="alert">
 			<div>
 				<i class="bi bi-check-circle"></i> Modification enregistrée !
 			</div>

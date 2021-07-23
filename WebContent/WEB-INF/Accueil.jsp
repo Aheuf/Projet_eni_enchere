@@ -24,8 +24,9 @@
 	<header>
 		<nav
 			class="navbar navbar-expand-lg navbar-light bg-dark container-fluid">
-
-			<a class="navbar-brand text-light"
+			<img SRC="https://thumbs.dreamstime.com/b/vogelavatar-45383570.jpg"
+				class="img-fluid rounded-circle me-2" width="3%" height="auto">
+			<br> <a class="navbar-brand text-light"
 				href="${pageContext.request.contextPath}/encheres/accueil">Eni-Encheres</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -39,7 +40,7 @@
 				id="navbarNav">
 
 				<c:if test="${!empty session}">
-					<a class="nav-link text-light text-end" href="#">Enchères</a>
+					<a class="nav-link text-light text-end" href="${pageContext.request.contextPath}/encheres/accueil">Enchères</a>
 					<a class="nav-link text-light text-end"
 						href="${pageContext.request.contextPath}/encheres/ServletVente">Vendre
 						un article</a>
@@ -86,8 +87,7 @@
 		<form method="post" action="../encheres/recherche">
 			<label for="champ_accueil">Filtres :</label> <input
 				id="champ_accueil" class="form-control col-lg-6" type="text"
-				name="Filtre"
-				placeholder="Veuillez mettre UN mot clef"
+				name="Filtre" placeholder="Veuillez mettre UN mot clef"
 				aria-label="default input example">
 			<div class="row mt-2">
 				<label class="pt-1" for="categorie_accueil">Catégories :</label> <select

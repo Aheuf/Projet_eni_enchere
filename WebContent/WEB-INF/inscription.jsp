@@ -25,8 +25,9 @@
 	<header>
 		<nav
 			class="navbar navbar-expand-lg navbar-light bg-dark container-fluid">
-
-			<a class="navbar-brand text-light"
+			<img SRC="https://thumbs.dreamstime.com/b/vogelavatar-45383570.jpg"
+				class="img-fluid rounded-circle me-2" width="3%" height="auto">
+			<br> <a class="navbar-brand text-light"
 				href="${pageContext.request.contextPath}/encheres/accueil">Eni-Encheres</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -57,7 +58,8 @@
 				if (request.getAttribute("ErreurSaisiInscrition") != null) {
 			%>
 
-			<div class="alert alert-danger" role="alert">
+			<div class="alert alert-danger d-flex align-items-center"
+				role="alert">
 				<div>
 					<i class="bi bi-x-circle"></i> Tous les champs doivent être remplis
 				</div>
@@ -69,10 +71,24 @@
 			<%
 				if (request.getAttribute("ErreurPseudo") != null) {
 			%>
-			<div class="alert alert-danger align-items-center" role="alert">
+			<div class="alert alert-danger d-flex align-items-center"
+				role="alert">
 				<div>
-					<i class="bi bi-x-circle"></i> <i class="bi bi-x-circle"></i>
+					<i class="bi bi-x-circle"></i>
 					Pseudo deja existant
+				</div>
+			</div>
+			<%
+				}
+			%>
+			<%
+				if (request.getAttribute("ErreurFormatEmail") != null) {
+			%>
+			<div class="alert alert-danger d-flex align-items-center"
+				role="alert">
+				<div>
+					<i class="bi bi-x-circle"></i> Format de l'email non conforme.
+
 				</div>
 			</div>
 			<%

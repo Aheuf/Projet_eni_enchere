@@ -25,8 +25,9 @@
 	<header>
 		<nav
 			class="navbar navbar-expand-lg navbar-light bg-dark container-fluid">
-
-			<a class="navbar-brand text-light"
+			<img SRC="https://thumbs.dreamstime.com/b/vogelavatar-45383570.jpg"
+				class="img-fluid rounded-circle me-2" width="3%" height="auto">
+			<br> <a class="navbar-brand text-light"
 				href="${pageContext.request.contextPath}/encheres/accueil">Eni-Encheres</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -36,8 +37,9 @@
 			</button>
 			<div class="collapse navbar-collapse justify-content-end"
 				id="navbarNav">
-				<a class="nav-link text-light text-end" href="#">Enchères</a> <a
-					class="nav-link text-light text-end"
+				<a class="nav-link text-light text-end"
+					href="${pageContext.request.contextPath}/encheres/accueil">Enchères</a>
+				<a class="nav-link text-light text-end"
 					href="${pageContext.request.contextPath}/encheres/ServletVente">Vendre
 					un article</a> <a class="nav-link text-light text-end"
 					href="${pageContext.request.contextPath}/encheres/profil"><i
@@ -53,7 +55,7 @@
 	<section>
 		<h1 class="text-center mt-5 mb-5">Nouvelle Vente</h1>
 		<div class="container">
-		
+
 			<div class="d-flex justify-content-around">
 
 				<form method="post" action="../encheres/ServletNouvelArticle"
@@ -150,7 +152,9 @@
 						<!-- bouton "Annuler -->
 						<a href="" class="btn btn-outline-dark col-sm-3 col-md-3 col-5">Annuler</a>
 
-						<a href="/Projet_eni_enchere/encheres/accueil" class="btn btn-outline-dark col-sm-3 col-md-3 col-5">Annuler Vente</a>	
+						<a href="/Projet_eni_enchere/encheres/accueil"
+							class="btn btn-outline-dark col-sm-3 col-md-3 col-5">Annuler
+							Vente</a>
 					</div>
 				</form>
 			</div>

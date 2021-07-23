@@ -24,8 +24,9 @@
 	<header>
 		<nav
 			class="navbar navbar-expand-lg navbar-light bg-dark container-fluid">
-
-			<a class="navbar-brand text-light"
+			<img SRC="https://thumbs.dreamstime.com/b/vogelavatar-45383570.jpg"
+				class="img-fluid rounded-circle me-2" width="3%" height="auto">
+			<br> <a class="navbar-brand text-light"
 				href="${pageContext.request.contextPath}/encheres/accueil">Eni-Encheres</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -72,8 +73,8 @@
 					<div class="alert alert-danger d-flex align-items-center"
 						role="alert">
 						<div>
-							 <i class="bi bi-x-circle"></i>
-							Identifiant inconnu veuillez saisir le bon identifiant.
+							<i class="bi bi-x-circle"></i> Identifiant inconnu veuillez
+							saisir le bon identifiant.
 						</div>
 					</div>
 
@@ -90,7 +91,7 @@
 					<%
 						if (request.getAttribute("ErreurLoginMDP") != null) {
 					%>
-					<div class="alert alert-dangerd-flex align-items-center"
+					<div class="alert alert-danger d-flex align-items-center"
 						role="alert">
 						<div>
 							<i class="bi bi-x-circle"></i> Mot de passe erroné.
