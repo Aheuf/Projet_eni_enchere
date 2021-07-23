@@ -86,6 +86,52 @@
 			<%
 				}
 			%>
+			<%
+				if (request.getAttribute("ErreurArticle") != null) {
+			%>
+			<div class="alert alert-dark d-flex align-items-center" role="alert">
+				<div>
+					<i class="bi bi-x-circle"></i> Vous ne pouvez pas supprimer votre
+					profil tant que vous avez un article en vente !
+				</div>
+			</div>
+			<%
+				}
+			%>
+			<%
+				if (request.getAttribute("ErreurMDP") != null) {
+			%>
+			<div class="alert alert-dark d-flex align-items-center" role="alert">
+				<div>
+					<i class="bi bi-x-circle"></i> Entrez votre mot de passe actuel !
+				</div>
+			</div>
+			<%
+				}
+			%>
+			<%
+				if (request.getAttribute("ErreurConfirmMDP") != null) {
+			%>
+			<div class="alert alert-dark d-flex align-items-center" role="alert">
+				<div>
+					<i class="bi bi-x-circle"></i> Le nouveau mot de passe et la
+					confirmation doivent être identique ! !
+				</div>
+			</div>
+			<%
+				}
+			%>
+						<%
+				if (request.getAttribute("ErreurEnchere") != null) {
+			%>
+			<div class="alert alert-dark d-flex align-items-center" role="alert">
+				<div>
+					<i class="bi bi-x-circle"></i> Vous ne pouvez pas supprimer votre profil tant que vous avez enchéri !
+				</div>
+			</div>
+			<%
+				}
+			%>
 			<div class="d-flex justify-content-around">
 				<form method="POST"
 					action="<%=request.getContextPath()%>/encheres/modifierprofil"
@@ -177,31 +223,6 @@
 						</div>
 					</div>
 
-					<%
-						if (request.getAttribute("ErreurMDP") != null) {
-					%>
-					<div class="alert alert-dark d-flex align-items-center"
-						role="alert">
-						<div>
-							<i class="bi bi-x-circle"></i> Entrez votre mot de passe actuel !
-						</div>
-					</div>
-					<%
-						}
-					%>
-					<%
-						if (request.getAttribute("ErreurConfirmMDP") != null) {
-					%>
-					<div class="alert alert-dark d-flex align-items-center"
-						role="alert">
-						<div>
-							<i class="bi bi-x-circle"></i> Le nouveau mot de passe et la
-							confirmation doivent être identique ! !
-						</div>
-					</div>
-					<%
-						}
-					%>
 					<!-- bouton "Enregistrer / Supprimer mon compte" -->
 					<div class="d-flex justify-content-around mb-5">
 						<!-- bouton "Enregistrer" -->

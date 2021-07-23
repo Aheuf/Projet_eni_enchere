@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import fr.eni.enchere.piou.bo.ArticleVendu;
 import fr.eni.enchere.piou.bo.Utilisateur;
 import fr.eni.enchere.piou.BusinessException;
 import fr.eni.enchere.piou.bll.EnchereManager;
@@ -36,11 +37,30 @@ public class ServletModifProfil extends HttpServlet {
 
 		try {
 			List<Utilisateur> users = en.selectUtilisateurById(idUtilisateur);
+			List<ArticleVendu> articles = en.selectAllArticleVendu();
 			user = users.get(0);
+			
+			for (ArticleVendu a : articles ) {
+				if (user.getNoUtilisateur() == a.getNoUtilisateur() && a.getEtatVente().equals("en cours")) {
+					request.setAttribute("ErreurArticle", "Un article est en enchere");
+					RequestDispatcher rd = request.getRequestDispatcher("/encheres/profil");
+					rd.forward(request, response);
+				}
+			}
+			
+			for (ArticleVendu a : articles ) {
+				if (user.getPseudo().equals(a.getDernierEncherisseur())) {
+					request.setAttribute("ErreurEnchere", "Vous avez encheri");
+					RequestDispatcher rd = request.getRequestDispatcher("/encheres/profil");
+					rd.forward(request, response);
+				}
+			}
 		} catch (BusinessException e1) {
 			e1.printStackTrace();
 		}
-
+		
+		
+		
 		String motDePasse = request.getParameter("inputMotDePasse");
 
 		if (motDePasse.equals(user.getMotDePasse())) {
